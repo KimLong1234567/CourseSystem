@@ -1,15 +1,17 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LogInPage from './pages/sideBar/sideBar';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
+import LogInPage from "./pages/LogInPage/LogInPage";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LogInPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/LogIn" element={<LogInPage />} />
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
