@@ -4,6 +4,21 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
+function InputField({ id, type, label, register, error, placeholder }) {
+	return (
+		<div className="mb-4">
+			<input
+				type={type}
+				id={id}
+				{...register(id, { required: `${label} is required` })}
+				className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+				placeholder={placeholder}
+			/>
+			{error && <span className="text-red-500 text-sm">{error.message}</span>}
+		</div>
+	);
+}
+
 function LogInPage() {
 	const navigate = useNavigate();
 	const {
@@ -14,8 +29,6 @@ function LogInPage() {
 
 	const onSubmit = (data) => {
 		console.log(data);
-		// Handle form submission
-		//link to home
 		navigate("/");
 	};
 
@@ -23,10 +36,10 @@ function LogInPage() {
 		<>
 			<header></header>
 			<main className="px-16 py-14 flex flex-col justify-center h-screen overflow-hidden">
-				<div className="items-center flex mb-11 space-x-2 ">
+				<div className="items-center flex mb-11 space-x-2">
 					<FontAwesomeIcon
 						icon={faArrowLeft}
-						className="text-gray-600 text-2xl "
+						className="text-gray-600 text-2xl"
 					/>
 					<Link
 						to="/"
@@ -35,7 +48,7 @@ function LogInPage() {
 						Homepage
 					</Link>
 				</div>
-				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full ">
+				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
 					<div className="w-1/2 relative">
 						<img
 							src="https://images.unsplash.com/photo-1537202108838-e7072bad1927?q=80&w=3062&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -43,11 +56,11 @@ function LogInPage() {
 							className="w-full h-full object-cover"
 						/>
 						<div className="absolute top-0 left-0 w-full h-full bg-[#1C1E53]/60"></div>
-						<div className="font-mono absolute top-20 left-20 ">
+						<div className="font-mono absolute top-20 left-20">
 							<h1 className="text-[50px] font-semibold text-white">
 								Course System
 							</h1>
-							<p className="mt-4 pl-5 text-xl max-w-[417px] text-white leading-7    ">
+							<p className="mt-4 pl-5 text-xl max-w-[417px] text-white leading-7">
 								Course management system for many companies with many features
 								and modern technology.
 							</p>
@@ -56,38 +69,30 @@ function LogInPage() {
 					<div className="w-1/2 p-8 bg-[#1C1E53] text-white">
 						<div className="pt-[75px] px-24">
 							<h2 className="text-5xl font-semibold">Login</h2>
-							<p className="mt-4 font-normal text-white text-lg ">
+							<p className="mt-4 font-normal text-white text-lg">
 								Prepare yourself for a starry future
 							</p>
-							<form onSubmit={handleSubmit(onSubmit)} className="mt-6">
-								<div className="mb-4">
-									<input
-										type="email"
-										id="email"
-										{...register("email", { required: "Email is required" })}
-										className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg "
-									/>
-									{errors.email && (
-										<span className="text-red-500 text-sm">
-											{errors.email.message}
-										</span>
-									)}
-								</div>
-								<div className="mb-4">
-									<input
-										type="password"
-										id="password"
-										{...register("password", {
-											required: "Password is required",
-										})}
-										className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg "
-									/>
-									{errors.password && (
-										<span className="text-red-500 text-sm">
-											{errors.password.message}
-										</span>
-									)}
-								</div>
+							<form
+								onSubmit={handleSubmit(onSubmit)}
+								className="mt-6"
+								noValidate
+							>
+								<InputField
+									id="email"
+									type="email"
+									label="Email"
+									register={register}
+									error={errors.email}
+									placeholder="Enter your email"
+								/>
+								<InputField
+									id="password"
+									type="password"
+									label="Password"
+									register={register}
+									error={errors.password}
+									placeholder="Enter your password"
+								/>
 								<div className="flex items-center mb-4">
 									<input
 										type="checkbox"
@@ -110,7 +115,7 @@ function LogInPage() {
 								</button>
 							</form>
 							<p className="mt-4 text-sm">
-								Don't have account ?{" "}
+								{"Don't have account?"}{" "}
 								<Link
 									to="/register"
 									className="text-yellow-400 hover:underline"
