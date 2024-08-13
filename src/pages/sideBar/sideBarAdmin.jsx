@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+const ADMIN_SIDEBAR = [{ icon: faChartLine, name: 'Home', to: '/' }];
 function Sidebar() {
   return (
     <div className="">
