@@ -242,6 +242,11 @@ function AdminContent() {
         columns={columns}
         dataSource={data}
         onChange={onChange}
+        // rowSelection={{
+        //   onSelect: (record) => {
+        //     handleSelect(record);
+        //   },
+        // }}
       />
     </div>
   );

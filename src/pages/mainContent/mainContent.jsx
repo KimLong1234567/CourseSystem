@@ -1,7 +1,9 @@
 import React from 'react';
 import Sidebar from '../sideBar/sideBarAdmin';
 import HeaderAdmin from '../Layout/HeaderAdmin/header';
-import AdminContent from '../Layout/AdminContent/adminContent';
+import AdminContent from '../Layout/AdminStudent/adminStudent';
+import Profile from '../Layout/Profile/profile';
+import { Outlet } from 'react-router-dom';
 import './mainContent.css';
 
 function MainContent() {
@@ -33,9 +35,11 @@ function MainContent() {
         className="bg-aquamarine-500 p-4 text-black"
         style={{ gridArea: 'page' }}
       >
-        <AdminContent />
+        <Outlet />
       </div>
-      <div style={{ gridArea: 'detail' }}>This is detail</div>
+      <div style={{ gridArea: 'detail' }}>
+        <Profile />
+      </div>
     </div>
   );
 }
