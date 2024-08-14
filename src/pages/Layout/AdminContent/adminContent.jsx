@@ -138,7 +138,7 @@ function AdminContent() {
         Open Modal
       </Button>
       <Modal
-        title="Basic Modal"
+        title="Add Student"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -150,9 +150,10 @@ function AdminContent() {
             maxWidth: 600,
           }}
         >
+          {/* not define user can input id */}
           <Form.Item
             label="Input"
-            name="Input"
+            name="Student Id"
             rules={[
               {
                 required: true,
@@ -164,8 +165,8 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
-            label="InputNumber"
-            name="InputNumber"
+            label="Student Name"
+            name="Student Name"
             rules={[
               {
                 required: true,
@@ -181,21 +182,8 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
-            label="TextArea"
-            name="TextArea"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <Input.TextArea />
-          </Form.Item>
-
-          <Form.Item
-            label="Mentions"
-            name="Mentions"
+            label="Email"
+            name="Email"
             rules={[
               {
                 required: true,
@@ -207,8 +195,8 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
-            label="Select"
-            name="Select"
+            label="Gender"
+            name="Gender"
             rules={[
               {
                 required: true,
@@ -220,34 +208,8 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
-            label="Cascader"
-            name="Cascader"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <Cascader />
-          </Form.Item>
-
-          <Form.Item
-            label="TreeSelect"
-            name="TreeSelect"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <TreeSelect />
-          </Form.Item>
-
-          <Form.Item
-            label="DatePicker"
-            name="DatePicker"
+            label="Date"
+            name="Date"
             rules={[
               {
                 required: true,
@@ -256,19 +218,6 @@ function AdminContent() {
             ]}
           >
             <DatePicker />
-          </Form.Item>
-
-          <Form.Item
-            label="RangePicker"
-            name="RangePicker"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <RangePicker />
           </Form.Item>
 
           <Form.Item

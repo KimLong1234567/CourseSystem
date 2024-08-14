@@ -34,6 +34,7 @@ function MainContent() {
       >
         <AdminContent />
       </div>
+      <div>This is detail profile</div>
     </div>
   );
 }
