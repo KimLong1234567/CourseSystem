@@ -12,7 +12,10 @@ function Sidebar() {
       <h3 className="">This is Side bar</h3>
       {ADMIN_SIDEBAR.map((item, index) => {
         return (
-          <div key={index} className="flex justify-center border-zinc-900">
+          <div
+            key={index}
+            className="flex justify-center border-2 border-rose-500"
+          >
             <Link to={item.to} className="name menuItem">
               <Icon icon={item.icon} className="iconItem" />
               <span>{item.name}</span>
