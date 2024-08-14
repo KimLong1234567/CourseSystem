@@ -1,7 +1,10 @@
 import React from 'react';
 import Sidebar from '../sideBar/sideBarAdmin';
 import HeaderAdmin from '../Layout/HeaderAdmin/header';
-import AdminContent from '../Layout/AdminContent/adminContent';
+import AdminContent from '../Layout/AdminStudent/adminStudent';
+import Profile from '../Layout/Profile/profile';
+import { Outlet } from 'react-router-dom';
+import './mainContent.css';
 
 function MainContent() {
   return (
@@ -9,10 +12,10 @@ function MainContent() {
       className="h-screen grid gap-2"
       style={{
         gridTemplateRows: 'auto 2fr 20%',
-        gridTemplateColumns: 'minmax(auto, 1fr) 3fr minmax(auto, 1fr)',
+        gridTemplateColumns: 'minmax(auto, 0.5fr) 3fr minmax(auto, 1fr)',
         gridTemplateAreas: `
-          "sidebar header header"
-          "sidebar page page"
+          "sidebar page header"
+          "sidebar page detail"
         `,
       }}
     >
@@ -32,9 +35,11 @@ function MainContent() {
         className="bg-aquamarine-500 p-4 text-black"
         style={{ gridArea: 'page' }}
       >
-        <AdminContent />
+        <Outlet />
       </div>
-      <div>This is detail profile</div>
+      <div style={{ gridArea: 'detail' }}>
+        <Profile />
+      </div>
     </div>
   );
 }
