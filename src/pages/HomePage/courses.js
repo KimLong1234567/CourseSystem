@@ -15,7 +15,6 @@ export const courseDatas = [
 		students: 800,
 		image: "https://picsum.photos/id/2/200/300",
 	},
-	// Here's the additional data for 8 more courses:
 	{
 		id: 3,
 		title: "Vue.js Fundamentals",
