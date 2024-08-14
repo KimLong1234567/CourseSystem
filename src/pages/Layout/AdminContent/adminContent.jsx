@@ -61,6 +61,7 @@ function AdminContent() {
     {
       title: 'Action',
       dataIndex: 'action',
+      button: [],
     },
   ];
   const data = [
@@ -134,7 +135,11 @@ function AdminContent() {
       <h2 className="flex justify-center text-4xl text-cyan-600">
         Student Manage
       </h2>
-      <Button type="primary" onClick={showModal}>
+      <Button
+        type="primary"
+        onClick={showModal}
+        className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+      >
         Open Modal
       </Button>
       <Modal
@@ -174,7 +179,7 @@ function AdminContent() {
               },
             ]}
           >
-            <InputNumber
+            <Input
               style={{
                 width: '100%',
               }}
