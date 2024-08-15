@@ -24,13 +24,7 @@ function App() {
           <Route path="/admin/courses" element={<AdminCourses />} />
           <Route path="/admin/*" element={<ErrorPage />} />
         </Route>
-
-        {/* Other routes */}
-        {/* <Route path="/admin" element={<MainContent />} />
-				<Route path="/" element={<HomePage />} />
-				<Route path="/CoursesPage" element={<CoursePage />} />
-				 */}
-
+        {/* student router */}
         <Route element={<MainHomePage />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/CoursesPage" element={<CoursePage />} />
