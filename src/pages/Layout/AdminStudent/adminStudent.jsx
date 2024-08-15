@@ -1,8 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
-import { DatePicker, Form, Input, Mentions, Select } from 'antd';
+import { DatePicker, Form, Input, Select } from 'antd';
+import {
+  getAccount,
+  createAccount,
+  deleteAccount,
+  updateAccount,
+} from '../../../service/acount';
 
 function AdminContent() {
+  const [data, setData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  //get data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accounts = await getAccount();
+        const accountsWithId = accounts.map((account, index) => ({
+          ...account,
+          Id: index + 1,
+        }));
+        setData(accountsWithId);
+      } catch (error) {
+        console.error('Error fetching accounts:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // table ant
   const handleDetail = (record) => {
     console.log('Detail clicked for:', record);
@@ -14,11 +41,12 @@ function AdminContent() {
     // Implement the update functionality here
   };
 
-  const handleDelete = (record) => {
-    console.log('Delete clicked for:', record);
-    // Implement the delete functionality here
-  };
   const columns = [
+    {
+      title: 'Id',
+      dataIndex: 'Id',
+      width: '5%',
+    },
     {
       title: 'Name',
       dataIndex: 'name',
@@ -47,8 +75,8 @@ function AdminContent() {
       sorter: (a, b) => a.age - b.age,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
+      title: 'email',
+      dataIndex: 'email',
       filters: [
         {
           text: 'London',
@@ -80,32 +108,6 @@ function AdminContent() {
       ),
     },
   ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-    },
-    {
-      key: '4',
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park',
-    },
-  ];
 
   // form ant
   // const { RangePicker } = DatePicker;
@@ -133,127 +135,42 @@ function AdminContent() {
     console.log('params', pagination, filters, sorter, extra);
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const showModal = () => {
     setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  // delete row
+  const handleDelete = async (record) => {
+    try {
+      await deleteAccount(record.id);
+      const accounts = await getAccount();
+      const accountsWithId = accounts.map((account, index) => ({
+        ...account,
+        Id: index + 1,
+      }));
+      setData(accountsWithId);
+    } catch (error) {
+      console.error('Error deleting student:', error);
+    }
+  };
+  // create new row data
+  const handleFormSubmit = async (values) => {
+    try {
+      await createAccount(values);
+      const accounts = await getAccount();
+      setData(accounts);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Error creating account:', error);
+    }
+  };
   return (
     <div>
-      <h2 className="flex justify-center text-4xl text-cyan-600">
-        Student Manage
-      </h2>
-      <Button
-        type="primary"
-        onClick={showModal}
-        className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
-      >
-        Open Modal
-      </Button>
-      <Modal
-        title="Add Student"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Form
-          {...formItemLayout}
-          variant="filled"
-          style={{
-            maxWidth: 600,
-          }}
-        >
-          {/* not define user can input id */}
-          <Form.Item
-            label="Input"
-            name="Student Id"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Student Name"
-            name="Student Name"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <Input
-              style={{
-                width: '100%',
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Email"
-            name="Email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <Mentions />
-          </Form.Item>
-
-          <Form.Item
-            label="Gender"
-            name="Gender"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <Select />
-          </Form.Item>
-
-          <Form.Item
-            label="Date"
-            name="Date"
-            rules={[
-              {
-                required: true,
-                message: 'Please input!',
-              },
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
-
-          <Form.Item
-            wrapperCol={{
-              offset: 6,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
-      <Table
+      {/* <Table
         className="mt-5"
         columns={columns}
         dataSource={data}
@@ -263,7 +180,113 @@ function AdminContent() {
         //     handleSelect(record);
         //   },
         // }}
-      />
+      /> */}
+
+      <h2 className="flex justify-center text-4xl text-cyan-600">
+        Student Manage
+      </h2>
+      <Button
+        type="primary"
+        onClick={showModal}
+        className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+      >
+        Add Student
+      </Button>
+      <Modal
+        title="Add Student"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null} // Remove default footer
+      >
+        <Form
+          name="studentForm"
+          onFinish={handleFormSubmit}
+          layout="vertical"
+          initialValues={{
+            remember: true,
+          }}
+        >
+          <Form.Item
+            label="Student Id"
+            name="id"
+            rules={[
+              {
+                required: true,
+                message: 'Please input the student ID!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Student Name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input the student name!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please input the student email!',
+              },
+              {
+                type: 'email',
+                message: 'Please enter a valid email!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Gender"
+            name="gender"
+            rules={[
+              {
+                required: true,
+                message: 'Please select the gender!',
+              },
+            ]}
+          >
+            <Select placeholder="Select gender">
+              <Select.Option value="male">Male</Select.Option>
+              <Select.Option value="female">Female</Select.Option>
+              <Select.Option value="other">Other</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Date of Birth"
+            name="dob"
+            rules={[
+              {
+                required: true,
+                message: 'Please select the date of birth!',
+              },
+            ]}
+          >
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+      <Table className="mt-5" columns={columns} dataSource={data} rowKey="id" />
     </div>
   );
 }
