@@ -8,11 +8,14 @@ import AdminCategory from './pages/Layout/AdminCategory/adminCategory';
 import AdminContent from './pages/Layout/AdminStudent/adminStudent';
 import AdminCompany from './pages/Layout/AdminCompany/adminCompany';
 import AdminCourses from './pages/Layout/AdminCourses/adminCourses';
+import CoursesPage from './pages/coursesPage/CoursesPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* admin path */}
+        <Route path="/admin/login" element={<LogInPage />} />
         <Route element={<MainContent />}>
           <Route path="/admin/student" element={<AdminContent />} />
           <Route path="/admin/category" element={<AdminCategory />} />
@@ -21,9 +24,9 @@ function App() {
         </Route>
       </Routes>
       <Routes>
-        <Route path="/admin" element={<MainContent />} />
+        {/* user path */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/LogIn" element={<LogInPage />} />
+        <Route path="/courses" element={<CoursesPage />} />
         {/* Error page */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Button, Modal, Table } from 'antd';
-import {
-  Cascader,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Mentions,
-  Select,
-  TreeSelect,
-} from 'antd';
+import { DatePicker, Form, Input, Mentions, Select } from 'antd';
 
 function AdminContent() {
   // table ant
+  const handleDetail = (record) => {
+    console.log('Detail clicked for:', record);
+    // Implement the detail functionality here
+  };
+
+  const handleUpdate = (record) => {
+    console.log('Update clicked for:', record);
+    // Implement the update functionality here
+  };
+
+  const handleDelete = (record) => {
+    console.log('Delete clicked for:', record);
+    // Implement the delete functionality here
+  };
   const columns = [
     {
       title: 'Name',
@@ -61,7 +66,18 @@ function AdminContent() {
     {
       title: 'Action',
       dataIndex: 'action',
-      button: [],
+      render: (text, record) => (
+        <span>
+          <button
+            className="border-2 ml-3"
+            onClick={() => handleDetail(record)}
+          >
+            Detail
+          </button>
+          <button onClick={() => handleUpdate(record)}>Update</button>
+          <button onClick={() => handleDelete(record)}>Delete</button>
+        </span>
+      ),
     },
   ];
   const data = [
