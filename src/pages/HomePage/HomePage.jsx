@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import CourseList from "../Layout/course/CoursesList.jsx";
 import { getCourses } from "../../service/courses.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import IconHome from "../../img/homePageSmall.png";
 
 export default function HomePage() {
 	const [coursesData, setCoursesData] = useState([]);
@@ -23,7 +20,6 @@ export default function HomePage() {
 	}, []);
 	return (
 		<>
-			<Header />
 			<main>
 				{/* Hero section */}
 				<div className="bg-[#1C1E53]">
@@ -49,7 +45,7 @@ export default function HomePage() {
 								</div>
 							</div>
 							<div className="w-1/2 h-full flex justify-center items-center">
-								<img src={IconHome} alt="" className="w-10/12" />
+								<img src="/img/homePageSmall.png" alt="" className="w-10/12" />
 							</div>
 						</div>
 					</div>
@@ -66,7 +62,6 @@ export default function HomePage() {
 					/>
 				</div>
 			</main>
-			<Footer />
 		</>
 	);
 }

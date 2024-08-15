@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import { getCourses } from "../../service/courses.js";
 import CourseList from "../Layout/course/CoursesList";
 
@@ -23,7 +21,6 @@ export default function CoursesPage() {
 
 	return (
 		<>
-			<Header />
 			<main>
 				<div className="max-w-screen-xl mx-auto px-12 py-7 flex flex-col">
 					<SearchCourse />
@@ -34,7 +31,6 @@ export default function CoursesPage() {
 					/>
 				</div>
 			</main>
-			<Footer />
 		</>
 	);
 }
