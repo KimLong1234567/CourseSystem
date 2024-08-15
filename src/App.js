@@ -9,25 +9,33 @@ import AdminContent from './pages/Layout/AdminStudent/adminStudent';
 import AdminCompany from './pages/Layout/AdminCompany/adminCompany';
 import AdminCourses from './pages/Layout/AdminCourses/adminCourses';
 import CoursePage from './pages/coursesPage/CoursesPage';
+import MainHomePage from './pages/mainHomePage/MainHomePage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Main content route */}
+        <Route path="/admin/LogIn" element={<LogInPage />} />
         <Route element={<MainContent />}>
           <Route path="/admin/student" element={<AdminContent />} />
           <Route path="/admin/category" element={<AdminCategory />} />
           <Route path="/admin/company" element={<AdminCompany />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
+          <Route path="/admin/*" element={<ErrorPage />} />
         </Route>
-      </Routes>
-      <Routes>
-        <Route path="/admin" element={<MainContent />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/CoursesPage" element={<CoursePage />} />
-        <Route path="/LogIn" element={<LogInPage />} />
-        {/* Error page */}
-        <Route path="*" element={<ErrorPage />} />
+
+        {/* Other routes */}
+        {/* <Route path="/admin" element={<MainContent />} />
+				<Route path="/" element={<HomePage />} />
+				<Route path="/CoursesPage" element={<CoursePage />} />
+				 */}
+
+        <Route element={<MainHomePage />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/CoursesPage" element={<CoursePage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
