@@ -13,7 +13,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* admin path */}
+        {/* admin path  */}
+        <Route path="/admin/login" element={<LogInPage />} />
         <Route element={<MainContent />}>
           <Route path="/admin/student" element={<AdminContent />} />
           <Route path="/admin/category" element={<AdminCategory />} />
@@ -22,7 +23,9 @@ function App() {
         </Route>
       </Routes>
       <Routes>
+        <Route path="/admin" element={<MainContent />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/admin/login" element={<LogInPage />} />
         {/* Error page */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
