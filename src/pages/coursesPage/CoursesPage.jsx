@@ -23,7 +23,6 @@ export default function CoursesPage() {
 
 	return (
 		<>
-			<Header />
 			<main>
 				<div className="max-w-screen-xl mx-auto px-12 py-7 flex flex-col">
 					<SearchCourse />
@@ -34,7 +33,6 @@ export default function CoursesPage() {
 					/>
 				</div>
 			</main>
-			<Footer />
 		</>
 	);
 }
