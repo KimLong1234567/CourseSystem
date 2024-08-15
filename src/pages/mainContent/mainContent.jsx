@@ -1,7 +1,6 @@
 import React from 'react';
 import Sidebar from '../sideBar/sideBarAdmin';
 import HeaderAdmin from '../Layout/HeaderAdmin/header';
-import AdminContent from '../Layout/AdminStudent/adminStudent';
 import Profile from '../Layout/Profile/profile';
 import { Outlet } from 'react-router-dom';
 import './mainContent.css';

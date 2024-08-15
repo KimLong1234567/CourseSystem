@@ -39,7 +39,7 @@ function AdminContent() {
       filterMode: 'tree',
       filterSearch: true,
       onFilter: (value, record) => record.name.startsWith(value),
-      width: '30%',
+      width: '15%',
     },
     {
       title: 'Age',
@@ -61,7 +61,7 @@ function AdminContent() {
       ],
       onFilter: (value, record) => record.address.startsWith(value),
       filterSearch: true,
-      width: '40%',
+      width: '30%',
     },
     {
       title: 'Action',
@@ -108,7 +108,7 @@ function AdminContent() {
   ];
 
   // form ant
-  const { RangePicker } = DatePicker;
+  // const { RangePicker } = DatePicker;
   const formItemLayout = {
     labelCol: {
       xs: {
