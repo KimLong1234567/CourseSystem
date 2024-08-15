@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import CourseList from "../Layout/course/CoursesList.jsx";
 import { getCourses } from "../../service/courses.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,7 +21,6 @@ export default function HomePage() {
 	}, []);
 	return (
 		<>
-			<Header />
 			<main>
 				{/* Hero section */}
 				<div className="bg-[#1C1E53]">
@@ -66,7 +63,6 @@ export default function HomePage() {
 					/>
 				</div>
 			</main>
-			<Footer />
 		</>
 	);
 }
