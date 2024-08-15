@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import { getCourses } from "../../service/courses.js";
 import CourseList from "../Layout/course/CoursesList";
 
