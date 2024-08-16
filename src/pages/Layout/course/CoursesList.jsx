@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faGraduationCap,
+	faFlagCheckered,
 	faHourglassEnd,
 } from "@fortawesome/free-solid-svg-icons";
+
+function TransferDate(timestamp) {
+	const date = new Date(timestamp * 1000);
+
+	const day = date.getDate();
+	const month = date.getMonth() + 1;
+	const year = date.getFullYear();
+
+	const formattedDate = `${day}/${month}/${year}`;
+	return formattedDate;
+}
 function CourseList({ coursesData, coursesPerPage, scrollToTop }) {
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -20,41 +32,45 @@ function CourseList({ coursesData, coursesPerPage, scrollToTop }) {
 			window.scrollTo({ top: 0, behavior: "smooth" });
 		}
 	}, [currentPage, scrollToTop]);
-
+	const imgPathDemo =
+		"https://plus.unsplash.com/premium_photo-1661596686441-611034b8077e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 	return (
-		<>
+		<div>
 			<div className="my-10 grid grid-cols-3 gap-4">
 				{currentCourses.map((course) => (
-					<section
-						key={course.id}
-						className="w-96 shadow-md hover:shadow-xl cursor-pointer animate-fadeIn"
-					>
-						<div className="w-full rounded-lg">
-							<img
-								className="w-full h-60 object-cover rounded-t-lg"
-								src={course.image}
-								alt={course.title}
-							/>
-						</div>
-						<div className="px-4 py-6 max-w-[352px] h-40 overflow-hidden">
-							<h2 className="text-2xl font-medium text-[#282938]">
-								{course.title}
-							</h2>
-							<p className="text-[#282938] text-lg opacity-60">
-								{course.description}
-							</p>
-						</div>
-						<div className="px-4 pb-6 flex justify-between items-center opacity-60">
-							<span className="flex justify-center items-center gap-2">
-								<FontAwesomeIcon icon={faHourglassEnd} />
-								{course.date}
-							</span>
-							<span className="flex justify-center items-center gap-2">
-								<FontAwesomeIcon icon={faGraduationCap} />
-								{course.students}
-							</span>
-						</div>
-					</section>
+					<Link to={`/register/${course.id}`} state={{ course: course }}>
+						<section
+							key={course.id}
+							id={course.id}
+							className="w-96 shadow-md hover:shadow-xl cursor-pointer animate-fadeIn"
+						>
+							<div className="w-full rounded-lg">
+								<img
+									className="w-full h-60 object-cover rounded-t-lg"
+									src={course.image === null ? imgPathDemo : course.image}
+									alt={course.name}
+								/>
+							</div>
+							<div className="px-4 py-6 max-w-[352px] h-40 overflow-hidden">
+								<h2 className="text-2xl font-medium text-[#282938] line-clamp-1">
+									{course.name}
+								</h2>
+								<p className="text-[#282938] text-lg opacity-60 line-clamp-3">
+									{course.description}
+								</p>
+							</div>
+							<div className="px-4 pb-6 flex justify-between items-center opacity-60">
+								<span className="flex justify-center items-center gap-2">
+									<FontAwesomeIcon icon={faHourglassEnd} />
+									{TransferDate(course.dateStart)}
+								</span>
+								<span className="flex justify-center items-center gap-2">
+									<FontAwesomeIcon icon={faFlagCheckered} />
+									{TransferDate(course.dateEnd)}
+								</span>
+							</div>
+						</section>
+					</Link>
 				))}
 			</div>
 			<div className="flex justify-center items-center space-x-2">
@@ -88,7 +104,7 @@ function CourseList({ coursesData, coursesPerPage, scrollToTop }) {
 					Next
 				</button>
 			</div>
-		</>
+		</div>
 	);
 }
 export default CourseList;
