@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
-import { DatePicker, Form, Input, Select } from 'antd';
+import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
+import { toast } from 'react-toastify';
 import {
   getAccount,
   createAccount,
   deleteAccount,
   updateAccount,
 } from '../../../service/acount';
+import Profile from '../Profile/profile';
 
 function AdminContent() {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentRecord, setCurrentRecord] = useState(null);
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
 
   //get data
   useEffect(() => {
@@ -33,12 +37,14 @@ function AdminContent() {
   // table ant
   const handleDetail = (record) => {
     console.log('Detail clicked for:', record);
-    // Implement the detail functionality here
+    setCurrentRecord(record);
+    setIsProfileVisible(true);
   };
 
   const handleUpdate = (record) => {
     console.log('Update clicked for:', record);
-    // Implement the update functionality here
+    setCurrentRecord(record);
+    setIsModalOpen(true);
   };
 
   const columns = [
@@ -50,20 +56,7 @@ function AdminContent() {
     {
       title: 'Name',
       dataIndex: 'name',
-      filters: [
-        {
-          text: 'Joe',
-          value: 'Joe',
-        },
-        {
-          text: 'Category 1',
-          value: 'Category 1',
-        },
-        {
-          text: 'Category 2',
-          value: 'Category 2',
-        },
-      ],
+      filters: [],
       filterMode: 'tree',
       filterSearch: true,
       onFilter: (value, record) => record.name.startsWith(value),
@@ -77,16 +70,7 @@ function AdminContent() {
     {
       title: 'email',
       dataIndex: 'email',
-      filters: [
-        {
-          text: 'London',
-          value: 'London',
-        },
-        {
-          text: 'New York',
-          value: 'New York',
-        },
-      ],
+      filters: [],
       onFilter: (value, record) => record.address.startsWith(value),
       filterSearch: true,
       width: '30%',
@@ -97,13 +81,23 @@ function AdminContent() {
       render: (text, record) => (
         <span>
           <button
-            className="border-2 ml-3"
+            className="border-2 ml-3 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             onClick={() => handleDetail(record)}
           >
             Detail
           </button>
-          <button onClick={() => handleUpdate(record)}>Update</button>
-          <button onClick={() => handleDelete(record)}>Delete</button>
+          <button
+            className="border-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+            onClick={() => handleUpdate(record)}
+          >
+            Update
+          </button>
+          <button
+            className="border-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            onClick={() => handleDelete(record)}
+          >
+            Delete
+          </button>
         </span>
       ),
     },
@@ -162,7 +156,11 @@ function AdminContent() {
     try {
       await createAccount(values);
       const accounts = await getAccount();
-      setData(accounts);
+      const accountsWithId = accounts.map((account, index) => ({
+        ...account,
+        Id: index + 1,
+      }));
+      setData(accountsWithId);
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error creating account:', error);
@@ -170,43 +168,29 @@ function AdminContent() {
   };
   return (
     <div>
-      {/* <Table
-        className="mt-5"
-        columns={columns}
-        dataSource={data}
-        onChange={onChange}
-        // rowSelection={{
-        //   onSelect: (record) => {
-        //     handleSelect(record);
-        //   },
-        // }}
-      /> */}
-
       <h2 className="flex justify-center text-4xl text-cyan-600">
         Student Manage
       </h2>
       <Button
         type="primary"
-        onClick={showModal}
+        onClick={() => setIsModalOpen(true)}
         className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
       >
         Add Student
       </Button>
       <Modal
-        title="Add Student"
+        title={currentRecord ? 'Update Student' : 'Add Student'}
         open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null} // Remove default footer
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
       >
         <Form
           name="studentForm"
           onFinish={handleFormSubmit}
           layout="vertical"
-          initialValues={{
-            remember: true,
-          }}
+          initialValues={currentRecord}
         >
-          <Form.Item
+          {/* <Form.Item
             label="Student Id"
             name="id"
             rules={[
@@ -217,7 +201,7 @@ function AdminContent() {
             ]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             label="Student Name"
@@ -267,6 +251,27 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
+            label="Age"
+            name="age"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter age!',
+              },
+            ]}
+          >
+            <InputNumber
+              onKeyPress={(e) => {
+                if (isNaN(e.key)) {
+                  e.preventDefault();
+                  console.log(e.key, 'not a number');
+                  return;
+                }
+              }}
+            />
+          </Form.Item>
+
+          <Form.Item
             label="Date of Birth"
             name="dob"
             rules={[
@@ -286,7 +291,34 @@ function AdminContent() {
           </Form.Item>
         </Form>
       </Modal>
-      <Table className="mt-5" columns={columns} dataSource={data} rowKey="id" />
+      <div
+        className="grid"
+        style={{
+          gridTemplateRows: 'auto',
+          gridTemplateColumns: '3fr minmax(auto, 1fr)',
+          gridTemplateAreas: `
+          "table profile"
+        `,
+        }}
+      >
+        <Table
+          style={{ gridArea: 'table' }}
+          className="mt-5"
+          columns={columns}
+          dataSource={data}
+          onChange={(pagination, filters, sorter, extra) => {
+            console.log('params', pagination, filters, sorter, extra);
+          }}
+          rowKey="id"
+        />
+        {isProfileVisible && currentRecord && (
+          <Profile
+            style={{ gridArea: 'profile' }}
+            {...currentRecord}
+            onClose={() => setIsProfileVisible(false)}
+          />
+        )}
+      </div>
     </div>
   );
 }
