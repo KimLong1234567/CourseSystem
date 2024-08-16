@@ -1,8 +1,6 @@
 import React from 'react';
 import Sidebar from '../sideBar/sideBarAdmin';
 import HeaderAdmin from '../Layout/HeaderAdmin/header';
-import AdminContent from '../Layout/AdminStudent/adminStudent';
-import Profile from '../Layout/Profile/profile';
 import { Outlet } from 'react-router-dom';
 import './mainContent.css';
 
@@ -14,8 +12,8 @@ function MainContent() {
         gridTemplateRows: 'auto 2fr 20%',
         gridTemplateColumns: 'minmax(auto, 0.5fr) 3fr minmax(auto, 1fr)',
         gridTemplateAreas: `
-          "sidebar page header"
-          "sidebar page detail"
+          "sidebar header header"
+          "sidebar page page"
         `,
       }}
     >
@@ -37,9 +35,9 @@ function MainContent() {
       >
         <Outlet />
       </div>
-      <div style={{ gridArea: 'detail' }}>
+      {/* <div style={{ gridArea: 'detail' }}>
         <Profile />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/accounts';
+const API_URL = 'https://66ac95e0f009b9d5c732a553.mockapi.io/user';
 
 // Service để gọi các API liên quan đến Post
 export const getAccount = async () => {
@@ -48,18 +48,6 @@ export const deleteAccount = async (id) => {
     await axios.delete(`${API_URL}/${id}`);
   } catch (error) {
     console.error('Error deleting post:', error);
-    throw error;
-  }
-};
-
-export const searchAccounts = async (query) => {
-  try {
-    const response = await axios.get(`${API_URL}/search`, {
-      params: { query },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error searching posts:', error);
     throw error;
   }
 };

@@ -10,7 +10,6 @@ import AdminCompany from "./pages/Layout/AdminCompany/adminCompany";
 import AdminCourses from "./pages/Layout/AdminCourses/adminCourses";
 import CoursePage from "./pages/coursesPage/CoursesPage";
 import MainHomePage from "./pages/mainHomePage/MainHomePage";
-import Register from "./pages/coursesPage/Register";
 
 function App() {
 	return (
@@ -27,10 +26,14 @@ function App() {
 				</Route>
 
 				{/* Other routes */}
+				{/* <Route path="/admin" element={<MainContent />} />
+				<Route path="/" element={<HomePage />} />
+				<Route path="/CoursesPage" element={<CoursePage />} />
+				 */}
+
 				<Route element={<MainHomePage />}>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/CoursesPage" element={<CoursePage />} />
-					<Route path="/Register/:id" element={<Register />} />
 					<Route path="*" element={<ErrorPage />} />
 				</Route>
 			</Routes>
