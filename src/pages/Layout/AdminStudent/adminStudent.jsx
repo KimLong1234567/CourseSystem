@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
 import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { toast, ToastContainer } from 'react-toastify';
 import {
   getAccount,
   createAccount,
@@ -129,24 +128,16 @@ function AdminContent() {
     {
       title: 'Name',
       dataIndex: 'name',
-      // filters: [],
-      // filterMode: 'tree',
-      // filterSearch: true,
-      // onFilter: (value, record) => record.name.startsWith(value),
       ...getColumnSearchProps('name'),
       width: '15%',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      sorter: (a, b) => a.age - b.age,
+      title: 'Address',
+      dataIndex: 'address',
     },
     {
       title: 'Email',
       dataIndex: 'email',
-      // filters: [],
-      // onFilter: (value, record) => record.email.startsWith(value),
-      // filterSearch: true,
       ...getColumnSearchProps('email'),
       width: '30%',
     },
@@ -213,7 +204,6 @@ function AdminContent() {
 
   return (
     <div>
-      <ToastContainer />
       <h2 className="flex justify-center text-4xl text-cyan-600">
         Student Manage
       </h2>
@@ -298,6 +288,23 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
+            label="Student Address"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input the student address!',
+              },
+            ]}
+          >
+            <Input
+              placeholder={
+                currentRecord ? currentRecord.address : 'Student adddress'
+              }
+            />
+          </Form.Item>
+
+          <Form.Item
             label="Gender"
             name="gender"
             rules={[
@@ -312,27 +319,6 @@ function AdminContent() {
               <Select.Option value="female">Female</Select.Option>
               <Select.Option value="other">Other</Select.Option>
             </Select>
-          </Form.Item>
-
-          <Form.Item
-            label="Age"
-            name="age"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter age!',
-              },
-            ]}
-          >
-            <InputNumber
-              min={0}
-              placeholder={currentRecord ? currentRecord.age : 'Age'}
-              onKeyPress={(e) => {
-                if (isNaN(e.key)) {
-                  e.preventDefault();
-                }
-              }}
-            />
           </Form.Item>
 
           <Form.Item

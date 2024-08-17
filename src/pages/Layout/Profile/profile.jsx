@@ -14,8 +14,8 @@ const Profile_icon = [
   { icon: faEnvelope },
 ];
 
-function Profile({ id, name, age, email, phone, gender, dob, onClose }) {
-  const hasData = id && name && age && email && gender && dob;
+function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
+  const hasData = id && name && address && email && gender && dob;
 
   return hasData ? (
     <div className="max-w-sm mx-auto bg-white rounded-xl shadow-lg p-6 space-y-6">
@@ -48,7 +48,7 @@ function Profile({ id, name, age, email, phone, gender, dob, onClose }) {
           <strong>Name:</strong> {name}
         </div>
         <div>
-          <strong>Age:</strong> {age}
+          <strong>Address:</strong> {address}
         </div>
         <div>
           <strong>Phone:</strong> {phone}
@@ -81,7 +81,7 @@ function Profile({ id, name, age, email, phone, gender, dob, onClose }) {
 Profile.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  age: PropTypes.number.isRequired,
+  address: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   phone: PropTypes.number.isRequired,
   gender: PropTypes.string.isRequired,
