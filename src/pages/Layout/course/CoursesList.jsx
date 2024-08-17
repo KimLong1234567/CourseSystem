@@ -38,12 +38,12 @@ function CourseList({ coursesData, coursesPerPage, scrollToTop }) {
 		<div>
 			<div className="my-10 grid grid-cols-3 gap-4">
 				{currentCourses.map((course) => (
-					<Link to={`/register/${course.id}`} state={{ course: course }}>
-						<section
-							key={course.id}
-							id={course.id}
-							className="w-96 shadow-md hover:shadow-xl cursor-pointer animate-fadeIn"
-						>
+					<Link
+						to={`/register/${course.id}`}
+						state={{ course: course }}
+						key={course.id}
+					>
+						<section className="w-96 shadow-md hover:shadow-xl cursor-pointer animate-fadeIn">
 							<div className="w-full rounded-lg">
 								<img
 									className="w-full h-60 object-cover rounded-t-lg"

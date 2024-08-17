@@ -1,11 +1,8 @@
-import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faArrowLeft,
-	faCircleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 function InputField({ id, type, label, register, error, placeholder }) {
 	return (
@@ -35,7 +32,10 @@ function TransferDate(timestamp) {
 export default function Register() {
 	const location = useLocation();
 	const { course } = location.state || {};
-	// const navigate = useNavigate();
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	}, []);
+
 	const {
 		register,
 		handleSubmit,
@@ -58,18 +58,6 @@ export default function Register() {
 		<>
 			<header></header>
 			<main className="px-16 py-14 flex flex-col justify-center h-[900px] overflow-hidden">
-				{/* <div className="items-center flex mb-11 space-x-2">
-					<FontAwesomeIcon
-						icon={faArrowLeft}
-						className="text-gray-600 text-2xl"
-					/>
-					<Link
-						to="/"
-						className="text-gray-600 font-medium text-2xl hover:text-gray-800"
-					>
-						Homepage
-					</Link>
-				</div> */}
 				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
 					<div className="w-2/3 relative">
 						<img
