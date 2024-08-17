@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
 import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
-import { toast, ToastContainer } from 'react-toastify';
+import { SearchOutlined } from '@ant-design/icons';
 import {
   getCourses,
   createCourses,
   deleteCourses,
   updateCourses,
 } from '../../../service/courses';
-import Profile from '../Profile/profile';
+import Profile from '../Profile/coursesDetail';
+import moment from 'moment';
 
 function AdminCourses() {
   const [form] = Form.useForm();
@@ -17,23 +18,33 @@ function AdminCourses() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isProfileVisible, setIsProfileVisible] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accounts = await getCourses();
-        const accountsWithId = accounts.map((account, index) => ({
-          ...account,
+        const courses = await getCourses();
+        const coursesWithId = courses.map((courses, index) => ({
+          ...courses,
           id: index + 1,
         }));
-        setData(accountsWithId);
+        setData(coursesWithId);
       } catch (error) {
-        console.error('Error fetching accounts:', error);
+        console.error('Error fetching courses:', error);
       }
     };
 
     fetchData();
   }, [refresh]);
+
+  function TransferDate(timestamp) {
+    const date = new Date(timestamp * 1000);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
 
   const handleDetail = (record) => {
     setCurrentRecord(record);
@@ -42,8 +53,79 @@ function AdminCourses() {
 
   const handleUpdate = (record) => {
     setCurrentRecord(record);
+    form.setFieldsValue({
+      // Populate form fields with current record data
+      ...record,
+      dob: record.dob ? moment(record.dob) : null,
+    });
     setIsModalOpen(true);
   };
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText('');
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ marginBottom: 8, display: 'block' }}
+        />
+        <Button
+          type="primary"
+          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          icon={<SearchOutlined />}
+          size="small"
+          style={{ width: 90, marginRight: 8 }}
+        >
+          Search
+        </Button>
+        <Button
+          onClick={() => handleReset(clearFilters)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Reset
+        </Button>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : '',
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <span style={{ backgroundColor: '#ffc069', padding: '0 5px' }}>
+          {text}
+        </span>
+      ) : (
+        text
+      ),
+  });
 
   const columns = [
     {
@@ -54,24 +136,24 @@ function AdminCourses() {
     {
       title: 'Name',
       dataIndex: 'name',
-      filters: [],
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value, record) => record.name.startsWith(value),
+      ...getColumnSearchProps('name'),
       width: '15%',
     },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      sorter: (a, b) => a.age - b.age,
-    },
+
     {
       title: 'description',
       dataIndex: 'description',
-      filters: [],
-      onFilter: (value, record) => record.description.startsWith(value),
-      filterSearch: true,
       width: '30%',
+    },
+    {
+      title: 'Start Date',
+      dataIndex: 'dateStart',
+      render: (timestamp) => TransferDate(timestamp),
+    },
+    {
+      title: 'End Date',
+      dataIndex: 'dateEnd',
+      render: (timestamp) => TransferDate(timestamp),
     },
     {
       title: 'Action',
@@ -134,7 +216,6 @@ function AdminCourses() {
 
   return (
     <div>
-      <ToastContainer />
       <h2 className="flex justify-center text-4xl text-cyan-600">
         Courses Manage
       </h2>
@@ -149,28 +230,22 @@ function AdminCourses() {
         Add Courses
       </Button>
       <Modal
-        title={currentRecord ? 'Update Student' : 'Add Student'}
+        title={currentRecord ? 'Update Courses' : 'Add Courses'}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
       >
         <Form
           form={form}
-          name="studentForm"
+          name="CoursesForm"
           onFinish={handleFormSubmit}
           layout="vertical"
           initialValues={{
             currentRecord,
           }}
         >
-          <Form.Item label="Student Id" name="id">
-            <Input
-              placeholder={currentRecord ? currentRecord.id : 'Student id'}
-              readOnly={true}
-            />
-          </Form.Item>
           <Form.Item
-            label="Student Name"
+            label="Courses Name"
             name="name"
             rules={[
               {
@@ -179,64 +254,33 @@ function AdminCourses() {
               },
             ]}
           >
-            <Input
-              placeholder={currentRecord ? currentRecord.name : 'Student Name'}
-            />
+            <Input placeholder="Courses Name" />
           </Form.Item>
 
           <Form.Item label="Description" name="description">
-            <Input
-              placeholder={
-                currentRecord ? currentRecord.description : 'description'
-              }
-            />
+            <Input placeholder="Description" />
           </Form.Item>
 
           <Form.Item
-            label="Gender"
-            name="gender"
+            label="Start Date"
+            name="dateStart"
             rules={[
               {
                 required: true,
-                message: 'Please select the gender!',
+                message: 'Please enter start date!',
               },
             ]}
           >
-            <Select placeholder="Select gender">
-              <Select.Option value="male">Male</Select.Option>
-              <Select.Option value="female">Female</Select.Option>
-              <Select.Option value="other">Other</Select.Option>
-            </Select>
+            <DatePicker />
           </Form.Item>
 
           <Form.Item
-            label="Age"
-            name="age"
+            label="End Date"
+            name="dateEnd"
             rules={[
               {
                 required: true,
-                message: 'Please enter age!',
-              },
-            ]}
-          >
-            <InputNumber
-              min={0}
-              placeholder={currentRecord ? currentRecord.age : 'Age'}
-              onKeyPress={(e) => {
-                if (isNaN(e.key)) {
-                  e.preventDefault();
-                }
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Date of Birth"
-            name="dob"
-            rules={[
-              {
-                required: true,
-                message: 'Please select the date of birth!',
+                message: 'Please select the end date!',
               },
             ]}
           >
@@ -245,7 +289,7 @@ function AdminCourses() {
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              {currentRecord ? 'Update Student' : 'Add Student'}
+              {currentRecord ? 'Update Courses' : 'Add Courses'}
             </Button>
           </Form.Item>
         </Form>
@@ -258,6 +302,7 @@ function AdminCourses() {
           gridTemplateAreas: `
               "table profile"
             `,
+          gap: '1rem',
         }}
       >
         <Table
@@ -269,6 +314,7 @@ function AdminCourses() {
         />
         {isProfileVisible && currentRecord && (
           <Profile
+            className="sticky top-0 max-h-screen overflow-auto"
             style={{ gridArea: 'profile' }}
             {...currentRecord}
             onClose={() => setIsProfileVisible(false)}

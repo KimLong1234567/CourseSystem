@@ -14,13 +14,23 @@ const Profile_icon = [
   { icon: faEnvelope },
 ];
 
-function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
-  const hasData = id && name && address && email && gender && dob;
+function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
+  const hasData = id && name && description && dateStart && dateEnd;
 
+  function TransferDate(timestamp) {
+    const date = new Date(timestamp * 1000);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  const startDate = TransferDate(dateStart);
+  const endDate = TransferDate(dateEnd);
   return hasData ? (
     <div className="max-w-sm mx-auto bg-white rounded-xl shadow-lg p-6 space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
-        ID Student: {id}
+        ID Course: {id}
       </h2>
       <div className="flex justify-center">
         <img
@@ -48,19 +58,13 @@ function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
           <strong>Name:</strong> {name}
         </div>
         <div>
-          <strong>Address:</strong> {address}
+          <strong>Description:</strong> {description}
         </div>
         <div>
-          <strong>Phone:</strong> {phone}
+          <strong>Start Date:</strong> {startDate}
         </div>
         <div>
-          <strong>Email:</strong> {email}
-        </div>
-        <div>
-          <strong>Gender:</strong> {gender}
-        </div>
-        <div>
-          <strong>Date of Birth:</strong> {dob.toLocaleString()}
+          <strong>End Date:</strong> {endDate}
         </div>
       </div>
 
@@ -78,15 +82,13 @@ function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
   );
 }
 
-Profile.propTypes = {
+coursesDetail.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  phone: PropTypes.number.isRequired,
-  gender: PropTypes.string.isRequired,
-  dob: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  dateStart: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default Profile;
+export default coursesDetail;

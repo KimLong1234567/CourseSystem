@@ -9,7 +9,7 @@ function MainContent() {
     <div
       className="h-screen grid gap-2"
       style={{
-        gridTemplateRows: 'auto 2fr 20%',
+        gridTemplateRows: 'auto 2fr',
         gridTemplateColumns: 'minmax(auto, 0.5fr) 3fr minmax(auto, 1fr)',
         gridTemplateAreas: `
           "sidebar header header"

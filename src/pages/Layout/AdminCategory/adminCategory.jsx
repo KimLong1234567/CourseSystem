@@ -3,11 +3,11 @@ import { Button, Modal, Table } from 'antd';
 import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
 import { toast, ToastContainer } from 'react-toastify';
 import {
-  getCourses,
-  createCourses,
-  deleteCourses,
-  updateCourses,
-} from '../../../service/courses';
+  getCategory,
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from '../../../service/category';
 import Profile from '../Profile/profile';
 
 function AdminCategory() {
@@ -21,7 +21,7 @@ function AdminCategory() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accounts = await getCourses();
+        const accounts = await getCategory();
         const accountsWithId = accounts.map((account, index) => ({
           ...account,
           id: index + 1,
@@ -103,7 +103,7 @@ function AdminCategory() {
 
   const handleDelete = async (record) => {
     try {
-      await deleteCourses(record.id);
+      await deleteCategory(record.id);
       setRefresh((prev) => prev + 1);
     } catch (error) {
       console.error('Error deleting student:', error);
@@ -115,9 +115,9 @@ function AdminCategory() {
       if (currentRecord) {
         const { id, ...restValues } = values;
         console.log(values, id, restValues);
-        await updateCourses(currentRecord.id, restValues);
+        await updateCategory(currentRecord.id, restValues);
       } else {
-        await createCourses(values);
+        await createCategory(values);
       }
       setRefresh((prev) => prev + 1);
       setIsModalOpen(false);
@@ -156,87 +156,59 @@ function AdminCategory() {
       >
         <Form
           form={form}
-          name="studentForm"
+          name="Category"
           onFinish={handleFormSubmit}
           layout="vertical"
           initialValues={{
             currentRecord,
           }}
         >
-          <Form.Item label="Student Id" name="id">
-            <Input
-              placeholder={currentRecord ? currentRecord.id : 'Student id'}
-              readOnly={true}
-            />
-          </Form.Item>
           <Form.Item
-            label="Student Name"
+            label="Category name"
             name="name"
             rules={[
               {
                 required: true,
-                message: 'Please input the student name!',
+                message: 'Please input the category name!',
               },
             ]}
           >
-            <Input
-              placeholder={currentRecord ? currentRecord.name : 'Student Name'}
-            />
-          </Form.Item>
-
-          <Form.Item label="Description" name="description">
-            <Input
-              placeholder={
-                currentRecord ? currentRecord.description : 'description'
-              }
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item
-            label="Gender"
-            name="gender"
+            label="Description"
+            name="description"
             rules={[
               {
                 required: true,
-                message: 'Please select the gender!',
+                message: 'Please input the category name!',
               },
             ]}
           >
-            <Select placeholder="Select gender">
-              <Select.Option value="male">Male</Select.Option>
-              <Select.Option value="female">Female</Select.Option>
-              <Select.Option value="other">Other</Select.Option>
-            </Select>
+            <Input />
           </Form.Item>
 
           <Form.Item
-            label="Age"
-            name="age"
+            label="Date Start"
+            name="dateStart"
             rules={[
               {
                 required: true,
-                message: 'Please enter age!',
+                message: 'Please enter date start!',
               },
             ]}
           >
-            <InputNumber
-              min={0}
-              placeholder={currentRecord ? currentRecord.age : 'Age'}
-              onKeyPress={(e) => {
-                if (isNaN(e.key)) {
-                  e.preventDefault();
-                }
-              }}
-            />
+            <DatePicker />
           </Form.Item>
 
           <Form.Item
-            label="Date of Birth"
-            name="dob"
+            label="End date"
+            name="endDate"
             rules={[
               {
                 required: true,
-                message: 'Please select the date of birth!',
+                message: 'Please select the end date!',
               },
             ]}
           >
