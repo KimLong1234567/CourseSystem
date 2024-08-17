@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
 import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
-import { toast } from 'react-toastify';
+import { SearchOutlined } from '@ant-design/icons';
+import { toast, ToastContainer } from 'react-toastify';
 import {
   getAccount,
   createAccount,
@@ -9,21 +10,25 @@ import {
   updateAccount,
 } from '../../../service/acount';
 import Profile from '../Profile/profile';
+import moment from 'moment';
 
 function AdminContent() {
+  const [form] = Form.useForm();
+  const [refresh, setRefresh] = useState(0);
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isProfileVisible, setIsProfileVisible] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState('');
 
-  //get data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const accounts = await getAccount();
         const accountsWithId = accounts.map((account, index) => ({
           ...account,
-          Id: index + 1,
+          num: index + 1,
         }));
         setData(accountsWithId);
       } catch (error) {
@@ -32,34 +37,103 @@ function AdminContent() {
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
 
-  // table ant
   const handleDetail = (record) => {
-    console.log('Detail clicked for:', record);
     setCurrentRecord(record);
     setIsProfileVisible(true);
   };
 
   const handleUpdate = (record) => {
-    console.log('Update clicked for:', record);
     setCurrentRecord(record);
+    form.setFieldsValue({
+      // Populate form fields with current record data
+      ...record,
+      dob: record.dob ? moment(record.dob) : null,
+    });
     setIsModalOpen(true);
   };
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText('');
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ marginBottom: 8, display: 'block' }}
+        />
+        <Button
+          type="primary"
+          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          icon={<SearchOutlined />}
+          size="small"
+          style={{ width: 90, marginRight: 8 }}
+        >
+          Search
+        </Button>
+        <Button
+          onClick={() => handleReset(clearFilters)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Reset
+        </Button>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : '',
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <span style={{ backgroundColor: '#ffc069', padding: '0 5px' }}>
+          {text}
+        </span>
+      ) : (
+        text
+      ),
+  });
 
   const columns = [
     {
       title: 'Id',
-      dataIndex: 'Id',
+      dataIndex: 'num',
       width: '5%',
     },
     {
       title: 'Name',
       dataIndex: 'name',
-      filters: [],
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value, record) => record.name.startsWith(value),
+      // filters: [],
+      // filterMode: 'tree',
+      // filterSearch: true,
+      // onFilter: (value, record) => record.name.startsWith(value),
+      ...getColumnSearchProps('name'),
       width: '15%',
     },
     {
@@ -68,11 +142,12 @@ function AdminContent() {
       sorter: (a, b) => a.age - b.age,
     },
     {
-      title: 'email',
+      title: 'Email',
       dataIndex: 'email',
-      filters: [],
-      onFilter: (value, record) => record.address.startsWith(value),
-      filterSearch: true,
+      // filters: [],
+      // onFilter: (value, record) => record.email.startsWith(value),
+      // filterSearch: true,
+      ...getColumnSearchProps('email'),
       width: '30%',
     },
     {
@@ -80,129 +155,93 @@ function AdminContent() {
       dataIndex: 'action',
       render: (text, record) => (
         <span>
-          <button
-            className="border-2 ml-3 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          <Button
+            className="ml-3 bg-blue-700 text-white"
             onClick={() => handleDetail(record)}
           >
             Detail
-          </button>
-          <button
-            className="border-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+          </Button>
+          <Button
+            className="bg-yellow-400 text-white"
             onClick={() => handleUpdate(record)}
           >
             Update
-          </button>
-          <button
-            className="border-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          </Button>
+          <Button
+            className="bg-red-700 text-white"
             onClick={() => handleDelete(record)}
           >
             Delete
-          </button>
+          </Button>
         </span>
       ),
     },
   ];
 
-  // form ant
-  // const { RangePicker } = DatePicker;
-  const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 6,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 14,
-      },
-    },
-  };
-
-  // modal ant
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-  };
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  // delete row
   const handleDelete = async (record) => {
     try {
       await deleteAccount(record.id);
-      const accounts = await getAccount();
-      const accountsWithId = accounts.map((account, index) => ({
-        ...account,
-        Id: index + 1,
-      }));
-      setData(accountsWithId);
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       console.error('Error deleting student:', error);
     }
   };
-  // create new row data
+
   const handleFormSubmit = async (values) => {
     try {
-      await createAccount(values);
-      const accounts = await getAccount();
-      const accountsWithId = accounts.map((account, index) => ({
-        ...account,
-        Id: index + 1,
-      }));
-      setData(accountsWithId);
+      if (currentRecord) {
+        console.log(currentRecord);
+        const { id, ...restValues } = values;
+        console.log(values, id, restValues);
+        await updateAccount(currentRecord.id, restValues);
+      } else {
+        await createAccount(values);
+      }
+      setRefresh((prev) => prev + 1);
       setIsModalOpen(false);
+      form.resetFields();
     } catch (error) {
-      console.error('Error creating account:', error);
+      console.error('Error saving account:', error);
     }
   };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    form.resetFields();
+    setCurrentRecord(null);
+  };
+
   return (
     <div>
+      <ToastContainer />
       <h2 className="flex justify-center text-4xl text-cyan-600">
         Student Manage
       </h2>
       <Button
         type="primary"
-        onClick={() => setIsModalOpen(true)}
-        className="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+        onClick={() => {
+          setCurrentRecord(null);
+          setIsModalOpen(true);
+        }}
+        className="bg-blue-500 text-white"
       >
         Add Student
       </Button>
       <Modal
         title={currentRecord ? 'Update Student' : 'Add Student'}
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={handleCancel}
         footer={null}
       >
         <Form
+          form={form}
           name="studentForm"
           onFinish={handleFormSubmit}
           layout="vertical"
-          initialValues={currentRecord}
+          initialValues={{
+            currentRecord,
+          }}
         >
-          {/* <Form.Item
-            label="Student Id"
-            name="id"
-            rules={[
-              {
-                required: true,
-                message: 'Please input the student ID!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item> */}
-
           <Form.Item
             label="Student Name"
             name="name"
@@ -213,7 +252,9 @@ function AdminContent() {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={currentRecord ? currentRecord.name : 'Student Name'}
+            />
           </Form.Item>
 
           <Form.Item
@@ -230,7 +271,30 @@ function AdminContent() {
               },
             ]}
           >
-            <Input />
+            <Input
+              placeholder={currentRecord ? currentRecord.email : 'Email'}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Phone"
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message: 'Please input the student phone!',
+              },
+            ]}
+          >
+            <Input
+              min={0}
+              placeholder={currentRecord ? currentRecord.phone : 'Phone'}
+              onKeyPress={(e) => {
+                if (isNaN(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+            />
           </Form.Item>
 
           <Form.Item
@@ -261,11 +325,11 @@ function AdminContent() {
             ]}
           >
             <InputNumber
+              min={0}
+              placeholder={currentRecord ? currentRecord.age : 'Age'}
               onKeyPress={(e) => {
                 if (isNaN(e.key)) {
                   e.preventDefault();
-                  console.log(e.key, 'not a number');
-                  return;
                 }
               }}
             />
@@ -281,12 +345,12 @@ function AdminContent() {
               },
             ]}
           >
-            <DatePicker />
+            <DatePicker readOnly={true} />
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              {currentRecord ? 'Update Student' : 'Add Student'}
             </Button>
           </Form.Item>
         </Form>
@@ -297,8 +361,8 @@ function AdminContent() {
           gridTemplateRows: 'auto',
           gridTemplateColumns: '3fr minmax(auto, 1fr)',
           gridTemplateAreas: `
-          "table profile"
-        `,
+            "table profile"
+          `,
         }}
       >
         <Table
@@ -306,9 +370,6 @@ function AdminContent() {
           className="mt-5"
           columns={columns}
           dataSource={data}
-          onChange={(pagination, filters, sorter, extra) => {
-            console.log('params', pagination, filters, sorter, extra);
-          }}
           rowKey="id"
         />
         {isProfileVisible && currentRecord && (

@@ -35,6 +35,7 @@ export const createAccount = async (post) => {
 
 export const updateAccount = async (id, post) => {
   try {
+    console.log(id, post);
     const response = await axios.put(`${API_URL}/${id}`, post);
     return response.data;
   } catch (error) {
