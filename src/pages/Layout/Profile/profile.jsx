@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {
   faSquareShareNodes,
   faBell,
@@ -10,55 +9,49 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 const Profile_icon = [
-  {
-    icon: faSquareShareNodes,
-    // name: 'Home',
-    // to: '/',
-  },
-  {
-    icon: faBell,
-    // name: 'Student',
-    // to: '/admin/student',
-  },
-  {
-    icon: faEnvelope,
-    // name: 'Category',
-    // to: '/admin/category',
-  },
+  { icon: faSquareShareNodes },
+  { icon: faBell },
+  { icon: faEnvelope },
 ];
-function Profile({ id, name, age, email, gender, dob, onClose }) {
+
+function Profile({ id, name, age, email, phone, gender, dob, onClose }) {
   const hasData = id && name && age && email && gender && dob;
 
-  console.log(id);
   return hasData ? (
-    <div className="">
-      <h2 className="mb-3 flex justify-center">ID Student: {id}</h2>
+    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-lg p-6 space-y-6">
+      <h2 className="text-2xl font-bold text-center text-gray-800">
+        ID Student: {id}
+      </h2>
       <div className="flex justify-center">
         <img
-          className="rounded-full h-52 w-52 flex justify-center"
+          className="rounded-full h-52 w-52"
           src="https://picsum.photos/200/300"
           alt="avatar"
         />
       </div>
-      {/* some icons here */}
-      <div className="flex justify-center space-x-6">
-        {Profile_icon.map((item, index) => {
-          return (
-            <div key={index} className="ml-4">
-              <Link to={item.to} className="name menuItem">
-                <Icon icon={item.icon} className="iconItem" />
-                {/* <span className="ml-3">{item.name}</span> */}
-              </Link>
-            </div>
-          );
-        })}
+
+      <div className="flex justify-center space-x-6 mt-4">
+        {Profile_icon.map((item, index) => (
+          <div
+            key={index}
+            className="text-gray-500 hover:text-gray-800 transition-colors duration-300"
+          >
+            <Link to={item.to}>
+              <Icon icon={item.icon} className="text-2xl" />
+            </Link>
+          </div>
+        ))}
       </div>
-      <div className="mt-4">
+
+      <div className="space-y-2 text-gray-700">
         <div>
           <strong>Name:</strong> {name}
         </div>
         <div>
           <strong>Age:</strong> {age}
+        </div>
+        <div>
+          <strong>Phone:</strong> {phone}
         </div>
         <div>
           <strong>Email:</strong> {email}
@@ -70,15 +63,18 @@ function Profile({ id, name, age, email, gender, dob, onClose }) {
           <strong>Date of Birth:</strong> {dob.toLocaleString()}
         </div>
       </div>
-      <button
-        onClick={onClose}
-        className="mt-4 border-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-      >
-        Close
-      </button>
+
+      <div className="flex justify-center">
+        <button
+          onClick={onClose}
+          className="mt-4 w-full bg-red-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-red-700 transition-colors duration-300"
+        >
+          Close
+        </button>
+      </div>
     </div>
   ) : (
-    <div>not found</div>
+    <div className="text-center text-gray-500">Not found</div>
   );
 }
 
@@ -87,6 +83,7 @@ Profile.propTypes = {
   name: PropTypes.string.isRequired,
   age: PropTypes.number.isRequired,
   email: PropTypes.string.isRequired,
+  phone: PropTypes.number.isRequired,
   gender: PropTypes.string.isRequired,
   dob: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
