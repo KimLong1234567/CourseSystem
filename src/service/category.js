@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const API_URL =
-  'https://66ac95e0f009b9d5c732a553.mockapi.io/user' ||
-  'http://localhost:8080/api/users';
+  'https://66ac95e0f009b9d5c732a553.mockapi.io/category' ||
+  'http://localhost:8080/api/categories';
 
 // Service để gọi các API liên quan đến Post
-export const getAccount = async () => {
+export const getCategory = async () => {
   try {
     const response = await axios.get(API_URL);
     return response.data;
@@ -15,7 +15,7 @@ export const getAccount = async () => {
   }
 };
 
-export const getAccountById = async (id) => {
+export const getCategoryId = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
@@ -25,7 +25,7 @@ export const getAccountById = async (id) => {
   }
 };
 
-export const createAccount = async (post) => {
+export const createCategory = async (post) => {
   try {
     const response = await axios.post(API_URL, post);
     return response.data;
@@ -35,9 +35,10 @@ export const createAccount = async (post) => {
   }
 };
 
-export const updateAccount = async (id, post) => {
+export const updateCategory = async (id, post) => {
   try {
     console.log(id, post);
+    // /update_info
     const response = await axios.put(`${API_URL}/${id}`, post);
     return response.data;
   } catch (error) {
@@ -46,7 +47,7 @@ export const updateAccount = async (id, post) => {
   }
 };
 
-export const deleteAccount = async (id) => {
+export const deleteCategory = async (id) => {
   try {
     await axios.delete(`${API_URL}/${id}`);
   } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
-import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
+import { DatePicker, Form, Input, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import {
   getAccount,
@@ -242,9 +242,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input
-              placeholder={currentRecord ? currentRecord.name : 'Student Name'}
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item
@@ -261,9 +259,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input
-              placeholder={currentRecord ? currentRecord.email : 'Email'}
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item
@@ -289,7 +285,7 @@ function AdminContent() {
 
           <Form.Item
             label="Student Address"
-            name="name"
+            name="address"
             rules={[
               {
                 required: true,
@@ -297,11 +293,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input
-              placeholder={
-                currentRecord ? currentRecord.address : 'Student adddress'
-              }
-            />
+            <Input />
           </Form.Item>
 
           <Form.Item
