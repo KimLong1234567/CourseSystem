@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function NavBar() {
 	return (
@@ -26,12 +26,15 @@ function NavBar() {
 					</NavLink>
 				</li>
 				<li className="px-2 text-sm">
-					<NavLink to="#!" className=" border-white hover:border-b-[1px]">
+					<a href="#contact" className=" border-white hover:border-b-[1px]">
 						CONTACT
-					</NavLink>
+					</a>
 				</li>
 				<li className="px-2 text-sm">
-					<NavLink to="#!" className=" border-white hover:border-b-[1px]">
+					<NavLink
+						to="/blogPage"
+						className=" border-white hover:border-b-[1px]"
+					>
 						BLOG
 					</NavLink>
 				</li>
