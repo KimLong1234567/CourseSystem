@@ -14,19 +14,8 @@ const Profile_icon = [
   { icon: faEnvelope },
 ];
 
-function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
-  const hasData = id && name && description && dateStart && dateEnd;
-
-  function TransferDate(timestamp) {
-    const date = new Date(timestamp * 1000);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  const startDate = TransferDate(dateStart);
-  const endDate = TransferDate(dateEnd);
+function companyDetail({ id, name, email, address, phone, onClose }) {
+  const hasData = id && name && email && address;
 
   return hasData ? (
     <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
@@ -35,16 +24,16 @@ function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
       <div className="sm:flex sm:justify-between sm:gap-4">
         <div>
           <h3 className="text-lg font-bold text-gray-900 sm:text-xl">
-            ID Course: {id}
+            ID Company: {id}
           </h3>
           <p className="mt-1 text-xs font-medium text-gray-600">
-            Course Name: {name}
+            Company Name: {name}
           </p>
         </div>
 
         <div className="hidden sm:block sm:shrink-0">
           <img
-            alt="Course Image"
+            alt="Company Image"
             src="https://picsum.photos/200/300"
             className="size-16 rounded-lg object-cover shadow-sm"
           />
@@ -52,7 +41,7 @@ function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
       </div>
 
       <div className="mt-4">
-        <p className="text-sm text-gray-500">{description}</p>
+        <p className="text-sm text-gray-500">Company Email: {email}</p>
       </div>
 
       <div className="flex justify-center space-x-6 mt-4">
@@ -70,13 +59,12 @@ function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
 
       <dl className="mt-6 flex gap-4 sm:gap-6">
         <div className="flex flex-col-reverse">
-          <dt className="text-sm font-medium text-gray-600">Start Date</dt>
-          <dd className="text-xs text-gray-500">{startDate}</dd>
+          <dd className="text-xs text-gray-500">{address}</dd>
+          <dt className="text-sm font-medium text-gray-600">Address</dt>
         </div>
-
         <div className="flex flex-col-reverse">
-          <dt className="text-sm font-medium text-gray-600">End Date</dt>
-          <dd className="text-xs text-gray-500">{endDate}</dd>
+          <dd className="text-xs text-gray-500">{phone}</dd>
+          <dt className="text-sm font-medium text-gray-600">Phone</dt>
         </div>
       </dl>
 
@@ -94,13 +82,13 @@ function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
   );
 }
 
-coursesDetail.propTypes = {
+companyDetail.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  phone: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default coursesDetail;
+export default companyDetail;

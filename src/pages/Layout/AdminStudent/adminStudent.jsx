@@ -10,6 +10,8 @@ import {
 } from '../../../service/acount';
 import Profile from '../Profile/profile';
 import moment from 'moment';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 function AdminContent() {
   const [form] = Form.useForm();
@@ -20,6 +22,7 @@ function AdminContent() {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +51,7 @@ function AdminContent() {
     form.setFieldsValue({
       // Populate form fields with current record data
       ...record,
-      dob: record.dob ? moment(record.dob) : null,
+      dob: record.stu_birthday ? moment(record.dob) : null,
     });
     setIsModalOpen(true);
   };
@@ -123,22 +126,23 @@ function AdminContent() {
     {
       title: 'Id',
       dataIndex: 'num',
+      sorter: (a, b) => a.num - b.num,
       width: '5%',
     },
     {
       title: 'Name',
-      dataIndex: 'name',
-      ...getColumnSearchProps('name'),
+      dataIndex: 'stu_name',
+      ...getColumnSearchProps('stu_name'),
       width: '15%',
     },
     {
       title: 'Address',
-      dataIndex: 'address',
+      dataIndex: 'stu_address',
     },
     {
       title: 'Email',
-      dataIndex: 'email',
-      ...getColumnSearchProps('email'),
+      dataIndex: 'stu_email',
+      ...getColumnSearchProps('stu_email'),
       width: '30%',
     },
     {
@@ -210,12 +214,31 @@ function AdminContent() {
       <Button
         type="primary"
         onClick={() => {
-          setCurrentRecord(null);
           setIsModalOpen(true);
         }}
-        className="bg-blue-500 text-white"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`bg-blue-500 text-white transition-all duration-300 ease-in-out overflow-hidden ${
+          isHovered || isModalOpen ? 'pl-4 pr-6 py-2' : 'px-3 py-3'
+        }`}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '50px',
+        }}
       >
-        Add Student
+        <Icon
+          icon={faUserPlus}
+          className={`transition-transform duration-300 ease-in-out ${
+            isHovered || isModalOpen ? 'mr-2' : ''
+          }`}
+        />
+        {(isHovered || isModalOpen) && (
+          <span className="transition-opacity duration-300 ease-in-out opacity-100">
+            Add Student
+          </span>
+        )}
       </Button>
       <Modal
         title={currentRecord ? 'Update Student' : 'Add Student'}
@@ -242,7 +265,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="Student Name" />
           </Form.Item>
 
           <Form.Item
@@ -259,7 +282,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="Student Email" />
           </Form.Item>
 
           <Form.Item
@@ -293,7 +316,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="Student Address" />
           </Form.Item>
 
           <Form.Item
@@ -341,6 +364,7 @@ function AdminContent() {
           gridTemplateAreas: `
             "table profile"
           `,
+          gap: '1rem',
         }}
       >
         <Table

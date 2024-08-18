@@ -27,7 +27,7 @@ function AdminCourses() {
         const courses = await getCourses();
         const coursesWithId = courses.map((courses, index) => ({
           ...courses,
-          id: index + 1,
+          num: index + 1,
         }));
         setData(coursesWithId);
       } catch (error) {
@@ -131,6 +131,7 @@ function AdminCourses() {
     {
       title: 'Id',
       dataIndex: 'id',
+      sorter: (a, b) => a.num - b.num,
       width: '5%',
     },
     {
@@ -312,14 +313,14 @@ function AdminCourses() {
           dataSource={data}
           rowKey="id"
         />
-        {isProfileVisible && currentRecord && (
-          <Profile
-            className="sticky top-0 max-h-screen overflow-auto"
-            style={{ gridArea: 'profile' }}
-            {...currentRecord}
-            onClose={() => setIsProfileVisible(false)}
-          />
-        )}
+        <div className="relative mt-5" style={{ gridArea: 'profile' }}>
+          {isProfileVisible && currentRecord && (
+            <Profile
+              {...currentRecord}
+              onClose={() => setIsProfileVisible(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
