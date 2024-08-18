@@ -24,7 +24,7 @@ function AdminCategory() {
         const accounts = await getCategory();
         const accountsWithId = accounts.map((account, index) => ({
           ...account,
-          id: index + 1,
+          num: index + 1,
         }));
         setData(accountsWithId);
       } catch (error) {
@@ -49,6 +49,8 @@ function AdminCategory() {
     {
       title: 'Id',
       dataIndex: 'id',
+      sorter: (a, b) => a.num - b.num,
+
       width: '5%',
     },
     {

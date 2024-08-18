@@ -14,11 +14,30 @@ const Profile_icon = [
   { icon: faEnvelope },
 ];
 
-function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
-  const hasData = id && name && address && email && gender && dob;
+function Profile({
+  id,
+  stu_name,
+  stu_address,
+  stu_email,
+  stu_phone,
+  stu_gender,
+  stu_birthday,
+  onClose,
+}) {
+  const hasData =
+    id && stu_name && stu_address && stu_email && stu_email && stu_birthday;
+  function TransferDate(timestamp) {
+    const date = new Date(timestamp * 1000);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  const brithday = TransferDate(stu_birthday);
 
   return hasData ? (
-    <div className="max-w-sm mx-auto bg-white rounded-xl shadow-lg p-6 space-y-6">
+    <div className="max-w-sm mx-auto  rounded-xl shadow-lg p-6 space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
         ID Student: {id}
       </h2>
@@ -45,22 +64,22 @@ function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
 
       <div className="space-y-2 text-gray-700">
         <div>
-          <strong>Name:</strong> {name}
+          <strong>Name:</strong> {stu_name}
         </div>
         <div>
-          <strong>Address:</strong> {address}
+          <strong>Address:</strong> {stu_address}
         </div>
         <div>
-          <strong>Phone:</strong> {phone}
+          <strong>Phone:</strong> {stu_phone}
         </div>
         <div>
-          <strong>Email:</strong> {email}
+          <strong>Email:</strong> {stu_email}
         </div>
         <div>
-          <strong>Gender:</strong> {gender}
+          <strong>Gender:</strong> {stu_gender}
         </div>
         <div>
-          <strong>Date of Birth:</strong> {dob.toLocaleString()}
+          <strong>Date of Birth:</strong> {brithday}
         </div>
       </div>
 
@@ -80,12 +99,12 @@ function Profile({ id, name, address, email, phone, gender, dob, onClose }) {
 
 Profile.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  phone: PropTypes.number.isRequired,
-  gender: PropTypes.string.isRequired,
-  dob: PropTypes.string.isRequired,
+  stu_name: PropTypes.string.isRequired,
+  stu_address: PropTypes.string.isRequired,
+  stu_email: PropTypes.string.isRequired,
+  stu_phone: PropTypes.number.isRequired,
+  stu_gender: PropTypes.string.isRequired,
+  stu_birthday: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
-  faChartLine,
-  faHouse,
-  faBarsStaggered,
+  faHome,
+  faUserGraduate,
+  faThList,
   faBuilding,
-  faSchool,
+  faBookOpen,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-// admin controller
+// Admin sidebar menu items
 const ADMIN_SIDEBAR = [
   {
-    icon: faHouse,
+    icon: faHome,
     name: 'Home',
     to: '/',
   },
   {
-    icon: faChartLine,
-    name: 'Student',
+    icon: faUserGraduate,
+    name: 'Students',
     to: '/admin/student',
   },
   {
-    icon: faBarsStaggered,
+    icon: faThList,
     name: 'Category',
     to: '/admin/category',
   },
@@ -32,23 +32,36 @@ const ADMIN_SIDEBAR = [
     to: '/admin/company',
   },
   {
-    icon: faSchool,
+    icon: faBookOpen,
     name: 'Courses',
     to: '/admin/courses',
   },
 ];
 
 function Sidebar() {
+  const [activeItem, setActiveItem] = useState(null);
+
   return (
-    <div className="">
+    <div className="bg-gray-800 text-white h-full p-4 space-y-4">
       {ADMIN_SIDEBAR.map((item, index) => {
+        const isActive = activeItem === index;
         return (
-          <div key={index} className="ml-4">
-            <Link to={item.to} className="name menuItem">
-              <Icon icon={item.icon} className="iconItem" />
-              <span className="ml-3">{item.name}</span>
-            </Link>
-          </div>
+          <Link
+            key={index}
+            to={item.to}
+            className={`flex items-center space-x-3 p-2 rounded-lg transition-all duration-300 ${
+              isActive
+                ? 'bg-blue-600 text-white shadow-md'
+                : 'hover:bg-gray-700 hover:text-blue-400'
+            }`}
+            onClick={() => setActiveItem(index)}
+          >
+            <Icon
+              icon={item.icon}
+              className="text-xl transition-transform duration-300 transform group-hover:scale-110"
+            />
+            <span className="text-lg">{item.name}</span>
+          </Link>
         );
       })}
     </div>
