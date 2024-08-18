@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { createStudent } from "../../service/student";
+import { toast } from "react-toastify";
 
 function InputField({ id, type, label, register, error, placeholder }) {
 	return (
@@ -18,19 +20,18 @@ function InputField({ id, type, label, register, error, placeholder }) {
 		</div>
 	);
 }
+
 function TransferDate(timestamp) {
 	const date = new Date(timestamp * 1000);
-
 	const day = date.getDate();
 	const month = date.getMonth() + 1;
 	const year = date.getFullYear();
-
-	const formattedDate = `${day}/${month}/${year}`;
-	return formattedDate;
+	return `${day}/${month}/${year}`;
 }
 
 export default function Register() {
 	const location = useLocation();
+	const navigate = useNavigate();
 	const { course } = location.state || {};
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,19 +45,19 @@ export default function Register() {
 
 	const onSubmit = (data) => {
 		const courseData = {
-			idCourse: course.id,
-			name: course.name,
-			dateStart: course.dateStart,
+			id_course: course.id,
 			...data,
 		};
-		console.log(courseData);
+		createStudent(courseData);
+		navigate("/RegisterSuccess", { state: { courseData } });
+		toast.success("Register successfully!");
 	};
+
 	const imgPathDemo =
 		"https://plus.unsplash.com/premium_photo-1661596686441-611034b8077e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 	return (
 		<>
-			<header></header>
 			<main className="px-16 py-14 flex flex-col justify-center h-[900px] overflow-hidden">
 				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
 					<div className="w-2/3 relative">
@@ -111,27 +112,67 @@ export default function Register() {
 								noValidate
 							>
 								<InputField
-									id="name"
+									id="stu_name"
 									type="text"
 									label="Name"
 									register={register}
-									error={errors.name}
+									error={errors.stu_name}
 									placeholder="Enter your name"
 								/>
+								<div className="mb-4">
+									<select
+										name="stu_gender"
+										id="stu_gender"
+										{...register("stu_gender", {
+											required: "Gender is required",
+										})}
+										className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg placeholder-gray-500"
+									>
+										<option value="" className="text-gray-500">
+											Select Gender
+										</option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+										<option value="other">Other</option>
+									</select>
+									{errors.stu_gender && (
+										<span className="text-red-500 text-sm">
+											{errors.stu_gender.message}
+										</span>
+									)}
+								</div>
+
+								<div className="mb-4">
+									<input
+										type="date"
+										id="stu_birthday"
+										{...register("stu_birthday", {
+											required: "Birthday is required",
+										})}
+										className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+										style={{ colorScheme: "dark" }}
+									/>
+									{errors.stu_birthday && (
+										<span className="text-red-500 text-sm">
+											{errors.stu_birthday.message}
+										</span>
+									)}
+								</div>
+
 								<InputField
-									id="email"
+									id="stu_email"
 									type="email"
 									label="Email"
 									register={register}
-									error={errors.email}
+									error={errors.stu_email}
 									placeholder="Enter your email"
 								/>
 								<InputField
-									id="phone"
+									id="stu_phone"
 									type="Number"
 									label="Phone"
 									register={register}
-									error={errors.phone}
+									error={errors.stu_phone}
 									placeholder="Enter your phone number"
 								/>
 
@@ -146,7 +187,6 @@ export default function Register() {
 					</div>
 				</div>
 			</main>
-			<footer></footer>
 		</>
 	);
 }

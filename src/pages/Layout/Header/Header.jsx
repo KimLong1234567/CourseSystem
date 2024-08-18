@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavBar() {
 	return (
@@ -26,7 +26,7 @@ function NavBar() {
 					</NavLink>
 				</li>
 				<li className="px-2 text-sm">
-					<a href="#contact" className=" border-white hover:border-b-[1px]">
+					<a href="/contact" className=" border-white hover:border-b-[1px]">
 						CONTACT
 					</a>
 				</li>
