@@ -14,19 +14,20 @@ const Profile_icon = [
   { icon: faEnvelope },
 ];
 
-function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
-  const hasData = id && name && description && dateStart && dateEnd;
+function coursesDetail({
+  id,
+  name,
+  description,
+  startDate,
+  endDate,
+  category,
+  company,
+  onClose,
+}) {
+  const hasData = id && name && description && startDate && endDate;
 
-  function TransferDate(timestamp) {
-    const date = new Date(timestamp * 1000);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  const startDate = TransferDate(dateStart);
-  const endDate = TransferDate(dateEnd);
+  const start = new Date(startDate).toLocaleDateString();
+  const end = new Date(endDate).toLocaleDateString();
 
   return hasData ? (
     <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
@@ -52,7 +53,18 @@ function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
       </div>
 
       <div className="mt-4">
-        <p className="text-sm text-gray-500">{description}</p>
+        <p>Description:</p>
+        <p className="text-sm text-gray-500"> {description}</p>
+      </div>
+
+      <div className="mt-4">
+        <p>Category:</p>
+        <p className="text-sm text-gray-500"> {category.name}</p>
+      </div>
+
+      <div className="mt-4">
+        <p>Company:</p>
+        <p className="text-sm text-gray-500"> {company.name}</p>
       </div>
 
       <div className="flex justify-center space-x-6 mt-4">
@@ -70,13 +82,13 @@ function coursesDetail({ id, name, description, dateStart, dateEnd, onClose }) {
 
       <dl className="mt-6 flex gap-4 sm:gap-6">
         <div className="flex flex-col-reverse">
+          <dd className="text-xs text-gray-500">{start}</dd>
           <dt className="text-sm font-medium text-gray-600">Start Date</dt>
-          <dd className="text-xs text-gray-500">{startDate}</dd>
         </div>
 
         <div className="flex flex-col-reverse">
+          <dd className="text-xs text-gray-500">{end}</dd>
           <dt className="text-sm font-medium text-gray-600">End Date</dt>
-          <dd className="text-xs text-gray-500">{endDate}</dd>
         </div>
       </dl>
 
@@ -98,8 +110,10 @@ coursesDetail.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  dateStart: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
+  category: PropTypes.object.isRequired,
+  company: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
