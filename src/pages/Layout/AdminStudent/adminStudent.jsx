@@ -51,7 +51,7 @@ function AdminContent() {
     form.setFieldsValue({
       // Populate form fields with current record data
       ...record,
-      dob: record.stu_birthday ? moment(record.dob) : null,
+      birthday: record.birthday ? moment(record.birthday) : null,
     });
     setIsModalOpen(true);
   };
@@ -131,18 +131,18 @@ function AdminContent() {
     },
     {
       title: 'Name',
-      dataIndex: 'stu_name',
-      ...getColumnSearchProps('stu_name'),
+      dataIndex: 'name',
+      ...getColumnSearchProps('name'),
       width: '15%',
     },
     {
-      title: 'Address',
-      dataIndex: 'stu_address',
+      title: 'Phone',
+      dataIndex: 'phone',
     },
     {
       title: 'Email',
-      dataIndex: 'stu_email',
-      ...getColumnSearchProps('stu_email'),
+      dataIndex: 'email',
+      ...getColumnSearchProps('email'),
       width: '30%',
     },
     {
@@ -297,7 +297,7 @@ function AdminContent() {
           >
             <Input
               min={0}
-              placeholder={currentRecord ? currentRecord.phone : 'Phone'}
+              placeholder="Phone"
               onKeyPress={(e) => {
                 if (isNaN(e.key)) {
                   e.preventDefault();
@@ -338,7 +338,7 @@ function AdminContent() {
 
           <Form.Item
             label="Date of Birth"
-            name="dob"
+            name="birthday"
             rules={[
               {
                 required: true,

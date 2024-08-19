@@ -38,14 +38,6 @@ function AdminCourses() {
     fetchData();
   }, [refresh]);
 
-  function TransferDate(timestamp) {
-    const date = new Date(timestamp * 1000);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
   const handleDetail = (record) => {
     setCurrentRecord(record);
     setIsProfileVisible(true);
@@ -56,7 +48,8 @@ function AdminCourses() {
     form.setFieldsValue({
       // Populate form fields with current record data
       ...record,
-      dob: record.dob ? moment(record.dob) : null,
+      dateStart: record.dateStart ? moment(record.dateStart) : null,
+      dateEnd: record.dateEnd ? moment(record.dateEnd) : null,
     });
     setIsModalOpen(true);
   };
@@ -127,10 +120,15 @@ function AdminCourses() {
       ),
   });
 
+  function convert(timestamp) {
+    // console.log(timestamp);
+    const dateConvert = new Date(timestamp).toLocaleDateString();
+    return dateConvert;
+  }
   const columns = [
     {
       title: 'Id',
-      dataIndex: 'id',
+      dataIndex: 'num',
       sorter: (a, b) => a.num - b.num,
       width: '5%',
     },
@@ -148,13 +146,13 @@ function AdminCourses() {
     },
     {
       title: 'Start Date',
-      dataIndex: 'dateStart',
-      render: (timestamp) => TransferDate(timestamp),
+      dataIndex: 'startDate',
+      render: (timestamp) => convert(timestamp),
     },
     {
       title: 'End Date',
-      dataIndex: 'dateEnd',
-      render: (timestamp) => TransferDate(timestamp),
+      dataIndex: 'endDate',
+      render: (timestamp) => convert(timestamp),
     },
     {
       title: 'Action',
@@ -204,6 +202,7 @@ function AdminCourses() {
       }
       setRefresh((prev) => prev + 1);
       setIsModalOpen(false);
+      form.resetFields();
     } catch (error) {
       console.error('Error saving account:', error);
     }

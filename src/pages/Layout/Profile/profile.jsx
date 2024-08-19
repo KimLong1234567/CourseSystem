@@ -16,26 +16,16 @@ const Profile_icon = [
 
 function Profile({
   id,
-  stu_name,
-  stu_address,
-  stu_email,
-  stu_phone,
-  stu_gender,
-  stu_birthday,
+  name,
+  address,
+  email,
+  phone,
+  gender,
+  birthday,
   onClose,
 }) {
-  const hasData =
-    id && stu_name && stu_address && stu_email && stu_email && stu_birthday;
-  function TransferDate(timestamp) {
-    const date = new Date(timestamp * 1000);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  const brithday = TransferDate(stu_birthday);
-
+  const hasData = id && name && address && email && phone && birthday;
+  const formattedDob = new Date(birthday).toLocaleDateString();
   return hasData ? (
     <div className="max-w-sm mx-auto  rounded-xl shadow-lg p-6 space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
@@ -64,22 +54,22 @@ function Profile({
 
       <div className="space-y-2 text-gray-700">
         <div>
-          <strong>Name:</strong> {stu_name}
+          <strong>Name:</strong> {name}
         </div>
         <div>
-          <strong>Address:</strong> {stu_address}
+          <strong>Address:</strong> {address}
         </div>
         <div>
-          <strong>Phone:</strong> {stu_phone}
+          <strong>Phone:</strong> {phone}
         </div>
         <div>
-          <strong>Email:</strong> {stu_email}
+          <strong>Email:</strong> {email}
         </div>
         <div>
-          <strong>Gender:</strong> {stu_gender}
+          <strong>Gender:</strong> {gender}
         </div>
         <div>
-          <strong>Date of Birth:</strong> {brithday}
+          <strong>Date of Birth:</strong> {formattedDob}
         </div>
       </div>
 
@@ -99,12 +89,12 @@ function Profile({
 
 Profile.propTypes = {
   id: PropTypes.string.isRequired,
-  stu_name: PropTypes.string.isRequired,
-  stu_address: PropTypes.string.isRequired,
-  stu_email: PropTypes.string.isRequired,
-  stu_phone: PropTypes.number.isRequired,
-  stu_gender: PropTypes.string.isRequired,
-  stu_birthday: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  gender: PropTypes.string.isRequired,
+  birthday: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
