@@ -48,24 +48,18 @@ function AdminCategory() {
   const columns = [
     {
       title: 'Id',
-      dataIndex: 'id',
+      dataIndex: 'num',
       sorter: (a, b) => a.num - b.num,
-
       width: '5%',
     },
     {
       title: 'Name',
       dataIndex: 'name',
-      filters: [],
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value, record) => record.name.startsWith(value),
       width: '15%',
     },
     {
       title: 'Age',
       dataIndex: 'age',
-      sorter: (a, b) => a.age - b.age,
     },
     {
       title: 'description',

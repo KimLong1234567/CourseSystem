@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL =
   'https://66ac95e0f009b9d5c732a553.mockapi.io/category' ||
-  'http://localhost:8080/api/categories';
+  'http://192.168.18.115:8080/api/categories';
 
 // Service để gọi các API liên quan đến Post
 export const getCategory = async () => {
