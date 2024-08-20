@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-const API_URL =
-  'https://66bc665424da2de7ff6a5957.mockapi.io/student' ||
-  'http://localhost:8080/api/users';
-
+const API_URL = 'http://192.168.18.115:8080/api/users';
+//   'https://66bc665424da2de7ff6a5957.mockapi.io/student'
 // Service để gọi các API liên quan đến Post
 export const getAccount = async () => {
   try {
     const response = await axios.get(API_URL);
-    return response.data;
+    return response.data.content;
   } catch (error) {
     console.error('Error fetching posts:', error);
     throw error;
@@ -38,7 +36,7 @@ export const createAccount = async (post) => {
 export const updateAccount = async (id, post) => {
   try {
     console.log(id, post);
-    const response = await axios.put(`${API_URL}/${id}`, post);
+    const response = await axios.put(`${API_URL}/${id}/update_info`, post);
     return response.data;
   } catch (error) {
     console.error('Error updating post:', error);

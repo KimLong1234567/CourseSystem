@@ -122,7 +122,7 @@ function AdminCompany() {
   const columns = [
     {
       title: 'Id',
-      dataIndex: 'id',
+      dataIndex: 'num',
       sorter: (a, b) => a.num - b.num,
       width: '5%',
     },
@@ -254,7 +254,7 @@ function AdminCompany() {
               },
             ]}
           >
-            <Input placeholder="Comapny Email" />
+            <Input placeholder="Company Email" />
           </Form.Item>
 
           <Form.Item
@@ -303,9 +303,7 @@ function AdminCompany() {
         style={{
           gridTemplateRows: 'auto',
           gridTemplateColumns: '3fr minmax(auto, 1fr)',
-          gridTemplateAreas: `
-              "table profile"
-            `,
+          gridTemplateAreas: `"table profile"`,
           gap: '1rem',
         }}
       >
@@ -316,14 +314,14 @@ function AdminCompany() {
           dataSource={data}
           rowKey="id"
         />
-        {isProfileVisible && currentRecord && (
-          <Profile
-            className="sticky top-0 max-h-screen overflow-auto"
-            style={{ gridArea: 'profile' }}
-            {...currentRecord}
-            onClose={() => setIsProfileVisible(false)}
-          />
-        )}
+        <div className="mt-5" style={{ gridArea: 'profile' }}>
+          {isProfileVisible && currentRecord && (
+            <Profile
+              {...currentRecord}
+              onClose={() => setIsProfileVisible(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
