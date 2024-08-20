@@ -3,15 +3,13 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
   faUserGraduate,
-  faThList,
-  faBuilding,
   faBookOpen,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Admin sidebar menu items
-const ADMIN_SIDEBAR = [
+const TEACHER_SIDEBAR = [
   {
     icon: faHome,
     name: 'Home',
@@ -20,27 +18,12 @@ const ADMIN_SIDEBAR = [
   {
     icon: faUserGraduate,
     name: 'Students',
-    to: '/admin/user',
-  },
-  {
-    icon: faUser,
-    name: 'Students',
-    to: '/admin/student',
-  },
-  {
-    icon: faThList,
-    name: 'Category',
-    to: '/admin/category',
-  },
-  {
-    icon: faBuilding,
-    name: 'Company',
-    to: '/admin/company',
+    to: '/teacher/student',
   },
   {
     icon: faBookOpen,
     name: 'Courses',
-    to: '/admin/courses',
+    to: '/teacher/courses',
   },
 ];
 
@@ -49,7 +32,7 @@ function Sidebar() {
 
   return (
     <div className="bg-gray-800 text-white h-full p-4 space-y-4">
-      {ADMIN_SIDEBAR.map((item, index) => {
+      {TEACHER_SIDEBAR.map((item, index) => {
         const isActive = activeItem === index;
         return (
           <Link

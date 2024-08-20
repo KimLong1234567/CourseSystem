@@ -1,0 +1,1562 @@
+{
+	"info": {
+		"_postman_id": "bb06a20d-1687-48de-b2e6-4b3457e10db4",
+		"name": "CourseManagement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28191289",
+		"_collection_link": "https://www.postman.com/course-management/workspace/coursemanagement/collection/28191289-bb06a20d-1687-48de-b2e6-4b3457e10db4?action=share&source=collection_link&creator=28191289"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "get all user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users?page=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/66635a83-f2b4-4a27-a4f7-b67cfdde0899",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"66635a83-f2b4-4a27-a4f7-b67cfdde0899"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/search_by_name/user2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"search_by_name",
+								"user2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by phone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/search_by_phone/03467509899",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"search_by_phone",
+								"03467509899"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/search_by_email/user7gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"search_by_email",
+								"user7gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user6\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": \"2001-11-05\",\r\n    \"phone\": \"0346750986\",\r\n    \"email\": \"user6gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user info",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user111111\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": \"2001-11-05\",\r\n    \"phone\": \"0346750988\",\r\n    \"email\": \"user1@gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/66635a83-f2b4-4a27-a4f7-b67cfdde0899/update_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"66635a83-f2b4-4a27-a4f7-b67cfdde0899",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/66635a83-f2b4-4a27-a4f7-b67cfdde0899",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"66635a83-f2b4-4a27-a4f7-b67cfdde0899"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ACCOUNT",
+			"item": [
+				{
+					"name": "get all account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get account by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								"cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"id\": \"618f80bc-a891-4fa9-9ebd-66fa9b1599f6\",\r\n        \"email\": \"user2gmail.com\"\r\n    },\r\n    \"role\": {\r\n        \"id\": \"efc0c054-e222-4253-ad21-4efce4f419bc\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get accounts page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts?page=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get account by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/search_by_name/user2gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								"search_by_name",
+								"user2gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update accounts",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n            \"id\": \"cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e\",\r\n            \"username\": \"user2gmail.com\",\r\n            \"user\": {\r\n                \"id\": \"618f80bc-a891-4fa9-9ebd-66fa9b1599f6\",\r\n                \"name\": \"user2\",\r\n                \"gender\": \"male\",\r\n                \"birthday\": \"2001-11-05\",\r\n                \"phone\": \"03467509899\",\r\n                \"email\": \"user2@gmail.com\",\r\n                \"address\": \"hcm\"\r\n            },\r\n            \"role\": {\r\n                \"id\": \"a9c1cb3a-85d0-4e49-908a-1d73beb2ff52\"\r\n            }\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e/update_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								"cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								"cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORY",
+			"item": [
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get category by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/049f2797-892a-4b14-b2f0-7f8aefeb0bd7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"049f2797-892a-4b14-b2f0-7f8aefeb0bd7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get categories page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get category by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/search_by_name/BE-JAVA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"search_by_name",
+								"BE-JAVA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"FE so cap\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"e8bdf378-64c4-4f3f-916e-3cd50c17ed3c\",\r\n    \"name\": \"FE so cap frome zero to hero\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/categories/e8bdf378-64c4-4f3f-916e-3cd50c17ed3c/update_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"e8bdf378-64c4-4f3f-916e-3cd50c17ed3c",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/categories/e8bdf378-64c4-4f3f-916e-3cd50c17ed3c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"categories",
+								"e8bdf378-64c4-4f3f-916e-3cd50c17ed3c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ROLE",
+			"item": [
+				{
+					"name": "get all role",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"adminCongTyD\",\r\n    \"permissions\": [\r\n        {\r\n            \"id\": \"c7546ec9-936b-4ffe-96df-6fc8780aadac\"\r\n        },\r\n        {\r\n            \"id\": \"9db0c7ef-5ca5-4b19-b1c9-f8c5ea2d4a73\"\r\n        },\r\n        {\r\n            \"id\": \"9a997dd2-4f34-47cd-8711-7c0251401130\"\r\n        },\r\n        {\r\n            \"id\": \"56ec41c7-9094-4bf2-9c4a-402bc8066f74\"\r\n        }\r\n    ]\r\n}  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get roles page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/roles?page=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get role by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/roles/efc0c054-e222-4253-ad21-4efce4f419bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"efc0c054-e222-4253-ad21-4efce4f419bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get role by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/roles/search_by_name/admin0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"search_by_name",
+								"admin0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"adminCongTyDichVu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/roles/efc0c054-e222-4253-ad21-4efce4f419bc/update_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"efc0c054-e222-4253-ad21-4efce4f419bc",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete role",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/roles/a9c1cb3a-85d0-4e49-908a-1d73beb2ff52",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"a9c1cb3a-85d0-4e49-908a-1d73beb2ff52"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMPANY",
+			"item": [
+				{
+					"name": "get all companies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get companies page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies?page=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get companies by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/4ff17db3-c0af-4322-9830-f6ab3e0b7a72",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"4ff17db3-c0af-4322-9830-f6ab3e0b7a72"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get companies by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/search_by_name/CongtyA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"search_by_name",
+								"CongtyA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"CongtyE\",\r\n    \"phone\": \"0969514976\",\r\n    \"email\": \"CongtyE@gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/companies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"CongtyEeeeee\",\r\n    \"phone\": \"0969514976\",\r\n    \"email\": \"CongtyE@gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/companies/97a4a219-36aa-4640-bd3a-26a62fdc8ed9/update_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"97a4a219-36aa-4640-bd3a-26a62fdc8ed9",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/companies/97a4a219-36aa-4640-bd3a-26a62fdc8ed9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"companies",
+								"97a4a219-36aa-4640-bd3a-26a62fdc8ed9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PERMISSIONS",
+			"item": [
+				{
+					"name": "get all permission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post permission",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Delect Student\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permission page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permissions?page=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permission by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permissions/e28350e2-55e3-4e2e-adb5-dc9b46b74852",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions",
+								"e28350e2-55e3-4e2e-adb5-dc9b46b74852"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get permission by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permissions/search_by_name/Add user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions",
+								"search_by_name",
+								"Add user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update permission",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Delete student course 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/permissions/53347110-0268-4636-a3df-72b67a3a389e/update_info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions",
+								"53347110-0268-4636-a3df-72b67a3a389e",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete permission",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/permissions/53347110-0268-4636-a3df-72b67a3a389e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"permissions",
+								"53347110-0268-4636-a3df-72b67a3a389e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COURSES",
+			"item": [
+				{
+					"name": "get courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get courses search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses/search?name=NODE FE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "nếu không có tham số truyền vào thì mặc định là 0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"description": "nếu không có tham số truyền vào thì mặc định là 10",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "NODE FE",
+									"description": "tham số bắt buộc"
+								},
+								{
+									"key": "sort",
+									"value": "endDate:desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NODE FE\",\r\n    \"description\": \"Lap trinh NODE FE so cap\",\r\n    \"startDate\": \"2024-19-08\",\r\n    \"endDate\": \"2025-19-08\",\r\n    \"category\": {\r\n        \"id\": \"4a758c51-b0e2-4371-94ac-cbad60a06320\"\r\n    },\r\n    \"company\": {\r\n        \"id\": \"4ff17db3-c0af-4322-9830-f6ab3e0b7a72\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get courses filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-08-19",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "2025-08-19",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "4a758c51-b0e2-4371-94ac-cbad60a06320",
+									"disabled": true
+								},
+								{
+									"key": "companyId",
+									"value": "228e0b59-34f4-4264-8936-ff5d7318ecab",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "startDate:desc",
+									"description": "sort theo tiêu chí điều kiện khác nhau (vd: startDate, name,)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "không có tham số thì mặc định là 0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"description": "không có tham số thì mặc định là 10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get course by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update course",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "delete course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses/6bd3c85b-f99c-4fe4-af0b-654ba4ac3eb9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"6bd3c85b-f99c-4fe4-af0b-654ba4ac3eb9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sort courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "name:desc",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "startDate:desc",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "endDate:desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "STUDENTS",
+			"item": [
+				{
+					"name": "all student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/students",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students"
+							],
+							"query": [
+								{
+									"key": "size ",
+									"value": "5",
+									"description": "mặc định là 10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "mặc định là 0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "birthday:desc",
+									"disabled": true
+								},
+								{
+									"key": "sort ",
+									"value": "name:desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n            \"name\": \"Nguyen Van D\",\r\n            \"gender\": \"male\",\r\n            \"birthday\": \"1998-12-13\",\r\n            \"phone\": \"0969514974\",\r\n            \"email\": \"D@gmail.com\",\r\n            \"address\": \"hcm\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/students",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/students/search",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "A",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "a@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": "0969514973",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete student",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "student by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update student",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nguyen Van C\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": \"1998-12-13\",\r\n    \"phone\": \"0969514973\",\r\n    \"email\": \"C@gmail.com\",\r\n    \"address\": \"thu duc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/students/8dd1491f-4745-476e-b9da-193aef9b644a/update_info",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								"8dd1491f-4745-476e-b9da-193aef9b644a",
+								"update_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/students/8dd1491f-4745-476e-b9da-193aef9b644a",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								"8dd1491f-4745-476e-b9da-193aef9b644a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
