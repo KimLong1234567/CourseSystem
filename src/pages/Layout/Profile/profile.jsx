@@ -29,7 +29,7 @@ function Profile({
   return hasData ? (
     <div className="max-w-sm mx-auto  rounded-xl shadow-lg p-6 space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
-        ID Student: {id}
+        ID User: {id}
       </h2>
       <div className="flex justify-center">
         <img

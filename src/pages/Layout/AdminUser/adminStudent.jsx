@@ -13,7 +13,7 @@ import moment from 'moment';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
-function AdminContent() {
+function AdminStudent() {
   const [form] = Form.useForm();
   const [refresh, setRefresh] = useState(0);
   const [data, setData] = useState([]);
@@ -209,7 +209,7 @@ function AdminContent() {
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
-        Student Manage
+        Users Manage
       </h2>
       <Button
         type="primary"
@@ -236,7 +236,7 @@ function AdminContent() {
         />
         {(isHovered || isModalOpen) && (
           <span className="transition-opacity duration-300 ease-in-out opacity-100">
-            Add Student
+            Add User
           </span>
         )}
       </Button>
@@ -386,4 +386,4 @@ function AdminContent() {
   );
 }
 
-export default AdminContent;
+export default AdminStudent;
