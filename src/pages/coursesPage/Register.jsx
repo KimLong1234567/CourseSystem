@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import {
+	faCircleExclamation,
+	faBullseye,
+} from "@fortawesome/free-solid-svg-icons";
 import { createStudent } from "../../service/student";
 import { toast } from "react-toastify";
 
@@ -21,18 +24,11 @@ function InputField({ id, type, label, register, error, placeholder }) {
 	);
 }
 
-function TransferDate(timestamp) {
-	const date = new Date(timestamp * 1000);
-	const day = date.getDate();
-	const month = date.getMonth() + 1;
-	const year = date.getFullYear();
-	return `${day}/${month}/${year}`;
-}
-
 export default function Register() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { course } = location.state || {};
+	console.log(course);
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	}, []);
@@ -58,7 +54,7 @@ export default function Register() {
 
 	return (
 		<>
-			<main className="px-16 py-14 flex flex-col justify-center h-[900px] overflow-hidden">
+			<main className="px-16 py-10 flex flex-col justify-center min-h-screen max-h-[1100px] overflow-hidden">
 				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
 					<div className="w-2/3 relative">
 						<img
@@ -68,15 +64,31 @@ export default function Register() {
 						/>
 						<div className="absolute top-0 left-0 w-full h-full bg-[#1C1E53]/60"></div>
 						<div className="font-mono absolute top-20 left-20">
-							<h1 className="text-4xl font-semibold text-white">
-								{course.name}
+							<h1 className="text-4xl font-semibold text-white py-6">
+								<FontAwesomeIcon icon={faBullseye} /> CATEGORY:{" "}
+								{course.category.name}
 							</h1>
+							<p></p>
+							<h2 className="text-3xl font-semibold text-white">
+								COURSES: {course.name}
+							</h2>
 							<p className="mt-4 pl-5 pr-28 text-xl text-white leading-7">
 								{course.description}
 							</p>
 							<p className="mt-4 pl-5 pr-28 text-xl text-white leading-7 font-bold">
-								Start: {TransferDate(course.dateStart)} - End:{" "}
-								{TransferDate(course.dateEnd)}
+								Start: {course.startDate} - End: {course.endDate}
+							</p>
+							<h2 className="text-3xl font-semibold text-white pt-6">
+								INFORMATION OF COMPANY:
+							</h2>
+							<p className="mt-4 pl-5 pr-28 text-xl text-white leading-7">
+								Name: {course.company.name}
+							</p>
+							<p className="mt-4 pl-5 pr-28 text-xl text-white leading-7">
+								Address: {course.company.address}
+							</p>
+							<p className="mt-4 pl-5 pr-28 text-xl text-white leading-7">
+								Phone: {course.company.phone} - Email: {course.company.email}
 							</p>
 							<div className="flex flex-col justify-between mt-10">
 								<h3 className="flex items-center gap-3 text-2xl text-white leading-7 font-bold">
@@ -169,13 +181,20 @@ export default function Register() {
 								/>
 								<InputField
 									id="stu_phone"
-									type="Number"
+									type="tel"
 									label="Phone"
 									register={register}
 									error={errors.stu_phone}
 									placeholder="Enter your phone number"
 								/>
-
+								<InputField
+									id="stu_address"
+									type="text"
+									label="Address"
+									register={register}
+									error={errors.stu_address}
+									placeholder="Enter your address"
+								/>
 								<button
 									type="submit"
 									className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"

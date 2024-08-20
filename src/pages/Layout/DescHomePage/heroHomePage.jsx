@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 function HeroHomePage() {
 	return (
 		<div className="bg-[#1C1E53]">
@@ -16,13 +17,19 @@ function HeroHomePage() {
 							connecting students and centers.
 						</p>
 						<div className="mt-16">
-							<button className="bg-[#FCD980] text-[#1C1E53]  px-10 py-4 rounded-md text-xl font-semibold hover:bg-yellow-200">
+							<Link
+								to={"/CoursesPage"}
+								className="bg-[#FCD980] text-[#1C1E53]  px-10 py-4 rounded-md text-xl font-semibold hover:bg-yellow-200"
+							>
 								Get Started
-							</button>
-							<button className="text-white  px-10 py-4 rounded-md text-xl font-semibold hover:font-bold">
+							</Link>
+							<Link
+								to={"/Contact"}
+								className="text-white  px-10 py-4 rounded-md text-xl font-semibold hover:font-bold"
+							>
 								Learn More
 								<FontAwesomeIcon className="ml-3" icon={faArrowRight} />
-							</button>
+							</Link>
 						</div>
 					</div>
 					<div className="w-1/2 h-full flex justify-center items-center">

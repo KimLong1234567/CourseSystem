@@ -22,7 +22,6 @@ export default function MainHomePage() {
 				console.error("Error fetching courses:", error);
 			}
 		};
-
 		fetchCourses();
 	}, []);
 	return (
@@ -53,6 +52,7 @@ export default function MainHomePage() {
 						coursesData={coursesData}
 						coursesPerPage={3}
 						scrollToTop={false}
+						searchText={""}
 					/>
 				</div>
 				{/* Rate */}
