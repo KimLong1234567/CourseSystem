@@ -1,16 +1,34 @@
 import axios from "axios";
 
-const API_URL =
-	"https://66c2ee55d057009ee9be61b9.mockapi.io/category" ||
-	"http://192.168.18.115:8080/api/categories";
+const API_URL = "http://192.168.18.115:8080/api/categories";
 
+const API_URL_MOC = "https://66c2ee55d057009ee9be61b9.mockapi.io/category";
+
+const timeoutPromise = (ms) => {
+	return new Promise((_, reject) =>
+		setTimeout(() => reject(new Error("Timeout")), ms)
+	);
+};
 export const getCategory = async () => {
 	try {
-		const response = await axios.get(API_URL);
+		const response = await Promise.race([
+			axios.get(API_URL),
+			timeoutPromise(3000),
+		]);
+		console.log("Fetch API form sever BE");
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching posts:", error);
-		throw error;
+		console.warn(
+			"Primary API failed or took too long. Falling back to secondary API..."
+		);
+		try {
+			const fallbackResponse = await axios.get(API_URL_MOC);
+			console.log("Fetch API form sever MOC");
+			return fallbackResponse.data;
+		} catch (fallbackError) {
+			console.error("Both APIs failed:", fallbackError);
+			throw fallbackError;
+		}
 	}
 };
 
@@ -19,7 +37,7 @@ export const getCategoryId = async (id) => {
 		const response = await axios.get(`${API_URL}/${id}`);
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching post:", error);
+		console.error("Error fetching filter:", error);
 		throw error;
 	}
 };
