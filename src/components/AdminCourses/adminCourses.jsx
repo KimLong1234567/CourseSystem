@@ -7,7 +7,7 @@ import {
 	createCourses,
 	deleteCourses,
 	updateCourses,
-} from "../../../service/courses";
+} from "../../service/courses";
 import Profile from "../Profile/coursesDetail";
 import moment from "moment";
 

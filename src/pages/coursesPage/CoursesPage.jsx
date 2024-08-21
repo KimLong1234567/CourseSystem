@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCourses } from "../../service/courses.js";
 import { getCategory } from "../../service/category.js";
-import CourseList from "../Layout/course/CoursesList";
+import CourseList from "../../components/course/CoursesList.jsx";
 
 export default function CoursesPage() {
 	const [coursesData, setCoursesData] = useState([]);

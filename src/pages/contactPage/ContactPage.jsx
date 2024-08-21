@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterHomepage from "../Layout/DescHomePage/registerHomepage";
+import RegisterHomepage from "../../components/DescHomePage/registerHomepage";
 
 export default function ContactPage() {
 	return (
