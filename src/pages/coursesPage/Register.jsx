@@ -28,7 +28,7 @@ export default function Register() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { course } = location.state || {};
-	console.log(course);
+
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	}, []);
@@ -50,15 +50,14 @@ export default function Register() {
 	};
 
 	const imgPathDemo =
-		"https://plus.unsplash.com/premium_photo-1661596686441-611034b8077e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-
+		"https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 	return (
 		<>
 			<main className="px-16 py-10 flex flex-col justify-center min-h-screen max-h-[1100px] overflow-hidden">
 				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
 					<div className="w-2/3 relative">
 						<img
-							src={course.image === null ? imgPathDemo : course.image}
+							src={course.image === undefined ? imgPathDemo : course.image}
 							alt=""
 							className="w-full h-full object-cover"
 						/>

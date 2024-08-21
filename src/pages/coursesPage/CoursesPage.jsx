@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { getCourses } from "../../service/courses.js";
 import { getCategory } from "../../service/category.js";
 import CourseList from "../Layout/course/CoursesList";
@@ -17,7 +16,6 @@ export default function CoursesPage() {
 				console.error("Error fetching courses:", error);
 			}
 		};
-
 		fetchCourses();
 	}, []);
 	return (
@@ -62,6 +60,12 @@ function SearchCourse({ setSearchText }) {
 				return category.name;
 			})
 		);
+	} else if (categoryData[0] && categoryData[0].content) {
+		dataSearching.push(
+			...categoryData[0].content.map((category) => {
+				return category.name;
+			})
+		);
 	}
 	return (
 		<div className="pt-10 w-full flex items-center justify-center flex-col gap-12">
@@ -73,7 +77,7 @@ function SearchCourse({ setSearchText }) {
 			/>
 			<ul className="flex justify-center items-center gap-10 text-[#282938] text-lg">
 				{dataSearching.map((data, index) => (
-					<li
+					<button
 						key={index}
 						className={`cursor-pointer ${
 							index === 0
@@ -81,8 +85,8 @@ function SearchCourse({ setSearchText }) {
 								: "text-gray-500 hover:text-[#2405F2]"
 						}`}
 					>
-						<Link to={`/${data}`}>{data}</Link>
-					</li>
+						{data}
+					</button>
 				))}
 			</ul>
 		</div>
