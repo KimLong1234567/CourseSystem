@@ -59,7 +59,6 @@ export const updateCompany = async (id, post) => {
           progress: undefined,
           theme: 'colored',
         });
-        // setTimeout(3000);
       });
     return response;
   } catch (error) {
@@ -80,7 +79,6 @@ export const deleteCompany = async (id) => {
         progress: undefined,
         theme: 'colored',
       });
-      // setTimeout(3000);
     });
   } catch (error) {
     console.error('Error deleting post:', error);

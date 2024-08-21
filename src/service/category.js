@@ -55,7 +55,6 @@ export const createCategory = async (post) => {
         progress: undefined,
         theme: 'colored',
       });
-      // setTimeout(3000);
     });
     return response.data;
   } catch (error) {
@@ -77,7 +76,6 @@ export const updateCategory = async (id, post) => {
         progress: undefined,
         theme: 'colored',
       });
-      // setTimeout(3000);
     });
     return response.data;
   } catch (error) {
@@ -99,7 +97,6 @@ export const deleteCategory = async (id) => {
           progress: undefined,
           theme: 'colored',
         });
-        // setTimeout(3000);
       })
     );
   } catch (error) {

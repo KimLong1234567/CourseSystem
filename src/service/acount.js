@@ -36,7 +36,6 @@ export const createAccount = async (post) => {
         progress: undefined,
         theme: 'colored',
       });
-      // setTimeout(3000);
     });
     return response.data;
   } catch (error) {

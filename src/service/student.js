@@ -59,7 +59,6 @@ export const updateStudent = async (id, post) => {
           progress: undefined,
           theme: 'colored',
         });
-        // setTimeout(3000);
       });
     return response;
   } catch (error) {
@@ -80,7 +79,6 @@ export const deleteStudent = async (id) => {
         progress: undefined,
         theme: 'colored',
       });
-      // setTimeout(3000);
     });
   } catch (error) {
     console.error('Error deleting post:', error);

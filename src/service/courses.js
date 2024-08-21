@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const API_URL = 'http://192.168.18.115:8080/api/courses';
 const API_URL_MOC = 'https://66bc665424da2de7ff6a5957.mockapi.io/courses';
@@ -57,7 +58,17 @@ export const getCoursesById = async (id) => {
 export const createCourses = async (course) => {
   try {
     const response = await Promise.any([
-      axios.post(API_URL, course),
+      axios.post(API_URL, course).then((res) => {
+        toast.success('Create success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }),
       axios.post(API_URL_MOC, course),
     ]);
     return response.data;
@@ -70,7 +81,17 @@ export const createCourses = async (course) => {
 export const updateCourses = async (id, course) => {
   try {
     const response = await Promise.any([
-      axios.put(`${API_URL}/${id}`, course),
+      axios.put(`${API_URL}/${id}`, course).then((res) => {
+        toast.info('Update success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }),
       axios.put(`${API_URL_MOC}/${id}`, course),
     ]);
     return response.data;
@@ -83,7 +104,17 @@ export const updateCourses = async (id, course) => {
 export const deleteCourses = async (id) => {
   try {
     await Promise.any([
-      axios.delete(`${API_URL}/${id}`),
+      axios.delete(`${API_URL}/${id}`).then((res) => {
+        toast.error('Delete success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }),
       axios.delete(`${API_URL_MOC}/${id}`),
     ]);
   } catch (error) {
