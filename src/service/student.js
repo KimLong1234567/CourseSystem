@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const API_URL = 'https://66bc665424da2de7ff6a5957.mockapi.io/student';
 
@@ -7,6 +8,18 @@ export const createStudent = async (student) => {
   try {
     console.log(student);
     const response = await axios.post(API_URL, student);
+    response.then((res) => {
+      toast.info('Update success', {
+        position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      setTimeout(3000);
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);
