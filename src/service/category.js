@@ -1,10 +1,9 @@
 import axios from "axios";
 
 const API_URL =
-	"https://66ac95e0f009b9d5c732a553.mockapi.io/category" ||
+	"https://66c2ee55d057009ee9be61b9.mockapi.io/category" ||
 	"http://192.168.18.115:8080/api/categories";
 
-// Service để gọi các API liên quan đến Post
 export const getCategory = async () => {
 	try {
 		const response = await axios.get(API_URL);

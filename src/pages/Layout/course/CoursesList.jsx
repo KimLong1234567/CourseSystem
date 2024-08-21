@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,15 +8,22 @@ import {
 
 function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 	const [currentPage, setCurrentPage] = useState(1);
-	let pageNotFound = false;
-	let data = [];
-	if (coursesData.content) {
-		data = coursesData.content;
-	} else if (coursesData[0] && coursesData[0].content) {
-		data = coursesData[0].content;
-	} else {
-		pageNotFound = true;
-	}
+	const [loading, setLoading] = useState(true);
+
+	const data = useMemo(() => {
+		if (coursesData.content) {
+			return coursesData.content;
+		} else if (coursesData[0] && coursesData[0].content) {
+			return coursesData[0].content;
+		}
+		return [];
+	}, [coursesData]);
+
+	useEffect(() => {
+		if (data && data.length > 0) {
+			setLoading(false);
+		}
+	}, [data]);
 
 	const filteredCourses = data.filter((course) =>
 		course.name.toLowerCase().includes(searchText.toLowerCase())
@@ -40,10 +47,28 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 		"https://plus.unsplash.com/premium_photo-1661596686441-611034b8077e?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 	return (
-		<div>
-			{pageNotFound ? (
-				<div className="">
-					<h2 className="text-center text-xl p-10">Data not Found</h2>
+		<>
+			{loading ? (
+				<div className="flex flex-col justify-center items-center pt-10">
+					<svg
+						className="animate-spin h-10 w-10 mr-3 text-[#1C1E53]"
+						viewBox="0 0 24 24"
+					>
+						<circle
+							className="opacity-5"
+							cx="12"
+							cy="12"
+							r="10"
+							stroke="currentColor"
+							strokeWidth="4"
+						></circle>
+						<path
+							className="opacity-75"
+							fill="currentColor"
+							d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+						></path>
+					</svg>
+					<p className="text-lg font-medium pt-4">Loading .....</p>
 				</div>
 			) : (
 				<>
@@ -54,7 +79,7 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 								state={{ course: course }}
 								key={course.id}
 							>
-								<section className="w-96 shadow-md hover:shadow-xl cursor-pointer animate-fadeIn">
+								<section className="animate-fadeIn w-96 shadow-md hover:shadow-xl cursor-pointer">
 									<div className="w-full rounded-lg">
 										<img
 											className="w-full h-60 object-cover rounded-t-lg"
@@ -70,10 +95,10 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 											{course.description}
 										</p>
 										<p className="text-[#282938] text-lg opacity-60">
-											Category: {course.category.name}
+											<strong>Category:</strong> {course.category.name}
 										</p>
 										<p className="text-[#282938] text-lg opacity-60">
-											Company: {course.company.name}
+											<strong>Company:</strong> {course.company.name}
 										</p>
 									</div>
 									<div className="px-4 pb-6 flex justify-between items-center opacity-60">
@@ -123,7 +148,7 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 					</div>
 				</>
 			)}
-		</div>
+		</>
 	);
 }
 
