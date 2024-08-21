@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import HeroHomePage from "../Layout/DescHomePage/heroHomePage.jsx";
-import Collaboration from "../Layout/DescHomePage/collaboration.jsx";
-import CourseList from "../Layout/course/CoursesList.jsx";
-import DetailHomePage from "../Layout/DescHomePage/detailHomePage.jsx";
+import HeroHomePage from "../../components/DescHomePage/heroHomePage.jsx";
+import Collaboration from "../../components/DescHomePage/collaboration.jsx";
+import CourseList from "../../components/course/CoursesList.jsx";
+import DetailHomePage from "../../components/DescHomePage/detailHomePage.jsx";
 import { getCourses } from "../../service/courses.js";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import AboutUS from "../Layout/DescHomePage/aboutUS.jsx";
-import RateHomePage from "../Layout/DescHomePage/rateHomePage.jsx";
-import RegisterHomepage from "../Layout/DescHomePage/registerHomepage.jsx";
+import AboutUS from "../../components/DescHomePage/aboutUS.jsx";
+import RateHomePage from "../../components/DescHomePage/rateHomePage.jsx";
+import RegisterHomepage from "../../components/DescHomePage/registerHomepage.jsx";
 
 export default function MainHomePage() {
 	const [coursesData, setCoursesData] = useState([]);
