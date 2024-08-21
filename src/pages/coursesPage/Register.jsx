@@ -44,8 +44,9 @@ export default function Register() {
 			id_course: course.id,
 			...data,
 		};
-		createStudent(courseData);
+		// createStudent(courseData);
 		navigate("/RegisterSuccess", { state: { courseData } });
+		console.log(courseData);
 		toast.success("Register successfully!");
 	};
 
@@ -123,7 +124,7 @@ export default function Register() {
 								noValidate
 							>
 								<InputField
-									id="stu_name"
+									id="name"
 									type="text"
 									label="Name"
 									register={register}
@@ -132,9 +133,9 @@ export default function Register() {
 								/>
 								<div className="mb-4">
 									<select
-										name="stu_gender"
-										id="stu_gender"
-										{...register("stu_gender", {
+										name="gender"
+										id="gender"
+										{...register("gender", {
 											required: "Gender is required",
 										})}
 										className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg placeholder-gray-500"
@@ -156,8 +157,8 @@ export default function Register() {
 								<div className="mb-4">
 									<input
 										type="date"
-										id="stu_birthday"
-										{...register("stu_birthday", {
+										id="birthday"
+										{...register("birthday", {
 											required: "Birthday is required",
 										})}
 										className="w-full px-8 py-4 mt-2 bg-transparent text-[#F4F6FC] text-lg border-[1px] border-[#FFFFFF1A] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
@@ -171,7 +172,7 @@ export default function Register() {
 								</div>
 
 								<InputField
-									id="stu_email"
+									id="email"
 									type="email"
 									label="Email"
 									register={register}
@@ -179,7 +180,7 @@ export default function Register() {
 									placeholder="Enter your email"
 								/>
 								<InputField
-									id="stu_phone"
+									id="phone"
 									type="tel"
 									label="Phone"
 									register={register}
@@ -187,7 +188,7 @@ export default function Register() {
 									placeholder="Enter your phone number"
 								/>
 								<InputField
-									id="stu_address"
+									id="address"
 									type="text"
 									label="Address"
 									register={register}
