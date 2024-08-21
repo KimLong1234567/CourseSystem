@@ -26,7 +26,7 @@ function companyDetail({ id, name, email, address, phone, onClose }) {
           <h3 className="text-lg font-bold text-gray-900 sm:text-xl">
             ID Company: {id}
           </h3>
-          <p className="mt-1 text-xs font-medium text-gray-600">
+          <p className="mt-1 text-xs font-bold text-gray-700">
             Company Name: {name}
           </p>
         </div>
