@@ -21,14 +21,14 @@ function AdminCategory() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accounts = await getCategory();
-        const accountsWithId = accounts.map((account, index) => ({
+        const categorys = await getCategory();
+        const categorysWithId = categorys.map((account, index) => ({
           ...account,
           num: index + 1,
         }));
-        setData(accountsWithId);
+        setData(categorysWithId);
       } catch (error) {
-        console.error('Error fetching accounts:', error);
+        console.error('Error fetching category:', error);
       }
     };
 
@@ -56,18 +56,6 @@ function AdminCategory() {
       title: 'Name',
       dataIndex: 'name',
       width: '15%',
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-    },
-    {
-      title: 'description',
-      dataIndex: 'description',
-      filters: [],
-      onFilter: (value, record) => record.description.startsWith(value),
-      filterSearch: true,
-      width: '30%',
     },
     {
       title: 'Action',

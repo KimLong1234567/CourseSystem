@@ -12,6 +12,7 @@ import Profile from '../Profile/profile';
 import moment from 'moment';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer } from 'react-toastify';
 
 function AdminStudent() {
   const [form] = Form.useForm();
@@ -209,8 +210,9 @@ function AdminStudent() {
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
-        Users Manage
+        Students Manage
       </h2>
+      <ToastContainer />
       <Button
         type="primary"
         onClick={() => {
@@ -236,7 +238,7 @@ function AdminStudent() {
         />
         {(isHovered || isModalOpen) && (
           <span className="transition-opacity duration-300 ease-in-out opacity-100">
-            Add User
+            Add Student
           </span>
         )}
       </Button>
