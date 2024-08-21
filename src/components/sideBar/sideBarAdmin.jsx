@@ -19,7 +19,7 @@ const ADMIN_SIDEBAR = [
   },
   {
     icon: faUserGraduate,
-    name: 'Students',
+    name: 'Teacher',
     to: '/admin/user',
   },
   {
