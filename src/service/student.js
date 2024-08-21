@@ -1,19 +1,33 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const API_URL = 'http://192.168.18.115:8080/api/users';
-//   'https://66bc665424da2de7ff6a5957.mockapi.io/student'
+const API_URL = 'https://66bc665424da2de7ff6a5957.mockapi.io/student';
+
 // Service để gọi các API liên quan đến Post
-export const getAccount = async () => {
+export const createStudent = async (student) => {
   try {
-    const response = await axios.get(API_URL);
-    return response.data.content;
+    console.log(student);
+    const response = await axios.post(API_URL, student);
+    response.then((res) => {
+      toast.info('Update success', {
+        position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      setTimeout(3000);
+    });
+    return response.data;
   } catch (error) {
     console.error('Error fetching posts:', error);
     throw error;
   }
 };
 
-export const getAccountById = async (id) => {
+export const getStudentById = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
@@ -23,7 +37,7 @@ export const getAccountById = async (id) => {
   }
 };
 
-export const createAccount = async (post) => {
+export const getAllStudent = async (post) => {
   try {
     const response = await axios.post(API_URL, post);
     return response.data;

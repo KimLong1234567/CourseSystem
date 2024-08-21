@@ -1,15 +1,45 @@
-import React from 'react';
-import Sidebar from '../sideBar/sideBarAdmin';
+import React from "react";
+import Sidebar from "../../components/sideBar/SideBar";
+import HeaderAdmin from "../../components/HeaderAdmin/header";
+import { Outlet } from "react-router-dom";
+import "./mainContent.css";
+
 function MainContent() {
-  return (
-    <div className="grid grid-rows-3 grid-col-4 gap-2">
-      <div className="row-span-3 col-span-1 bg-red-700">
-        <Sidebar />
-      </div>
-      <div className="row-span-1 col-end-5 bg-gray-800">This is Header</div>
-      <div className="row-span-1 col-span-3 bg-red-400">This is main page</div>
-    </div>
-  );
+	return (
+		<div
+			className="h-screen grid gap-2"
+			style={{
+				gridTemplateRows: "auto 2fr",
+				gridTemplateColumns: "minmax(auto, 0.5fr) 3fr minmax(auto, 1fr)",
+				gridTemplateAreas: `
+          "sidebar header header"
+          "sidebar page page"
+        `,
+			}}
+		>
+			<div style={{ gridArea: "sidebar" }}>
+				<div className="flex justify-center bg-[#1C1E53] text-slate-50 py-4">
+					ADMIN
+				</div>
+				<Sidebar />
+			</div>
+			<div
+				className="flex items-end justify-end p-4 mr-5"
+				style={{ gridArea: "header" }}
+			>
+				<HeaderAdmin />
+			</div>
+			<div
+				className="bg-aquamarine-500 p-4 text-black"
+				style={{ gridArea: "page" }}
+			>
+				<Outlet />
+			</div>
+			{/* <div style={{ gridArea: 'detail' }}>
+        <Profile />
+      </div> */}
+		</div>
+	);
 }
 
 export default MainContent;

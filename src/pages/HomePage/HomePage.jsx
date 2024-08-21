@@ -1,11 +1,13 @@
 import React from "react";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
+import Header from "../../components/Header/Header";
+import { Outlet } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 
 export default function HomePage() {
 	return (
 		<>
 			<Header />
+			<Outlet />
 			<Footer />
 		</>
 	);

@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://192.168.18.115:8080/api/users';
-//   'https://66bc665424da2de7ff6a5957.mockapi.io/student'
+const API_URL =
+  'http://192.168.18.115:8080/api/companies' ||
+  'https://66ac95e0f009b9d5c732a553.mockapi.io/company';
 // Service để gọi các API liên quan đến Post
-export const getAccount = async () => {
+export const getCompany = async () => {
   try {
     const response = await axios.get(API_URL);
     return response.data.content;
@@ -13,17 +14,17 @@ export const getAccount = async () => {
   }
 };
 
-export const getAccountById = async (id) => {
+export const getCompanyById = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
-    return response.data;
+    return response.data.content;
   } catch (error) {
     console.error('Error fetching post:', error);
     throw error;
   }
 };
 
-export const createAccount = async (post) => {
+export const createCompany = async (post) => {
   try {
     const response = await axios.post(API_URL, post);
     return response.data;
@@ -33,7 +34,7 @@ export const createAccount = async (post) => {
   }
 };
 
-export const updateAccount = async (id, post) => {
+export const updateCompany = async (id, post) => {
   try {
     console.log(id, post);
     const response = await axios.put(`${API_URL}/${id}/update_info`, post);
@@ -44,7 +45,7 @@ export const updateAccount = async (id, post) => {
   }
 };
 
-export const deleteAccount = async (id) => {
+export const deleteCompany = async (id) => {
   try {
     await axios.delete(`${API_URL}/${id}`);
   } catch (error) {
