@@ -42,6 +42,11 @@ const ADMIN_SIDEBAR = [
     name: 'Courses',
     to: '/admin/courses',
   },
+  {
+    icon: faBookOpen,
+    name: 'Classes',
+    to: '/admin/classes',
+  },
 ];
 
 function Sidebar() {

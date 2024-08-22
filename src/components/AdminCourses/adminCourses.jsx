@@ -38,10 +38,6 @@ function AdminCourses() {
     fetchData();
   }, [refresh]);
 
-  function TransferDate(timestamp) {
-    console.log(timestamp);
-  }
-
   const handleDetail = (record) => {
     setCurrentRecord(record);
     setIsProfileVisible(true);
@@ -123,6 +119,11 @@ function AdminCourses() {
       ),
   });
 
+  function convert(timestamp) {
+    const dateConvert = new Date(timestamp).toLocaleDateString();
+    return dateConvert;
+  }
+
   const columns = [
     {
       title: 'Id',
@@ -144,13 +145,13 @@ function AdminCourses() {
     },
     {
       title: 'Start Date',
-      dataIndex: 'dateStart',
-      render: (dateStart) => TransferDate(dateStart),
+      dataIndex: 'startDate',
+      render: (timestamp) => convert(timestamp),
     },
     {
       title: 'End Date',
-      dataIndex: 'dateEnd',
-      render: (timestamp) => TransferDate(timestamp),
+      dataIndex: 'endDate',
+      render: (timestamp) => convert(timestamp),
     },
     {
       title: 'Action',
@@ -193,7 +194,6 @@ function AdminCourses() {
     try {
       if (currentRecord) {
         const { id, ...restValues } = values;
-        console.log(values, id, restValues);
         await updateCourses(currentRecord.id, restValues);
       } else {
         await createCourses(values);
@@ -247,7 +247,7 @@ function AdminCourses() {
             rules={[
               {
                 required: true,
-                message: 'Please input the student name!',
+                message: 'Please input the courses name!',
               },
             ]}
           >

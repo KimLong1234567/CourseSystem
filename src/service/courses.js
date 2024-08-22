@@ -16,7 +16,7 @@ export const getCourses = async () => {
       timeoutPromise(3000),
     ]);
     console.log('Fetched data from server BE');
-    return response.data;
+    return response.data.content;
   } catch (error) {
     console.warn(
       'Primary API failed or took too long. Falling back to secondary API...'
@@ -80,8 +80,10 @@ export const createCourses = async (course) => {
 
 export const updateCourses = async (id, course) => {
   try {
+    console.log(course);
+    console.log(id);
     const response = await Promise.any([
-      axios.put(`${API_URL}/${id}`, course).then((res) => {
+      axios.put(`${API_URL}/${id}/update_info`, course).then((res) => {
         toast.info('Update success', {
           position: 'top-center',
           autoClose: 2000,
