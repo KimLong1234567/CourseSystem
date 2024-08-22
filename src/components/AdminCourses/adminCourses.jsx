@@ -8,6 +8,8 @@ import {
   deleteCourses,
   updateCourses,
 } from '../../service/courses';
+import { getCategory } from '../../service/category';
+import { getCompany } from '../../service/company';
 import Profile from '../Profile/coursesDetail';
 import moment from 'moment';
 
@@ -15,11 +17,26 @@ function AdminCourses() {
   const [form] = Form.useForm();
   const [refresh, setRefresh] = useState(0);
   const [data, setData] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [dataCompany, setDataCompany] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const [selected, setSelected] = useState({
+    id: '',
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    category: {
+      id: '',
+    },
+    company: {
+      id: '',
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,11 +47,14 @@ function AdminCourses() {
           num: index + 1,
         }));
         setData(coursesWithId);
+        const category = await getCategory();
+        setDataCategory(category);
+        const company = await getCompany();
+        setDataCompany(company);
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
     };
-
     fetchData();
   }, [refresh]);
 
@@ -211,6 +231,12 @@ function AdminCourses() {
     setCurrentRecord(null);
   };
 
+  const handleChange = (e) => {
+    const categoryId = e.target.value;
+    setSelected({ ...selected, cate_id: categoryId });
+    console.log(categoryId);
+  };
+
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
@@ -256,6 +282,31 @@ function AdminCourses() {
 
           <Form.Item label="Description" name="description">
             <Input placeholder="Description" />
+          </Form.Item>
+
+          <Form.Item
+            label="Company"
+            name="company"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter company!',
+              },
+            ]}
+          >
+            <Form.Select
+              aria-label="Default select example"
+              name="type"
+              onChange={handleChange}
+            >
+              {/* sua name trong value */}
+              <option>--SELECT--</option>
+              {dataCompany.map((type, idx) => (
+                <option name="id" value={type.id} key={idx}>
+                  {type.name}
+                </option>
+              ))}
+            </Form.Select>
           </Form.Item>
 
           <Form.Item
