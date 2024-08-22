@@ -17,7 +17,7 @@ export const getCategory = async () => {
       timeoutPromise(3000),
     ]);
     console.log('Fetch API form sever BE');
-    return response.data;
+    return response.data.content;
   } catch (error) {
     console.warn(
       'Primary API failed or took too long. Falling back to secondary API...'
@@ -66,17 +66,19 @@ export const createCategory = async (post) => {
 export const updateCategory = async (id, post) => {
   try {
     // /update_info
-    const response = await axios.put(`${API_URL}/${id}`, post).then((res) => {
-      toast.info('Update success', {
-        position: 'top-center',
-        autoClose: 2000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
+    const response = await axios
+      .put(`${API_URL}/${id}/update_info`, post)
+      .then((res) => {
+        toast.info('Update success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
-    });
     return response.data;
   } catch (error) {
     console.error('Error updating post:', error);

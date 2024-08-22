@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
-import { DatePicker, Form, Input, Select, InputNumber } from 'antd';
-import { toast, ToastContainer } from 'react-toastify';
+import { Form, Input } from 'antd';
+import { ToastContainer } from 'react-toastify';
 import {
   getCategory,
   createCategory,
   deleteCategory,
   updateCategory,
 } from '../../service/category';
-import Profile from '../Profile/profile';
+import Profile from '../Profile/categoryDetail';
 
 function AdminCategory() {
   const [form] = Form.useForm();
@@ -21,12 +21,12 @@ function AdminCategory() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categorys = await getCategory();
-        const categorysWithId = categorys.map((account, index) => ({
-          ...account,
+        const categories = await getCategory();
+        const categoriesWithId = categories.map((categories, index) => ({
+          ...categories,
           num: index + 1,
         }));
-        setData(categorysWithId);
+        setData(categoriesWithId);
       } catch (error) {
         console.error('Error fetching category:', error);
       }
