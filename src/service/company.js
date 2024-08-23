@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const API_URL =
   'http://192.168.18.115:8080/api/companies' ||
   'https://66ac95e0f009b9d5c732a553.mockapi.io/company';
-// Service để gọi các API liên quan đến Post
+
 export const getCompany = async () => {
   try {
     const response = await axios.get(API_URL);
@@ -47,19 +47,17 @@ export const createCompany = async (post) => {
 
 export const updateCompany = async (id, post) => {
   try {
-    const response = await axios
-      .put(`${API_URL}/${id}/update_info`, post)
-      .then((res) => {
-        toast.info('Update success', {
-          position: 'top-center',
-          autoClose: 2000,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-        });
+    const response = await axios.put(`${API_URL}/${id}`, post).then((res) => {
+      toast.info('Update success', {
+        position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
       });
+    });
     return response;
   } catch (error) {
     console.error('Error updating post:', error);

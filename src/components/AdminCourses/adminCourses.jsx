@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Table } from 'antd';
-import { DatePicker, Form, Input } from 'antd';
+import { Button, Modal, Table, Upload, DatePicker, Form, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import {
   getCourses,
@@ -48,9 +47,11 @@ function AdminCourses() {
         }));
         setData(coursesWithId);
         const category = await getCategory();
+        console.log(category);
         setDataCategory(category);
         const company = await getCompany();
         setDataCompany(company);
+        console.log(company);
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
@@ -299,7 +300,6 @@ function AdminCourses() {
               name="type"
               onChange={handleChange}
             >
-              {/* sua name trong value */}
               <option>--SELECT--</option>
               {dataCompany.map((type, idx) => (
                 <option name="id" value={type.id} key={idx}>

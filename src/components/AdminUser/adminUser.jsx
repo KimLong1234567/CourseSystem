@@ -239,7 +239,7 @@ function AdminContent() {
         )}
       </Button>
       <Modal
-        title={currentRecord ? 'Update Student' : 'Add Student'}
+        title={currentRecord ? 'Update User' : 'Add User'}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
@@ -254,7 +254,7 @@ function AdminContent() {
           }}
         >
           <Form.Item
-            label="Student Name"
+            label="User Name"
             name="name"
             rules={[
               {
@@ -263,7 +263,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input placeholder="Student Name" />
+            <Input placeholder="User Name" />
           </Form.Item>
 
           <Form.Item
@@ -272,7 +272,7 @@ function AdminContent() {
             rules={[
               {
                 required: true,
-                message: 'Please input the student email!',
+                message: 'Please input the user email!',
               },
               {
                 type: 'email',
@@ -280,7 +280,7 @@ function AdminContent() {
               },
             ]}
           >
-            <Input placeholder="Student Email" />
+            <Input placeholder="User Email" />
           </Form.Item>
 
           <Form.Item
@@ -289,7 +289,7 @@ function AdminContent() {
             rules={[
               {
                 required: true,
-                message: 'Please input the student phone!',
+                message: 'Please input the user phone!',
               },
             ]}
           >
@@ -305,16 +305,16 @@ function AdminContent() {
           </Form.Item>
 
           <Form.Item
-            label="Student Address"
+            label="User Address"
             name="address"
             rules={[
               {
                 required: true,
-                message: 'Please input the student address!',
+                message: 'Please input the user address!',
               },
             ]}
           >
-            <Input placeholder="Student Address" />
+            <Input placeholder="User Address" />
           </Form.Item>
 
           <Form.Item
@@ -349,7 +349,7 @@ function AdminContent() {
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              {currentRecord ? 'Update Student' : 'Add Student'}
+              {currentRecord ? 'Update User' : 'Add User'}
             </Button>
           </Form.Item>
         </Form>

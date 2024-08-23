@@ -100,8 +100,12 @@ function AdminCategory() {
         const { id, ...restValues } = values;
         console.log(values, id, restValues);
         await updateCategory(currentRecord.id, restValues);
+        setIsModalOpen(false);
+        form.resetFields();
       } else {
         await createCategory(values);
+        setIsModalOpen(false);
+        form.resetFields();
       }
       setRefresh((prev) => prev + 1);
       setIsModalOpen(false);

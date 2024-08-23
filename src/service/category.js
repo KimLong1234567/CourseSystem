@@ -56,7 +56,7 @@ export const createCategory = async (post) => {
         theme: 'colored',
       });
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Error creating post:', error);
     throw error;
@@ -66,20 +66,18 @@ export const createCategory = async (post) => {
 export const updateCategory = async (id, post) => {
   try {
     // /update_info
-    const response = await axios
-      .put(`${API_URL}/${id}/update_info`, post)
-      .then((res) => {
-        toast.info('Update success', {
-          position: 'top-center',
-          autoClose: 2000,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-        });
+    const response = await axios.put(`${API_URL}/${id}`, post).then((res) => {
+      toast.info('Update success', {
+        position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
       });
-    return response.data;
+    });
+    return response;
   } catch (error) {
     console.error('Error updating post:', error);
     throw error;
