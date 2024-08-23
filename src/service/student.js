@@ -47,19 +47,17 @@ export const getAllStudent = async (post) => {
 export const updateStudent = async (id, post) => {
   try {
     console.log(id, post);
-    const response = await axios
-      .put(`${API_URL}/${id}/update_info`, post)
-      .then((res) => {
-        toast.info('Update success', {
-          position: 'top-center',
-          autoClose: 2000,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-        });
+    const response = await axios.put(`${API_URL}/${id}`, post).then((res) => {
+      toast.info('Update success', {
+        position: 'top-center',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
       });
+    });
     return response;
   } catch (error) {
     console.error('Error updating post:', error);
