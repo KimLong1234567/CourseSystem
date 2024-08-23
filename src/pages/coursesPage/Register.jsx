@@ -6,8 +6,7 @@ import {
 	faCircleExclamation,
 	faBullseye,
 } from "@fortawesome/free-solid-svg-icons";
-import { createStudent } from "../../service/student";
-import { toast } from "react-toastify";
+import { postStudentRegister } from "../../service/Erollment";
 
 function InputField({ id, type, label, register, error, placeholder }) {
 	return (
@@ -39,15 +38,20 @@ export default function Register() {
 		formState: { errors },
 	} = useForm();
 
-	const onSubmit = (data) => {
+	const onSubmit = async (data) => {
 		const courseData = {
-			id_course: course.id,
-			...data,
+			course: { id: course.id },
+			student: {
+				id: "",
+				...data,
+			},
+			note: "lopBE-1",
+			status: true,
 		};
-		// createStudent(courseData);
-		navigate("/RegisterSuccess", { state: { courseData } });
-		console.log(courseData);
-		toast.success("Register successfully!");
+		const respond = await postStudentRegister(courseData);
+		if (respond) {
+			navigate("/RegisterSuccess", { state: { courseData } });
+		}
 	};
 
 	const imgPathDemo =
@@ -58,7 +62,9 @@ export default function Register() {
 				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
 					<div className="w-2/3 relative">
 						<img
-							src={course.image === undefined ? imgPathDemo : course.image}
+							src={
+								course.imageUrl === undefined ? imgPathDemo : course.imageUrl
+							}
 							alt=""
 							className="w-full h-full object-cover"
 						/>
