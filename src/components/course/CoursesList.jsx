@@ -11,8 +11,8 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 	const [loading, setLoading] = useState(true);
 
 	const data = useMemo(() => {
-		if (coursesData.content) {
-			return coursesData.content;
+		if (coursesData) {
+			return coursesData;
 		} else if (coursesData[0] && coursesData[0].content) {
 			return coursesData[0].content;
 		}
@@ -24,6 +24,7 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 			setLoading(false);
 		}
 	}, [data]);
+	console.log(data);
 
 	const filteredCourses = data.filter((course) =>
 		course.name.toLowerCase().includes(searchText.toLowerCase())
@@ -83,8 +84,8 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 									<div className="w-full rounded-lg">
 										<img
 											className="w-full h-60 object-cover rounded-t-lg"
-											src={course.image ? course.image : imgPathDemo}
-											alt={course.name}
+											src={course.imageUrl ? course.imageUrl : imgPathDemo}
+											alt={course.category.name}
 										/>
 									</div>
 									<div className="px-4 py-6 max-w-[352px] h-40 overflow-hidden">

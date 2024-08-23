@@ -23,8 +23,8 @@ export default function RegisterSuccess() {
 					</div>
 					<p className="max-w-[700px] text-[#282938] text-xl opacity-70 py-7">
 						Thank you for choosing [ANHLONG], your application will be processed
-						and sent to your email <strong>"{courseData.stu_email}"</strong> as
-						soon as possible.
+						and sent to your email <strong>"{courseData.student.email}"</strong>{" "}
+						as soon as possible.
 					</p>
 					<button className=" bottom-0 bg-[#FCD980] hover:bg-yellow-200 px-10 py-3 rounded-md text-[#282938] text-lg font-bold flex gap-2 justify-center items-center">
 						{" "}

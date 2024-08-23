@@ -66,9 +66,9 @@ function SearchCourse({ setSearchText, setCoursesData }) {
 	}
 
 	const dataSearching = [];
-	if (categoryData.content) {
+	if (categoryData) {
 		dataSearching.push(
-			...categoryData.content.map((category) => {
+			...categoryData.map((category) => {
 				return category;
 			})
 		);
@@ -79,7 +79,7 @@ function SearchCourse({ setSearchText, setCoursesData }) {
 			})
 		);
 	}
-
+	console.log(dataSearching);
 	const handleFilter = async (e, id) => {
 		e.preventDefault();
 		setSelectedCategory(id);
