@@ -3,6 +3,16 @@ import { toast } from 'react-toastify';
 
 const API_URL = 'http://192.168.18.115:8080/api/enrollments';
 
+export const getEnrollment = async () => {
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
+};
+
 // Remember to change return when BE handle data and sent back
 export const postStudentRegister = async (dataStudent) => {
   try {

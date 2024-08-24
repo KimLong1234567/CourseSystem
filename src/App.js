@@ -18,6 +18,8 @@ import ContactPage from './pages/contactPage/ContactPage';
 import MainTeacherPage from './pages/mainTeacherPage/mainTeacherPage';
 import TeacherStudent from './components/TeacherStudent/teacherStudent';
 import AdminStudent from './components/AdminUser/adminStudent';
+import ResetPassword from './pages/resetPassword/resetPassword';
+import Enrollment from './components/AdminEnrollment/adminEnrollment';
 
 function App() {
   return (
@@ -26,15 +28,17 @@ function App() {
         {/* Main content route */}
         <Route path="/admin/Login" element={<LogInPage />} />
         <Route element={<MainContent />}>
-          <Route path="/admin/user" element={<AdminContent />} />
-          <Route path="/admin/student" element={<AdminStudent />} />
-          <Route path="/admin/category" element={<AdminCategory />} />
-          <Route path="/admin/company" element={<AdminCompany />} />
+          <Route path="/admin/users" element={<AdminContent />} />
+          <Route path="/admin/students" element={<AdminStudent />} />
+          <Route path="/admin/categories" element={<AdminCategory />} />
+          <Route path="/admin/companies" element={<AdminCompany />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
+          <Route path="/admin/enrollment" element={<Enrollment />} />
           <Route path="/admin/*" element={<ErrorPage />} />
         </Route>
 
         <Route path="/teacher/Login" element={<LogInPage />} />
+        <Route path="/teacher/resetPassword" element={<ResetPassword />} />
         <Route element={<MainTeacherPage />}>
           <Route path="/teacher/student" element={<TeacherStudent />} />
           <Route path="/teacher/courses" element={<AdminCourses />} />

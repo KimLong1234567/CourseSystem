@@ -123,9 +123,9 @@ function AdminCourses() {
     onFilter: (value, record) =>
       record[dataIndex]
         ? record[dataIndex]
-          .toString()
-          .toLowerCase()
-          .includes(value.toLowerCase())
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
         : '',
     render: (text) =>
       searchedColumn === dataIndex ? (
@@ -225,7 +225,7 @@ function AdminCourses() {
 
       let formData = new FormData();
       formData.append('image', values.upload[0].originFileObj);
-      console.log('formData', formData.get("file"));
+      console.log('formData', formData.get('file'));
 
       formData.append('course', JSON.stringify(courseData));
       console.log('formData', formData);
@@ -254,12 +254,12 @@ function AdminCourses() {
     setCurrentRecord(null);
   };
 
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
+  // const normFile = (e) => {
+  //   if (Array.isArray(e)) {
+  //     return e;
+  //   }
+  //   return e?.fileList;
+  // };
 
   // console.log(currentRecord);
   return (
@@ -335,7 +335,7 @@ function AdminCourses() {
               },
             ]}
           >
-            <Select>
+            <Select placeholder="Select a course">
               {dataCategory.map((category, idx) => (
                 <Select.Option value={category.id} key={idx}>
                   {category.name}
@@ -374,7 +374,7 @@ function AdminCourses() {
             label="Upload File"
             name="upload"
             valuePropName="fileList"
-            getValueFromEvent={normFile}
+            // getValueFromEvent={normFile}
             rules={[
               {
                 required: !currentRecord, // Required if adding a new course

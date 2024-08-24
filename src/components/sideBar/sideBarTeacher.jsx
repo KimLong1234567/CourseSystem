@@ -4,7 +4,7 @@ import {
   faHome,
   faUserGraduate,
   faBookOpen,
-  faUser,
+  faLandmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -18,12 +18,17 @@ const TEACHER_SIDEBAR = [
   {
     icon: faUserGraduate,
     name: 'Students',
-    to: '/teacher/student',
+    to: '/teacher/students',
   },
   {
     icon: faBookOpen,
     name: 'Courses',
     to: '/teacher/courses',
+  },
+  {
+    icon: faLandmark,
+    name: 'Classes',
+    to: '/teacher/classes',
   },
 ];
 

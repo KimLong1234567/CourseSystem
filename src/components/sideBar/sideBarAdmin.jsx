@@ -7,6 +7,8 @@ import {
   faBuilding,
   faBookOpen,
   faUser,
+  faLandmark,
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -19,23 +21,23 @@ const ADMIN_SIDEBAR = [
   },
   {
     icon: faUserGraduate,
-    name: 'Teacher',
-    to: '/admin/user',
+    name: 'Teachers',
+    to: '/admin/users',
   },
   {
     icon: faUser,
     name: 'Students',
-    to: '/admin/student',
+    to: '/admin/students',
   },
   {
     icon: faThList,
-    name: 'Category',
-    to: '/admin/category',
+    name: 'Categories',
+    to: '/admin/categories',
   },
   {
     icon: faBuilding,
-    name: 'Company',
-    to: '/admin/company',
+    name: 'Companies',
+    to: '/admin/companies',
   },
   {
     icon: faBookOpen,
@@ -43,9 +45,14 @@ const ADMIN_SIDEBAR = [
     to: '/admin/courses',
   },
   {
-    icon: faBookOpen,
+    icon: faLandmark,
     name: 'Classes',
     to: '/admin/classes',
+  },
+  {
+    icon: faUserPlus,
+    name: 'Enrollment',
+    to: '/admin/enrollment',
   },
 ];
 

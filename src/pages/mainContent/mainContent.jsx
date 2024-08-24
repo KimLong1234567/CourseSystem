@@ -2,7 +2,6 @@ import React from 'react';
 import Sidebar from '../../components/sideBar/sideBarAdmin';
 import HeaderAdmin from '../../components/HeaderAdmin/header';
 import { Outlet } from 'react-router-dom';
-import './mainContent.css';
 
 function MainContent() {
   return (
