@@ -188,13 +188,14 @@ function AdminCategory() {
           dataSource={data}
           rowKey="id"
         />
-        {isProfileVisible && currentRecord && (
-          <Profile
-            style={{ gridArea: 'profile' }}
-            {...currentRecord}
-            onClose={() => setIsProfileVisible(false)}
-          />
-        )}
+        <div className="relative mt-5 ml-4" style={{ gridArea: 'profile' }}>
+          {isProfileVisible && currentRecord && (
+            <Profile
+              {...currentRecord}
+              onClose={() => setIsProfileVisible(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
