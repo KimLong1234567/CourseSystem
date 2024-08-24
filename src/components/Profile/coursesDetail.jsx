@@ -22,12 +22,15 @@ function coursesDetail({
   endDate,
   category,
   company,
+  image,
   onClose,
 }) {
   const hasData = id && name && description && startDate && endDate;
 
   const start = new Date(startDate).toLocaleDateString();
   const end = new Date(endDate).toLocaleDateString();
+
+  console.log(image.uid);
 
   return hasData ? (
     <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
@@ -46,7 +49,7 @@ function coursesDetail({
         <div className="hidden sm:block sm:shrink-0">
           <img
             alt="Course Image"
-            src="https://picsum.photos/200/300"
+            src={`/${image.uid}`}
             className="size-16 rounded-lg object-cover shadow-sm"
           />
         </div>
@@ -112,6 +115,7 @@ coursesDetail.propTypes = {
   description: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   category: PropTypes.object.isRequired,
   company: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,

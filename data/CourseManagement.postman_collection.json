@@ -4,7 +4,7 @@
 		"name": "CourseManagement",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28191289",
-		"_collection_link": "https://www.postman.com/course-management/workspace/coursemanagement/collection/28191289-bb06a20d-1687-48de-b2e6-4b3457e10db4?action=share&source=collection_link&creator=28191289"
+		"_collection_link": "https://course-management.postman.co/workspace/CourseManagement~7ce6ad8f-7f87-4622-a026-44f92f37888b/collection/28191289-bb06a20d-1687-48de-b2e6-4b3457e10db4?action=share&source=collection_link&creator=28191289"
 	},
 	"item": [
 		{
@@ -16,10 +16,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users",
+							"raw": "http://192.168.18.115:8080/api/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"18",
+								"115"
 							],
 							"port": "8080",
 							"path": [
@@ -66,7 +69,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/66635a83-f2b4-4a27-a4f7-b67cfdde0899",
+							"raw": "http://localhost:8080/api/users/f2511983-0db9-44a2-bc9f-7d9450e0c47e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -75,7 +78,7 @@
 							"path": [
 								"api",
 								"users",
-								"66635a83-f2b4-4a27-a4f7-b67cfdde0899"
+								"f2511983-0db9-44a2-bc9f-7d9450e0c47e"
 							]
 						}
 					},
@@ -154,7 +157,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"user6\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": \"2001-11-05\",\r\n    \"phone\": \"0346750986\",\r\n    \"email\": \"user6gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
+							"raw": "{\r\n    \"name\": \"user11\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": \"2001-11-05\",\r\n    \"phone\": \"03467509811\",\r\n    \"email\": \"user11gmail.com\",\r\n    \"address\": \"hcm\",\r\n    \"role\": {\r\n        \"id\": \"efc0c054-e222-4253-ad21-4efce4f419bc\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,7 +194,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users/66635a83-f2b4-4a27-a4f7-b67cfdde0899/update_info",
+							"raw": "http://localhost:8080/api/users/66635a83-f2b4-4a27-a4f7-b67cfdde0899",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -200,8 +203,7 @@
 							"path": [
 								"api",
 								"users",
-								"66635a83-f2b4-4a27-a4f7-b67cfdde0899",
-								"update_info"
+								"66635a83-f2b4-4a27-a4f7-b67cfdde0899"
 							]
 						}
 					},
@@ -223,6 +225,111 @@
 								"api",
 								"users",
 								"66635a83-f2b4-4a27-a4f7-b67cfdde0899"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/users/filter",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "gender",
+									"value": "female",
+									"disabled": true
+								},
+								{
+									"key": "birthday",
+									"value": "2024-07-27",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "mặc định là 0",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"description": "mặc định là 10",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "birthday:desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/users/search?name=user111111&phone=0346750988&email=user1@gmail.com&page=0&size=5&sort=updateAt:desc",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "user111111"
+								},
+								{
+									"key": "phone",
+									"value": "0346750988"
+								},
+								{
+									"key": "email",
+									"value": "user1@gmail.com"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "mặc định là 0"
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"description": "mặc định là 10"
+								},
+								{
+									"key": "sort",
+									"value": "updateAt:desc"
+								}
 							]
 						}
 					},
@@ -259,7 +366,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/accounts/cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e",
+							"raw": "http://localhost:8080/api/accounts/66635a83-f2b4-4a27-a4f7-b67cfdde0899",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -268,7 +375,7 @@
 							"path": [
 								"api",
 								"accounts",
-								"cc0f3c99-2293-4b2c-8f36-36eeb3e2ba8e"
+								"66635a83-f2b4-4a27-a4f7-b67cfdde0899"
 							]
 						}
 					},
@@ -410,6 +517,43 @@
 			]
 		},
 		{
+			"name": "ASSIGNMENT",
+			"item": [
+				{
+					"name": "add assignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/assignments",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"assignments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "CATEGORY",
 			"item": [
 				{
@@ -418,10 +562,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/categories",
+							"raw": "http://192.168.18.115:8080/api/categories",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"18",
+								"115"
 							],
 							"port": "8080",
 							"path": [
@@ -512,7 +659,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"FE so cap\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Anh Long\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -618,7 +765,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"adminCongTyD\",\r\n    \"permissions\": [\r\n        {\r\n            \"id\": \"c7546ec9-936b-4ffe-96df-6fc8780aadac\"\r\n        },\r\n        {\r\n            \"id\": \"9db0c7ef-5ca5-4b19-b1c9-f8c5ea2d4a73\"\r\n        },\r\n        {\r\n            \"id\": \"9a997dd2-4f34-47cd-8711-7c0251401130\"\r\n        },\r\n        {\r\n            \"id\": \"56ec41c7-9094-4bf2-9c4a-402bc8066f74\"\r\n        }\r\n    ]\r\n}  ",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"permissions\": [\r\n        {\r\n            \"id\": \"73957c9a-0454-4d65-b683-287f2e72f608\"\r\n        },\r\n        {\r\n            \"id\": \"4ee304ee-0d6e-4a18-a55a-7823c665edb3\"\r\n        },\r\n        {\r\n            \"id\": \"7336ccd3-0fdf-49d6-ab5d-930ccdbc9919\"\r\n        },\r\n        {\r\n            \"id\": \"9decdbb9-a20d-4cc7-ac8e-66bd532b7e58\"\r\n        },\r\n        {\r\n            \"id\": \"b4408bff-d294-455c-bcae-234a6d57a4e8\"\r\n        },\r\n        {\r\n            \"id\": \"87bb3b7a-e49c-440b-8f74-d688c12d25aa\"\r\n        },\r\n        {\r\n            \"id\": \"dc900764-2cfb-4298-9d85-8c982883902b\"\r\n        },\r\n        {\r\n            \"id\": \"c95571cb-d0e9-49c2-9af3-df1fa13f8d74\"\r\n        },\r\n        {\r\n            \"id\": \"dad50b8e-3e0e-42c5-85e8-9a39054c4a2b\"\r\n        },\r\n        {\r\n            \"id\": \"185de0cf-6cde-4d00-88ac-850dd10b1268\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -870,7 +1017,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"CongtyE\",\r\n    \"phone\": \"0969514976\",\r\n    \"email\": \"CongtyE@gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Cong Ty của Long\",\r\n    \"phone\": \"2222222\",\r\n    \"email\": \"long@gmail.com\",\r\n    \"address\": \"hcm\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -955,10 +1102,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/permissions",
+							"raw": "http://192.168.18.115:8080/api/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"18",
+								"115"
 							],
 							"port": "8080",
 							"path": [
@@ -976,7 +1126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Delect Student\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Get All company course\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -984,10 +1134,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/permissions",
+							"raw": "http://192.168.18.115:8080/api/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"18",
+								"115"
 							],
 							"port": "8080",
 							"path": [
@@ -1134,10 +1287,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/courses",
+							"raw": "http://192.168.18.115:8080/api/courses",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"18",
+								"115"
 							],
 							"port": "8080",
 							"path": [
@@ -1154,10 +1310,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/courses/search?name=NODE FE",
+							"raw": "http://192.168.18.115:8080/api/courses/search?category=4a758c51-b0e2-4371-94ac-cbad60a06320",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"18",
+								"115"
 							],
 							"port": "8080",
 							"path": [
@@ -1181,12 +1340,17 @@
 								{
 									"key": "name",
 									"value": "NODE FE",
-									"description": "tham số bắt buộc"
+									"description": "tham số bắt buộc",
+									"disabled": true
 								},
 								{
 									"key": "sort",
 									"value": "endDate:desc",
 									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "4a758c51-b0e2-4371-94ac-cbad60a06320"
 								}
 							]
 						}
@@ -1199,16 +1363,22 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"NODE FE\",\r\n    \"description\": \"Lap trinh NODE FE so cap\",\r\n    \"startDate\": \"2024-19-08\",\r\n    \"endDate\": \"2025-19-08\",\r\n    \"category\": {\r\n        \"id\": \"4a758c51-b0e2-4371-94ac-cbad60a06320\"\r\n    },\r\n    \"company\": {\r\n        \"id\": \"4ff17db3-c0af-4322-9830-f6ab3e0b7a72\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/nguye/OneDrive/Pictures/course/nhap_mon_5.png"
+								},
+								{
+									"key": "course",
+									"value": "{\n    \"name\": \"Nhap mon lap trinh\",\n    \"description\": \"Nhap mon lap trinh\",\n    \"startDate\": \"2024-09-22\",\n    \"endDate\": \"2025-10-22\",\n    \"category\": {\n        \"id\": \"f842472c-b848-420d-8a89-10fa8f6035b1\"\n    },\n    \"company\": {\n        \"id\": \"1dd7fc28-0ae4-4301-b3fe-c93f6777fd89\"\n    }\n}",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/courses",
+							"raw": "http://localhost:8080/api/courses/post_image",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1216,7 +1386,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"courses"
+								"courses",
+								"post_image"
 							]
 						}
 					},
@@ -1287,7 +1458,23 @@
 					"name": "get course by id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/courses/92191cf1-05d7-4a08-9104-d7173f5fc3f8",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"92191cf1-05d7-4a08-9104-d7173f5fc3f8"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1295,7 +1482,32 @@
 					"name": "update course",
 					"request": {
 						"method": "PUT",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nhap mon lap trinh thay doi \",\r\n    \"description\": \"Nhap mon lap trinh thay doi\",\r\n    \"startDate\": \"2024-09-22\",\r\n    \"endDate\": \"2025-10-22\"\r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/courses/17a3f299-bb71-44e5-a8a3-b2b2ab08fc12",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"courses",
+								"17a3f299-bb71-44e5-a8a3-b2b2ab08fc12"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1304,6 +1516,15 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lap trinh co ban thay doi\",\r\n    \"description\": \"Nhap mon lap trinh thay doi\",\r\n    \"startDate\": \"2024-09-22\",\r\n    \"endDate\": \"2025-10-22\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/courses/6bd3c85b-f99c-4fe4-af0b-654ba4ac3eb9",
 							"protocol": "http",
@@ -1416,7 +1637,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "        {\r\n            \"name\": \"Nguyen Van D\",\r\n            \"gender\": \"male\",\r\n            \"birthday\": \"1998-12-13\",\r\n            \"phone\": \"0969514974\",\r\n            \"email\": \"D@gmail.com\",\r\n            \"address\": \"hcm\"\r\n        }",
+							"raw": "{\r\n    \"name\": \"Dasani\",\r\n    \"gender\": \"female\",\r\n    \"birthday\": \"2002-02-13\",\r\n    \"phone\": \"1111111111\",\r\n    \"email\": \"dasani@gmail.com\",\r\n    \"address\": \"tokyo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1505,7 +1726,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nguyen Van C\",\r\n    \"gender\": \"male\",\r\n    \"birthday\": \"1998-12-13\",\r\n    \"phone\": \"0969514973\",\r\n    \"email\": \"C@gmail.com\",\r\n    \"address\": \"thu duc\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Dasani\",\r\n    \"gender\": \"female\",\r\n    \"birthday\": \"2002-02-13\",\r\n    \"phone\": \"1111111111\",\r\n    \"email\": \"dasani@gmail.com\",\r\n    \"address\": \"tokyo Japan\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1513,7 +1734,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.18.115:8080/api/students/8dd1491f-4745-476e-b9da-193aef9b644a/update_info",
+							"raw": "http://192.168.18.115:8080/api/students/49d70d28-8de3-4994-8288-c8d3a10f4a9d",
 							"protocol": "http",
 							"host": [
 								"192",
@@ -1525,8 +1746,7 @@
 							"path": [
 								"api",
 								"students",
-								"8dd1491f-4745-476e-b9da-193aef9b644a",
-								"update_info"
+								"49d70d28-8de3-4994-8288-c8d3a10f4a9d"
 							]
 						}
 					},
@@ -1551,6 +1771,188 @@
 								"api",
 								"students",
 								"8dd1491f-4745-476e-b9da-193aef9b644a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LOGIN",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user1@gmail.com\",\r\n    \"password\":\"8681ebb4f9f3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CLASSROOM",
+			"item": [
+				{
+					"name": "all classrooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/classrooms",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add classroom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"lopBE-1\",\r\n    \"course\":{\r\n        \"id\":\"ef88f564-cc3e-47eb-a808-2e3738cedd4e\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/classrooms",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "classroom id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/classrooms/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classrooms",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EROLLMENT",
+			"item": [
+				{
+					"name": "eroll student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": \"ef88f564-cc3e-47eb-a808-2e3738cedd4e\"\r\n    },\r\n    \"student\": {\r\n        // \"id\": \"954fff10-5582-4a05-8da0-7c9e91a09405\"\r\n        // \"id\": \"f181e450-4b05-4362-93e4-bd3f60a52e25\"\r\n        \"id\": \"8dd1491f-4745-476e-b9da-193aef9b644a\"\r\n        // \"id\": \"d3759751-48cc-48b0-9a21-cda941146734\"\r\n        // \"id\": \"f2e6cb8d-0044-4843-91bb-c3acc9ee37a3\"\r\n    },\r\n    \"note\": \"lopBE-1\",\r\n    \"status\": true\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/enrollments",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"enrollments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all erollments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.18.115:8080/api/enrollments",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"18",
+								"115"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"enrollments"
 							]
 						}
 					},
