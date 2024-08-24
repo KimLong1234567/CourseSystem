@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API_URL = "http://192.168.18.115:8080/api/enrollments";
+const API_URL = "http://localhost:8080/api/enrollments";
 
 // Remember to change return when BE handle data and sent back
 export const postStudentRegister = async (dataStudent) => {
