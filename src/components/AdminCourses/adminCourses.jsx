@@ -14,7 +14,7 @@ import {
   getCourses,
   createCourses,
   deleteCourses,
-  updateCourses,
+  updateCoursesImage,
 } from '../../service/courses';
 import { getCategory } from '../../service/category';
 import { getCompany } from '../../service/company';
@@ -123,9 +123,9 @@ function AdminCourses() {
     onFilter: (value, record) =>
       record[dataIndex]
         ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase())
         : '',
     render: (text) =>
       searchedColumn === dataIndex ? (
@@ -209,7 +209,6 @@ function AdminCourses() {
   };
 
   const handleFormSubmit = async (values) => {
-    console.log(values.upload[0].originFileObj);
     try {
       const courseData = {
         name: values.name,
@@ -223,18 +222,22 @@ function AdminCourses() {
           id: values.company,
         },
       };
-      console.log(courseData);
 
-      let image = null;
+      let formData = new FormData();
+      formData.append('image', values.upload[0].originFileObj);
+      console.log('formData', formData.get("file"));
 
-      if (values.upload && values.upload.length > 0) {
-        image = { image: values.upload[0].originFileObj }; // Đảm bảo tạo ra object image đúng cách
-        console.log(image);
-      }
+      formData.append('course', JSON.stringify(courseData));
+      console.log('formData', formData);
+
       if (currentRecord) {
-        await updateCourses(currentRecord.id, courseData, image);
+        await updateCoursesImage(currentRecord.id, formData);
+        form.resetFields();
+        setIsModalOpen(false);
       } else {
-        await createCourses(courseData, image);
+        await createCourses(formData);
+        form.resetFields();
+        setIsModalOpen(false);
       }
 
       setRefresh((prev) => prev + 1);
@@ -258,7 +261,7 @@ function AdminCourses() {
     return e?.fileList;
   };
 
-  console.log(currentRecord);
+  // console.log(currentRecord);
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
