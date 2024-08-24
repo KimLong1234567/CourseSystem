@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Table, Upload, DatePicker, Form, Input } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Modal,
+  Table,
+  Upload,
+  DatePicker,
+  Form,
+  Input,
+  Select,
+} from 'antd';
+import { SearchOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   getCourses,
   createCourses,
@@ -23,19 +32,6 @@ function AdminCourses() {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
-  const [selected, setSelected] = useState({
-    id: '',
-    name: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    category: {
-      id: '',
-    },
-    company: {
-      id: '',
-    },
-  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,11 +43,9 @@ function AdminCourses() {
         }));
         setData(coursesWithId);
         const category = await getCategory();
-        console.log(category);
         setDataCategory(category);
         const company = await getCompany();
         setDataCompany(company);
-        console.log(company);
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
@@ -67,9 +61,12 @@ function AdminCourses() {
   const handleUpdate = (record) => {
     setCurrentRecord(record);
     form.setFieldsValue({
-      // Populate form fields with current record data
-      ...record,
-      dob: record.dob ? moment(record.dob) : null,
+      name: record.name,
+      description: record.description,
+      company: record.company?.id,
+      category: record.category?.id,
+      dateStart: record.startDate ? moment(record.startDate) : null,
+      dateEnd: record.endDate ? moment(record.endDate) : null,
     });
     setIsModalOpen(true);
   };
@@ -207,22 +204,44 @@ function AdminCourses() {
       await deleteCourses(record.id);
       setRefresh((prev) => prev + 1);
     } catch (error) {
-      console.error('Error deleting student:', error);
+      console.error('Error deleting course:', error);
     }
   };
 
   const handleFormSubmit = async (values) => {
+    console.log(values.upload[0].originFileObj);
     try {
-      if (currentRecord) {
-        const { id, ...restValues } = values;
-        await updateCourses(currentRecord.id, restValues);
-      } else {
-        await createCourses(values);
+      const courseData = {
+        name: values.name,
+        description: values.description,
+        startDate: values.dateStart,
+        endDate: values.dateEnd,
+        category: {
+          id: values.category,
+        },
+        company: {
+          id: values.company,
+        },
+      };
+      console.log(courseData);
+
+      let image = null;
+
+      if (values.upload && values.upload.length > 0) {
+        image = { image: values.upload[0].originFileObj }; // Đảm bảo tạo ra object image đúng cách
+        console.log(image);
       }
+      if (currentRecord) {
+        await updateCourses(currentRecord.id, courseData, image);
+      } else {
+        await createCourses(courseData, image);
+      }
+
       setRefresh((prev) => prev + 1);
+      form.resetFields();
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error saving account:', error);
+      console.error('Error saving course:', error);
     }
   };
 
@@ -232,12 +251,14 @@ function AdminCourses() {
     setCurrentRecord(null);
   };
 
-  const handleChange = (e) => {
-    const categoryId = e.target.value;
-    setSelected({ ...selected, cate_id: categoryId });
-    console.log(categoryId);
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
   };
 
+  console.log(currentRecord);
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
@@ -264,9 +285,6 @@ function AdminCourses() {
           name="CoursesForm"
           onFinish={handleFormSubmit}
           layout="vertical"
-          initialValues={{
-            currentRecord,
-          }}
         >
           <Form.Item
             label="Courses Name"
@@ -295,18 +313,32 @@ function AdminCourses() {
               },
             ]}
           >
-            <Form.Select
-              aria-label="Default select example"
-              name="type"
-              onChange={handleChange}
-            >
-              <option>--SELECT--</option>
-              {dataCompany.map((type, idx) => (
-                <option name="id" value={type.id} key={idx}>
-                  {type.name}
-                </option>
+            <Select>
+              {dataCompany.map((company, idx) => (
+                <Select.Option value={company.id} key={idx}>
+                  {company.name}
+                </Select.Option>
               ))}
-            </Form.Select>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Category"
+            name="category"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter category!',
+              },
+            ]}
+          >
+            <Select>
+              {dataCategory.map((category, idx) => (
+                <Select.Option value={category.id} key={idx}>
+                  {category.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
 
           <Form.Item
@@ -332,7 +364,27 @@ function AdminCourses() {
               },
             ]}
           >
-            <DatePicker readOnly={true} />
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item
+            label="Upload File"
+            name="upload"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            rules={[
+              {
+                required: !currentRecord, // Required if adding a new course
+                message: 'Please upload a file!',
+              },
+            ]}
+          >
+            <Upload action="" listType="picture-card">
+              <button style={{ border: 0, background: 'none' }} type="button">
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </button>
+            </Upload>
           </Form.Item>
 
           <Form.Item>
