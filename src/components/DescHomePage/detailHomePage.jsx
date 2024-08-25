@@ -45,7 +45,7 @@ export default function detailHomePage() {
 					Benefits of Joining [ANHLONG] E-Learning
 				</h1>
 			</div>
-			<div className="pt-10 grid grid-cols-3 gap-5 justify-center items-center">
+			<div className="pt-10 grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-5 max-lg:px-2 max-md:px-1 justify-center items-center">
 				{benefits.map((benefit, key) => (
 					<div key={key} className="bg-[#F4F6FC] rounded-sm min-h-[316px]">
 						<div className="flex flex-col py-10 pl-10 pr-5">

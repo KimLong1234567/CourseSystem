@@ -60,7 +60,7 @@ export default function RateHomePage() {
 
 	return (
 		<div className="bg-[#EEF4FA] mt-36 mb-10">
-			<div className="py-20 max-w-screen-xl mx-auto flex justify-center items-center gap-28">
+			<div className="py-20 max-w-screen-xl mx-auto flex justify-center items-center gap-28 max-lg:flex-col max-lg:px-10">
 				<div>
 					<h2 className="text-[28px] leading-7 font-semibold w-[404px] pb-5">
 						What do students say about the course system?
