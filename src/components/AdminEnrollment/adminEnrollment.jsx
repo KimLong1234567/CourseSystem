@@ -23,7 +23,7 @@ function Enrollment() {
   const handleStatusSubmit = (values) => {
     console.log('Status Update Values:', values, selectedEnrollment.id);
 
-    updateStatus(selectedEnrollment.id, values.status).then(() => {
+    updateStatus(selectedEnrollment.id, values.status, token).then(() => {
       if (true) {
         setRefresh((prev) => prev + 1);
       }
@@ -32,10 +32,21 @@ function Enrollment() {
     statusForm.resetFields();
   };
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const enrollment = await getEnrollment();
+        const enrollment = await getEnrollment(token);
         const enrollmentWithId = enrollment.content.map(
           (enrollment, index) => ({
             ...enrollment,
@@ -50,7 +61,7 @@ function Enrollment() {
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
 
   const handleCancel = () => {
     setIsModalOpen(false);

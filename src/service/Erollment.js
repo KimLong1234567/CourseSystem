@@ -1,57 +1,73 @@
-import axios from "axios";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const API_URL = "http://192.168.1.25:8080/api/enrollments";
+const API_URL = 'http://192.168.1.24:8080/api/enrollments';
 
-export const getEnrollment = async () => {
-	try {
-		const response = await axios.get(API_URL);
-		return response.data;
-	} catch (error) {
-		console.error("Error fetching posts:", error);
-		throw error;
-	}
+export const getEnrollment = async (token) => {
+  try {
+    const response = await axios.get(API_URL, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
 };
 
 // Remember to change return when BE handle data and sent back
 export const postStudentRegister = async (dataStudent) => {
-	try {
-		await axios.post(API_URL, dataStudent).then((res) => {
-			toast.success("Create success", {
-				position: "top-right",
-				autoClose: 2000,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "colored",
-			});
-		});
-		return true;
-	} catch (error) {
-		console.error("Failed to sent infoStudent", error);
-		toast.error("Sorry! Something info not true, please try late");
-	}
+  try {
+    const res = await axios.post(API_URL, dataStudent).then((res) => {
+      toast.success('Create success', {
+        position: 'top-right',
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    });
+    return res.detail;
+  } catch (error) {
+    console.error('Failed to sent infoStudent', error);
+    toast.error('Sorry! Something info not true, please try late');
+  }
 };
 
 // update status of student
-export const updateStatus = async (id, status) => {
-	try {
-		await axios.put(`${API_URL}/${id}`, { status }).then((res) => {
-			toast.success("Update success", {
-				position: "top-right",
-				autoClose: 2000,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "colored",
-			});
-		});
-		return true;
-	} catch (error) {
-		console.error("Error updating status:", error);
-		toast.error("Sorry! Something info not true, please try late");
-		throw error;
-	}
+export const updateStatus = async (id, status, token) => {
+  try {
+    await axios
+      .put(
+        `${API_URL}/${id}`,
+        { status },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        toast.success('Update success', {
+          position: 'top-right',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      });
+    return true;
+  } catch (error) {
+    console.error('Error updating status:', error);
+    toast.error('Sorry! Something info not true, please try late');
+    throw error;
+  }
 };

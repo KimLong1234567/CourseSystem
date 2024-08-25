@@ -18,10 +18,21 @@ function AdminRole() {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const roleId = '73957c9a-0454-4d65-b683-287f2e72f608';
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const roles = await getAllRole();
+        const roles = await getAllRole(token);
         const rolesWithId = roles.map((roles, index) => ({
           ...roles,
           num: index + 1,
@@ -32,7 +43,7 @@ function AdminRole() {
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
 
   const handleDetail = (record) => {
     setCurrentRecord(record);
@@ -108,11 +119,11 @@ function AdminRole() {
       console.log('Submitted Data:', data); // This will log the correctly structured data
 
       if (currentRecord) {
-        await updateRole(currentRecord.id, data);
+        await updateRole(currentRecord.id, data, token);
         setIsModalOpen(false);
         form.resetFields();
       } else {
-        await createRole(data);
+        await createRole(data, token);
         setIsModalOpen(false);
         form.resetFields();
       }

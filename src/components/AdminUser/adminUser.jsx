@@ -8,6 +8,8 @@ import {
   deleteAccount,
   updateAccount,
 } from '../../service/acount';
+import { getCompany } from '../../service/company';
+import { getAllRole } from '../../service/role';
 import Profile from '../Profile/profile';
 import moment from 'moment';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -17,6 +19,8 @@ function AdminContent() {
   const [form] = Form.useForm();
   const [refresh, setRefresh] = useState(0);
   const [data, setData] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [dataCompany, setDataCompany] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -24,22 +28,37 @@ function AdminContent() {
   const [searchedColumn, setSearchedColumn] = useState('');
   const [isHovered, setIsHovered] = useState(false);
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accounts = await getAccount();
+        const accounts = await getAccount(token);
         const accountsWithId = accounts.map((account, index) => ({
           ...account,
           num: index + 1,
         }));
         setData(accountsWithId);
+        const roles = await getAllRole(token);
+        setDataCategory(roles);
+        const companies = await getCompany(token);
+        setDataCompany(companies);
       } catch (error) {
         console.error('Error fetching accounts:', error);
       }
     };
 
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
 
   const handleDetail = (record) => {
     setCurrentRecord(record);
@@ -184,11 +203,31 @@ function AdminContent() {
 
   const handleFormSubmit = async (values) => {
     try {
+      const data = {
+        name: values.name,
+        email: values.email,
+        address: values.address,
+        birthday: values.birthday,
+        phone: values.phone,
+        gender: values.gender,
+        company: {
+          id: values.company,
+        },
+        role: {
+          id: values.role,
+        },
+      };
+      console.log(data);
+
       if (currentRecord) {
-        const { id, ...restValues } = values;
-        await updateAccount(currentRecord.id, restValues);
+        const { id, ...restValues } = data;
+        await updateAccount(currentRecord.id, restValues, token);
+        setIsModalOpen(false);
+        form.resetFields();
       } else {
-        await createAccount(values);
+        await createAccount(data, token);
+        setIsModalOpen(false);
+        form.resetFields();
       }
       setRefresh((prev) => prev + 1);
       setIsModalOpen(false);
@@ -281,6 +320,44 @@ function AdminContent() {
             ]}
           >
             <Input placeholder="User Email" />
+          </Form.Item>
+
+          <Form.Item
+            label="Role"
+            name="role"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter role!',
+              },
+            ]}
+          >
+            <Select placeholder="Select a role">
+              {dataCategory.map((role, idx) => (
+                <Select.Option value={role.id} key={idx}>
+                  {role.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Company"
+            name="company"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter company!',
+              },
+            ]}
+          >
+            <Select placeholder="Select a company">
+              {dataCompany.map((company, idx) => (
+                <Select.Option value={company.id} key={idx}>
+                  {company.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
 
           <Form.Item

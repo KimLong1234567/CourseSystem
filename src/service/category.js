@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://192.168.1.25:8080/api/categories';
+const API_URL = 'http://192.168.1.24:8080/api/categories';
 
 const API_URL_MOC = 'https://66c2ee55d057009ee9be61b9.mockapi.io/category';
 
@@ -13,7 +13,7 @@ const timeoutPromise = (ms) => {
 export const getCategory = async () => {
   try {
     const response = await Promise.race([
-      axios.get(API_URL),
+      axios.get(API_URL, {}),
       timeoutPromise(3000),
     ]);
     console.log('Fetch API form sever BE');
@@ -43,19 +43,26 @@ export const getCategoryId = async (id) => {
   }
 };
 
-export const createCategory = async (post) => {
+export const createCategory = async (post, token) => {
   try {
-    const response = await axios.post(API_URL, post).then((res) => {
-      toast.success('Create success', {
-        position: 'top-center',
-        autoClose: 2000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
+    const response = await axios
+      .post(API_URL, post, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success('Create success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
-    });
     return response;
   } catch (error) {
     console.error('Error creating post:', error);
@@ -63,20 +70,27 @@ export const createCategory = async (post) => {
   }
 };
 
-export const updateCategory = async (id, post) => {
+export const updateCategory = async (id, post, token) => {
   try {
     // /update_info
-    const response = await axios.put(`${API_URL}/${id}`, post).then((res) => {
-      toast.info('Update success', {
-        position: 'top-center',
-        autoClose: 2000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
+    const response = await axios
+      .put(`${API_URL}/${id}`, post, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.info('Update success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
-    });
     return response;
   } catch (error) {
     console.error('Error updating post:', error);
@@ -84,10 +98,17 @@ export const updateCategory = async (id, post) => {
   }
 };
 
-export const deleteCategory = async (id) => {
+export const deleteCategory = async (id, token) => {
   try {
     await axios.delete(
-      `${API_URL}/${id}`.then((res) => {
+      `${API_URL}/${id}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }.then((res) => {
         toast.error('Delete success', {
           position: 'top-center',
           autoClose: 2000,
