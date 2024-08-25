@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Form, Select, Slider, Badge, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { getCategory } from "../../service/category";
-import { getEnrollment } from "../../service/Erollment";
+import { getEnrollment, updateStatus } from "../../service/Erollment";
 
 function Enrollment() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 	const [form] = Form.useForm();
+	const [statusForm] = Form.useForm();
 	const [dataCategory, setDataCategory] = useState([]);
 	const [data, setData] = useState([]);
+	const [selectedEnrollment, setSelectedEnrollment] = useState(null);
 	const [refresh, setRefresh] = useState(0);
 
 	const handleFormSubmit = (values) => {
@@ -17,18 +20,28 @@ function Enrollment() {
 		form.resetFields();
 	};
 
+	const handleStatusSubmit = (values) => {
+		console.log("Status Update Values:", values, selectedEnrollment.id);
+
+		updateStatus(selectedEnrollment.id, values.status).then(() => {
+			if (true) {
+				setRefresh((prev) => prev + 1);
+			}
+		});
+		setIsStatusModalOpen(false);
+		statusForm.resetFields();
+	};
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const enrollment = await getEnrollment();
-
 				const enrollmentWithId = enrollment.content.map(
 					(enrollment, index) => ({
 						...enrollment,
 						num: index + 1,
 					})
 				);
-
 				setData(enrollmentWithId);
 				const category = await getCategory();
 				setDataCategory(category);
@@ -38,11 +51,20 @@ function Enrollment() {
 		};
 		fetchData();
 	}, [refresh]);
-	console.log(data, dataCategory);
 
 	const handleCancel = () => {
 		setIsModalOpen(false);
 		form.resetFields();
+	};
+
+	const handleStatusCancel = () => {
+		setIsStatusModalOpen(false);
+		statusForm.resetFields();
+	};
+
+	const handleUpdateStatusClick = (record) => {
+		setSelectedEnrollment(record);
+		setIsStatusModalOpen(true);
 	};
 
 	const renderStatusBadge = (status) => {
@@ -118,7 +140,12 @@ function Enrollment() {
 			dataIndex: "action",
 			render: (text, record) => (
 				<span>
-					<Button className="bg-yellow-500 text-white">Update Status</Button>
+					<Button
+						className="bg-yellow-500 text-white"
+						onClick={() => handleUpdateStatusClick(record)}
+					>
+						Update Status
+					</Button>
 					<Button className="bg-red-700 text-white">Delete</Button>
 				</span>
 			),
@@ -174,6 +201,37 @@ function Enrollment() {
 					</Form.Item>
 				</Form>
 			</Modal>
+
+			<Modal
+				title="Update Status"
+				open={isStatusModalOpen}
+				onCancel={handleStatusCancel}
+				footer={null}
+			>
+				<Form form={statusForm} onFinish={handleStatusSubmit} layout="vertical">
+					<Form.Item
+						label="Status"
+						name="status"
+						initialValue={selectedEnrollment?.status}
+						rules={[{ required: true, message: "Please select a status" }]}
+					>
+						<Select placeholder="Select a status">
+							<Select.Option value="COMPLETED">Completed</Select.Option>
+							<Select.Option value="REJECTED">Rejected</Select.Option>
+							<Select.Option value="PENDING">Pending</Select.Option>
+							<Select.Option value="APPROVED">Approved</Select.Option>
+							<Select.Option value="WITHDRAWN">Withdrawn</Select.Option>
+						</Select>
+					</Form.Item>
+
+					<Form.Item>
+						<Button type="primary" htmlType="submit">
+							Update Status
+						</Button>
+					</Form.Item>
+				</Form>
+			</Modal>
+
 			<div>
 				<Table
 					className="mt-5"
