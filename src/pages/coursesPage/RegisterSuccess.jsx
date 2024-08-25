@@ -7,8 +7,8 @@ export default function RegisterSuccess() {
 	const location = useLocation();
 	const { courseData } = location.state || {};
 	return (
-		<main className="px-16 py-14 flex flex-col justify-center overflow-hidden">
-			<div className="px-20 py-20 flex items-center justify-center gap-40 bg-white shadow-lg overflow-hidden h-full w-full">
+		<main className="px-16 py-14 flex flex-col justify-center overflow-hidden max-md:px-2">
+			<div className="px-20 py-20 flex items-center justify-center gap-40 bg-white shadow-lg overflow-hidden h-full w-full max-lg:flex-col">
 				<div>
 					<img src="/img/imgThanks.png" alt="" />
 				</div>

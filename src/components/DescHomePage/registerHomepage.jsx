@@ -31,7 +31,7 @@ export default function RegisterHomepage({ course, imgPathDemo }) {
 	return (
 		<div id="contact" className="max-w-screen-xl mx-auto py-40">
 			<div className="flex bg-white shadow-lg overflow-hidden h-full w-full rounded-lg">
-				<div className="w-1/2 relative">
+				<div className="w-1/2 relative max-lg:hidden">
 					<img
 						src="https://plus.unsplash.com/premium_photo-1661410866488-f9c16c7c46aa?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 						alt=""
@@ -48,7 +48,7 @@ export default function RegisterHomepage({ course, imgPathDemo }) {
 						</p>
 					</div>
 				</div>
-				<div className="w-1/2 p-8 bg-[#1C1E53] text-white">
+				<div className="w-1/2 p-8 bg-[#1C1E53] text-white max-lg:w-full ">
 					<div className="py-7 px-5">
 						<h2 className="text-5xl font-semibold">Let's start</h2>
 						<p className="mt-4 font-normal text-white text-lg">
@@ -82,7 +82,7 @@ export default function RegisterHomepage({ course, imgPathDemo }) {
 
 							<button
 								type="submit"
-								className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+								className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500 max-lg:px-10"
 							>
 								Register
 							</button>

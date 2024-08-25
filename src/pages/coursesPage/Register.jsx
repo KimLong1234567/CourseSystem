@@ -97,9 +97,9 @@ export default function Register() {
 					<p className="text-lg font-medium pt-4">Loading .....</p>
 				</div>
 			) : (
-				<main className="px-16 py-10 flex flex-col justify-center min-h-screen max-h-[1100px] overflow-hidden">
-					<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
-						<div className="w-2/3 relative">
+				<main className="px-16 py-10 flex flex-col justify-center overflow-hidden max-md:px-2">
+					<div className="flex bg-white shadow-lg overflow-hidden h-full w-full max-xl:flex-col max-xl:h-full max-xl:w-full max-xl:max-h-[auto]">
+						<div className="w-2/3 relative max-xl:w-full max-xl:h-[1000px]">
 							<img
 								src={
 									course.imageUrl === undefined ? imgPathDemo : course.imageUrl
@@ -108,7 +108,7 @@ export default function Register() {
 								className="w-full h-full object-cover"
 							/>
 							<div className="absolute top-0 left-0 w-full h-full bg-[#1C1E53]/60"></div>
-							<div className="font-mono absolute top-20 left-20">
+							<div className="font-mono absolute top-20 left-20 max-lg:text-xl">
 								<h1 className="text-4xl font-semibold text-white py-6">
 									<FontAwesomeIcon icon={faBullseye} /> CATEGORY:{" "}
 									{course.category.name}
@@ -135,7 +135,7 @@ export default function Register() {
 								<p className="mt-4 pl-5 pr-28 text-xl text-white leading-7">
 									Phone: {course.company.phone} - Email: {course.company.email}
 								</p>
-								<div className="flex flex-col justify-between mt-10">
+								<div className="flex flex-col justify-between mt-10 max-md:hidden">
 									<h3 className="flex items-center gap-3 text-2xl text-white leading-7 font-bold">
 										<FontAwesomeIcon icon={faCircleExclamation} />
 										Note:
@@ -157,7 +157,7 @@ export default function Register() {
 								</div>
 							</div>
 						</div>
-						<div className="w-1/3 p-8 bg-[#1C1E53] text-white">
+						<div className="w-1/3 p-8 bg-[#1C1E53] text-white max-xl:w-full">
 							<div className="pt-[75px] px-5">
 								<h2 className="text-5xl font-semibold">Register Courses</h2>
 								<p className="mt-4 font-normal text-white text-lg">
@@ -243,7 +243,7 @@ export default function Register() {
 									/>
 									<button
 										type="submit"
-										className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+										className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500 max-md:px-10"
 									>
 										Register
 									</button>
