@@ -37,7 +37,7 @@ export default function MainHomePage() {
 					<DetailHomePage />
 					<AboutUS />
 					{/* Render Courses */}
-					<div className="flex justify-between items-center gap-10">
+					<div className="flex justify-between items-center gap-10 max-lg:px-5">
 						<h2 className="text-4xl font-semibold text-center">
 							Explore Our Popular Courses
 						</h2>
