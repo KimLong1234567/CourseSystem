@@ -11,7 +11,7 @@ import React from "react";
 export default function collaboration() {
 	return (
 		<div className="py-20 bg-[#EEF4FA]">
-			<div className="max-w-screen-xl mx-auto flex gap-12">
+			<div className="max-w-screen-xl lg:flex-col max-lg:px-5 mx-auto flex gap-12">
 				<div className="flex justify-center items-center gap-10">
 					<div>
 						<h3 className="text-4xl font-semibold pb-2">50+</h3>
@@ -27,7 +27,7 @@ export default function collaboration() {
 					</div>
 				</div>
 
-				<div className="w-full flex justify-between items-end">
+				<div className="max-md:hidden max-lg:hidden lg:px-3 w-full flex justify-between items-end">
 					<div className="flex gap-3 items-center justify-center text-2xl font-bold">
 						<FontAwesomeIcon icon={faBuilding} />
 						<h2>LOREM</h2>

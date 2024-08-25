@@ -53,6 +53,7 @@ function App() {
           <Route path="/Register/:id" element={<Register />} />
           <Route path="/RegisterSuccess" element={<RegisterSuccess />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blogPage" element={<BlogPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
