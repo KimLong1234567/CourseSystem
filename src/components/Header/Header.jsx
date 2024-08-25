@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavBar from "./NavBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
 	const handleToggle = () => {
@@ -21,9 +22,12 @@ export default function Header() {
 				<NavBar isOpen={isOpen} setIsOpen={setIsOpen} />
 				{/* Login/Register Button  */}
 				<div className="text-[#282938] text-lg font-medium flex gap-3 mt-4 md:mt-0 max-lg:m-0">
-					<button className="px-4 py-2 bg-[#FCD980] rounded-sm hover:bg-yellow-300 ">
+					<Link
+						to={"/admin/Login"}
+						className="px-4 py-2 bg-[#FCD980] rounded-sm hover:bg-yellow-300 "
+					>
 						Log In
-					</button>
+					</Link>
 					<button className="max-lg:hidden px-4 py-2 bg-[#FCD980] rounded-sm hover:bg-yellow-300">
 						Sign Up
 					</button>
