@@ -34,19 +34,19 @@ function App() {
 				{/* Main content route bảo vệ bằng PrivateRoute */}
 				<Route element={<MainContent />}>
 					<Route
-						path="/admin/user"
+						path="/admin/users"
 						element={<PrivateRoute element={AdminContent} />}
 					/>
 					<Route
-						path="/admin/student"
+						path="/admin/students"
 						element={<PrivateRoute element={AdminStudent} />}
 					/>
 					<Route
-						path="/admin/category"
+						path="/admin/categories"
 						element={<PrivateRoute element={AdminCategory} />}
 					/>
 					<Route
-						path="/admin/company"
+						path="/admin/companies"
 						element={<PrivateRoute element={AdminCompany} />}
 					/>
 					<Route
