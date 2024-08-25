@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
 import { DatePicker, Form, Input, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { getAccount } from '../../service/acount';
+import { getAllStudent } from '../../service/student';
 import Profile from '../Profile/profile';
 
 function TeacherStudent() {
@@ -16,7 +16,7 @@ function TeacherStudent() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accounts = await getAccount();
+        const accounts = await getAllStudent();
         const accountsWithId = accounts.map((account, index) => ({
           ...account,
           num: index + 1,
@@ -143,7 +143,7 @@ function TeacherStudent() {
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
-        Student Manage
+        Students Manage
       </h2>
 
       <div
