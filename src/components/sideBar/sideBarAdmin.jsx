@@ -58,7 +58,7 @@ const ADMIN_SIDEBAR = [
   {
     icon: faAreaChart,
     name: 'Role',
-    to: '/admin/role',
+    to: '/admin/roles',
   },
 ];
 
