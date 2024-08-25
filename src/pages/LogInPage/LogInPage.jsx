@@ -46,7 +46,7 @@ function LogInPage() {
 	return (
 		<>
 			<header></header>
-			<main className="px-16 py-14 flex flex-col justify-center h-screen overflow-hidden">
+			<main className="px-16 py-14 flex flex-col justify-center h-screen overflow-hidden max-lg:px-5 max-md:h-auto">
 				<div className="items-center flex mb-11 space-x-2">
 					<FontAwesomeIcon
 						icon={faArrowLeft}
@@ -59,8 +59,8 @@ function LogInPage() {
 						Homepage
 					</Link>
 				</div>
-				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full">
-					<div className="w-1/2 relative">
+				<div className="flex bg-white shadow-lg overflow-hidden h-full w-full max-md:flex-col">
+					<div className="w-1/2 relative max-md:w-full">
 						<img
 							src="https://images.unsplash.com/photo-1537202108838-e7072bad1927?q=80&w=3062&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 							alt=""
@@ -77,8 +77,8 @@ function LogInPage() {
 							</p>
 						</div>
 					</div>
-					<div className="w-1/2 p-8 bg-[#1C1E53] text-white">
-						<div className="pt-[75px] px-24 md:pt-4 pl-2">
+					<div className="w-1/2 p-8 bg-[#1C1E53] text-white max-md:w-full">
+						<div className="pt-[75px] px-10 md:pt-4 max-lg:px-2">
 							<h2 className="text-5xl font-semibold">Login</h2>
 							<p className="mt-4 font-normal text-white text-lg">
 								Prepare yourself for a starry future
@@ -106,7 +106,7 @@ function LogInPage() {
 								/>
 								<button
 									type="submit"
-									className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+									className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500 max-xl:px-0"
 								>
 									LogIn
 								</button>
