@@ -1,22 +1,29 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://192.168.1.25:8080/api/students';
+const API_URL = 'http://192.168.1.24:8080/api/students';
 // 'https://66bc665424da2de7ff6a5957.mockapi.io/student'
 // Service để gọi các API liên quan đến Post
-export const createStudent = async (student) => {
+export const createStudent = async (student, token) => {
   try {
-    const response = await axios.post(API_URL, student).then((res) => {
-      toast.success('Create success', {
-        position: 'top-center',
-        autoClose: 2000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
+    const response = await axios
+      .post(API_URL, student, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.success('Create success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
-    });
     return response?.data;
   } catch (error) {
     console.error('Error fetching posts:', error);
@@ -34,9 +41,14 @@ export const getStudentById = async (id) => {
   }
 };
 
-export const getAllStudent = async (post) => {
+export const getAllStudent = async (token) => {
   try {
-    const response = await axios.get(API_URL, post);
+    const response = await axios.get(API_URL, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data.content;
   } catch (error) {
     console.error('Error creating post:', error);

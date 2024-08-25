@@ -22,7 +22,7 @@ const ADMIN_SIDEBAR = [
   },
   {
     icon: faUserGraduate,
-    name: 'Teachers',
+    name: 'Users',
     to: '/admin/users',
   },
   {

@@ -17,6 +17,17 @@ function AdminCategory() {
   const [currentRecord, setCurrentRecord] = useState(null);
   const [isProfileVisible, setIsProfileVisible] = useState(false);
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -62,7 +73,7 @@ function AdminCategory() {
       render: (text, record) => (
         <span>
           <Button
-            className="ml-3 bg-blue-700 text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="ml-3  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             onClick={() => handleDetail(record)}
           >
             Detail
@@ -86,7 +97,7 @@ function AdminCategory() {
 
   const handleDelete = async (record) => {
     try {
-      await deleteCategory(record.id);
+      await deleteCategory(record.id, token);
       setRefresh((prev) => prev + 1);
     } catch (error) {
       console.error('Error deleting student:', error);
@@ -98,11 +109,11 @@ function AdminCategory() {
       if (currentRecord) {
         const { id, ...restValues } = values;
         console.log(values, id, restValues);
-        await updateCategory(currentRecord.id, restValues);
+        await updateCategory(currentRecord.id, restValues, token);
         setIsModalOpen(false);
         form.resetFields();
       } else {
-        await createCategory(values);
+        await createCategory(values, token);
         setIsModalOpen(false);
         form.resetFields();
       }

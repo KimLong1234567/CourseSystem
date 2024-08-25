@@ -33,6 +33,17 @@ function AdminCourses() {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -231,11 +242,11 @@ function AdminCourses() {
       console.log('formData', formData);
 
       if (currentRecord) {
-        await updateCoursesImage(currentRecord.id, formData);
+        await updateCoursesImage(currentRecord.id, formData, token);
         form.resetFields();
         setIsModalOpen(false);
       } else {
-        await createCourses(formData);
+        await createCourses(formData, token);
         form.resetFields();
         setIsModalOpen(false);
       }

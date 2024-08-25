@@ -20,10 +20,21 @@ function AdminClasses() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [searchedColumn, setSearchedColumn] = useState('');
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const classes = await getClasses();
+        const classes = await getClasses(token);
         const classesWithId = classes.map((classes, index) => ({
           ...classes,
           num: index + 1,
@@ -36,7 +47,8 @@ function AdminClasses() {
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
+  //use refresh de dung goi fetch qua nhieu vd:goi 893 fetch api from BE
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -109,10 +121,24 @@ function AdminClasses() {
     form.resetFields();
   };
 
-  const handleFormSubmit = (values) => {
-    console.log('Form Values:', values);
-    setIsModalOpen(false);
-    form.resetFields();
+  const handleFormSubmit = async (values) => {
+    try {
+      if (currentRecord) {
+        const { id, ...restValues } = values;
+        console.log(values, id, restValues);
+        await updateClasses(currentRecord.id, restValues, token);
+        setIsModalOpen(false);
+        form.resetFields();
+      } else {
+        await createClasses(values, token);
+        setIsModalOpen(false);
+        form.resetFields();
+      }
+      setRefresh((prev) => prev + 1);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Error saving account:', error);
+    }
   };
 
   const columns = [

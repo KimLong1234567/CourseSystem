@@ -25,10 +25,21 @@ function AdminStudent() {
   const [searchedColumn, setSearchedColumn] = useState('');
   const [isHovered, setIsHovered] = useState(false);
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const students = await getAllStudent();
+        const students = await getAllStudent(token);
         const studentsWithId = students.map((account, index) => ({
           ...account,
           num: index + 1,
@@ -40,7 +51,7 @@ function AdminStudent() {
     };
 
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
 
   const handleDetail = (record) => {
     setCurrentRecord(record);

@@ -21,22 +21,35 @@ function AdminCompany() {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const courses = await getCompany();
-        const coursesWithId = courses.map((courses, index) => ({
-          ...courses,
+        const company = await getCompany(token);
+        const companyWithId = company.map((company, index) => ({
+          ...company,
           num: index + 1,
         }));
-        setData(coursesWithId);
+        setData(companyWithId);
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
     };
 
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
+
+  console.log(data);
 
   const handleDetail = (record) => {
     setCurrentRecord(record);
@@ -179,9 +192,9 @@ function AdminCompany() {
     try {
       if (currentRecord) {
         const { id, ...restValues } = values;
-        await updateCompany(currentRecord.id, restValues);
+        await updateCompany(currentRecord.id, restValues, token);
       } else {
-        await createCompany(values);
+        await createCompany(values, token);
       }
       setRefresh((prev) => prev + 1);
       setIsModalOpen(false);
