@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const API_URL = 'http://192.168.18.115:8080/api/courses';
 const API_URL_MOC = 'https://66bc665424da2de7ff6a5957.mockapi.io/courses';
-
+// 192.168.18.115
 const timeoutPromise = (ms) =>
   new Promise((_, reject) =>
     setTimeout(() => reject(new Error('Timeout')), ms)
@@ -55,12 +55,12 @@ export const getCoursesById = async (id) => {
   }
 };
 
-export const createCourses = async (course, image) => {
-  console.log(course, image);
+export const createCourses = async (course) => {
+  console.log('data:', course);
   try {
     const response = await Promise.any([
       axios
-        .post(`${API_URL}/post_image`, course, image, {
+        .post(`${API_URL}/post_image`, course, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((res) => {
@@ -83,12 +83,37 @@ export const createCourses = async (course, image) => {
   }
 };
 
-export const updateCourses = async (id, course) => {
+export const updateCoursesImage = async (id, course) => {
   try {
     console.log(course);
     console.log(id);
     const response = await Promise.any([
-      axios.put(`${API_URL}/${id}/update_info`, course).then((res) => {
+      axios.put(`${API_URL}/${id}/update_image`, course).then((res) => {
+        toast.info('Update success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }),
+      axios.put(`${API_URL_MOC}/${id}`, course),
+    ]);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating course in primary API:', error);
+    throw error;
+  }
+};
+
+export const updateCoursesText = async (id, course) => {
+  try {
+    console.log(course);
+    console.log(id);
+    const response = await Promise.any([
+      axios.put(`${API_URL}/${id}`, course).then((res) => {
         toast.info('Update success', {
           position: 'top-center',
           autoClose: 2000,
