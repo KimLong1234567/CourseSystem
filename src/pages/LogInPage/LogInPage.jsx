@@ -37,7 +37,7 @@ function LogInPage() {
     try {
       console.log(data);
       await login(data);
-      navigate('/admin/user');
+      navigate('/admin/users');
     } catch (error) {
       console.error('Error login:', error);
     }
