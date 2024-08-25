@@ -20,6 +20,7 @@ import TeacherStudent from './components/TeacherStudent/teacherStudent';
 import AdminStudent from './components/AdminUser/adminStudent';
 import ResetPassword from './pages/resetPassword/resetPassword';
 import Enrollment from './components/AdminEnrollment/adminEnrollment';
+import AdminRole from './components/AdminRole/adminRole';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/admin/companies" element={<AdminCompany />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
           <Route path="/admin/enrollment" element={<Enrollment />} />
+          <Route path="/admin/role" element={<AdminRole />} />
           <Route path="/admin/*" element={<ErrorPage />} />
         </Route>
 

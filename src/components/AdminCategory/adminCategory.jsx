@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Table } from 'antd';
 import { Form, Input } from 'antd';
-import { ToastContainer } from 'react-toastify';
 import {
   getCategory,
   createCategory,
@@ -122,7 +121,6 @@ function AdminCategory() {
 
   return (
     <div>
-      <ToastContainer />
       <h2 className="flex justify-center text-4xl text-cyan-600">
         Category Manage
       </h2>

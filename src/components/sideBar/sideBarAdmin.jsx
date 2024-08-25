@@ -9,6 +9,7 @@ import {
   faUser,
   faLandmark,
   faUserPlus,
+  faAreaChart,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -53,6 +54,11 @@ const ADMIN_SIDEBAR = [
     icon: faUserPlus,
     name: 'Enrollment',
     to: '/admin/enrollment',
+  },
+  {
+    icon: faAreaChart,
+    name: 'Role',
+    to: '/admin/role',
   },
 ];
 

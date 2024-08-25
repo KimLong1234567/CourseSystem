@@ -316,7 +316,7 @@ function AdminCourses() {
               },
             ]}
           >
-            <Select>
+            <Select placeholder="Select a company">
               {dataCompany.map((company, idx) => (
                 <Select.Option value={company.id} key={idx}>
                   {company.name}
@@ -335,7 +335,7 @@ function AdminCourses() {
               },
             ]}
           >
-            <Select placeholder="Select a course">
+            <Select placeholder="Select a category">
               {dataCategory.map((category, idx) => (
                 <Select.Option value={category.id} key={idx}>
                   {category.name}
