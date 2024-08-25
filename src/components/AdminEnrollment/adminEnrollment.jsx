@@ -1,10 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Badge, Table } from 'antd';
-import { getEnrollment } from '../../service/Erollment';
+import { Button, Modal, Form, Select, Slider, Badge, Table } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { getCategory } from '../../service/category';
+import { getEnrollment, updateStatus } from '../../service/Erollment';
 
 function Enrollment() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [form] = Form.useForm();
+  const [statusForm] = Form.useForm();
+  const [dataCategory, setDataCategory] = useState([]);
   const [data, setData] = useState([]);
+  const [selectedEnrollment, setSelectedEnrollment] = useState(null);
   const [refresh, setRefresh] = useState(0);
+
+  const handleFormSubmit = (values) => {
+    console.log('Form Values:', values);
+    setIsModalOpen(false);
+    form.resetFields();
+  };
+
+  const handleStatusSubmit = (values) => {
+    console.log('Status Update Values:', values, selectedEnrollment.id);
+
+    updateStatus(selectedEnrollment.id, values.status).then(() => {
+      if (true) {
+        setRefresh((prev) => prev + 1);
+      }
+    });
+    setIsStatusModalOpen(false);
+    statusForm.resetFields();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,14 +42,30 @@ function Enrollment() {
             num: index + 1,
           })
         );
-
         setData(enrollmentWithId);
+        const category = await getCategory();
+        setDataCategory(category);
       } catch (error) {
         console.error('Error fetching: ', error);
       }
     };
     fetchData();
   }, [refresh]);
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    form.resetFields();
+  };
+
+  const handleStatusCancel = () => {
+    setIsStatusModalOpen(false);
+    statusForm.resetFields();
+  };
+
+  const handleUpdateStatusClick = (record) => {
+    setSelectedEnrollment(record);
+    setIsStatusModalOpen(true);
+  };
 
   const renderStatusBadge = (status) => {
     switch (status.toLowerCase()) {
@@ -98,7 +140,12 @@ function Enrollment() {
       dataIndex: 'action',
       render: (text, record) => (
         <span>
-          <Button className="bg-yellow-500 text-white">Update Status</Button>
+          <Button
+            className="bg-yellow-500 text-white"
+            onClick={() => handleUpdateStatusClick(record)}
+          >
+            Update Status
+          </Button>
           <Button className="bg-red-700 text-white">Delete</Button>
         </span>
       ),
@@ -108,6 +155,83 @@ function Enrollment() {
   return (
     <div className="p-6 h-full">
       <h2 className="flex justify-center text-4xl text-cyan-600">Enrollment</h2>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => setIsModalOpen(true)}
+      >
+        Add Class
+      </Button>
+
+      <Modal
+        title="Add New Class"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form form={form} onFinish={handleFormSubmit} layout="vertical">
+          <Form.Item
+            label="Courses"
+            name="courses"
+            rules={[{ required: true, message: 'Please select a course' }]}
+          >
+            <Select placeholder="Select a course">
+              {dataCategory.map((category, idx) => (
+                <Select.Option value={category.id} key={idx}>
+                  {category.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Number of Students"
+            name="numberOfStudents"
+            rules={[
+              { required: true, message: 'Please select number of students' },
+            ]}
+          >
+            <Slider min={1} max={50} />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Add Class
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      <Modal
+        title="Update Status"
+        open={isStatusModalOpen}
+        onCancel={handleStatusCancel}
+        footer={null}
+      >
+        <Form form={statusForm} onFinish={handleStatusSubmit} layout="vertical">
+          <Form.Item
+            label="Status"
+            name="status"
+            initialValue={selectedEnrollment?.status}
+            rules={[{ required: true, message: 'Please select a status' }]}
+          >
+            <Select placeholder="Select a status">
+              <Select.Option value="COMPLETED">Completed</Select.Option>
+              <Select.Option value="REJECTED">Rejected</Select.Option>
+              <Select.Option value="PENDING">Pending</Select.Option>
+              <Select.Option value="APPROVED">Approved</Select.Option>
+              <Select.Option value="WITHDRAWN">Withdrawn</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Update Status
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+
       <div>
         <Table
           className="mt-5"

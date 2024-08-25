@@ -29,8 +29,8 @@ function BlogPrimary() {
 		},
 	];
 	return (
-		<div className="mt-32 flex gap-5">
-			<section className="w-2/3 text-[#282938]">
+		<div className="mt-32 flex gap-5 ">
+			<section className="w-2/3 text-[#282938] max-md:w-full">
 				<figure>
 					<img
 						src="https://plus.unsplash.com/premium_photo-1682787494977-d013bb5a8773?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y291cnNlfGVufDB8fDB8fHww"
@@ -55,7 +55,7 @@ function BlogPrimary() {
 					<FontAwesomeIcon icon={faArrowRight} />
 				</a>
 			</section>
-			<ul className="w-1/3">
+			<ul className="w-1/3 max-md:hidden">
 				{dataBlogList.map((post, index) => (
 					<li
 						key={index}

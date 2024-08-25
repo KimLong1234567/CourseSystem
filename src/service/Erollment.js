@@ -33,3 +33,25 @@ export const postStudentRegister = async (dataStudent) => {
 		toast.error("Sorry! Something info not true, please try late");
 	}
 };
+
+// update status of student
+export const updateStatus = async (id, status) => {
+	try {
+		await axios.put(`${API_URL}/${id}`, { status }).then((res) => {
+			toast.success("Update success", {
+				position: "top-right",
+				autoClose: 2000,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "colored",
+			});
+		});
+		return true;
+	} catch (error) {
+		console.error("Error updating status:", error);
+		toast.error("Sorry! Something info not true, please try late");
+		throw error;
+	}
+};

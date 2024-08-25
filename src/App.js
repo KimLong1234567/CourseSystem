@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import LogInPage from './pages/LogInPage/LogInPage';
 import MainContent from './pages/mainContent/mainContent';
+import BlogPage from './pages/BlogPage/BlogPage';
 import ErrorPage from './pages/error/ErrorPage';
 
 import AdminCategory from './components/AdminCategory/adminCategory';
@@ -92,6 +93,7 @@ function App() {
           <Route path="/Register/:id" element={<Register />} />
           <Route path="/RegisterSuccess" element={<RegisterSuccess />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blogPage" element={<BlogPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

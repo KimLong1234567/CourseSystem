@@ -73,7 +73,7 @@ function CourseList({ coursesData, searchText, coursesPerPage, scrollToTop }) {
 				</div>
 			) : (
 				<>
-					<div className="my-10 grid grid-cols-3  max-md:px-28 gap-4">
+					<div className="my-10 grid grid-cols-3  gap-4 max-lg:grid-cols-1 max-md:grid-cols-1 max-lg:my-5 max-lg:mx-auto max-md:my-5 max-md:mx-auto max-xl:grid-cols-2 max-xl:mx-auto ">
 						{currentCourses.map((course) => (
 							<Link
 								to={`/register/${course.id}`}

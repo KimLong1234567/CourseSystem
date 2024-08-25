@@ -22,7 +22,7 @@ export default function CoursesPage() {
 	return (
 		<>
 			<main className="min-h-screen">
-				<div className="max-w-screen-xl mx-auto px-12 py-7 flex flex-col">
+				<div className="max-w-screen-xl mx-auto px-12 py-7 max-md:px-0 flex flex-col">
 					<SearchCourse
 						setSearchText={setSearchText}
 						setCoursesData={setCoursesData}
@@ -102,12 +102,12 @@ function SearchCourse({ setSearchText, setCoursesData }) {
 	return (
 		<div className="pt-10 w-full flex items-center justify-center flex-col gap-12">
 			<input
-				className="py-4 px-10 min-w-[746px] rounded-lg border-[1.5px] border-[#28293899A]"
+				className="py-4 px-10 min-w-[746px] max-md:min-w-full rounded-lg border-[1.5px] border-[#28293899A]"
 				type="text"
 				placeholder="Searching ...."
 				onChange={handleSearch}
 			/>
-			<ul className="flex justify-center items-center gap-10 text-[#282938] text-lg">
+			<ul className="flex justify-center items-center gap-10 text-[#282938] text-lg max-md:flex-wrap">
 				<button
 					onClick={handleAllCategories}
 					className={`cursor-pointer ${

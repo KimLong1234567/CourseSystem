@@ -52,11 +52,11 @@ function SearchCourse() {
 	return (
 		<div className="pt-10 w-full flex items-center justify-center flex-col gap-12">
 			<input
-				className="py-4 px-10 min-w-[746px] rounded-lg border-[1.5px] border-[#28293899A]"
+				className="py-4 px-10 min-w-[746px] max-md:min-w-full rounded-lg border-[1.5px] border-[#28293899A]"
 				type="text"
 				placeholder="Searching ...."
 			/>
-			<ul className="flex justify-center items-center gap-10 text-[#282938] text-lg">
+			<ul className="flex justify-center items-center gap-10 text-[#282938] text-lg max-md:flex-wrap">
 				{dataCategoryBlog.map((category) => (
 					<li key={category} className="px-2 text-sm">
 						<a

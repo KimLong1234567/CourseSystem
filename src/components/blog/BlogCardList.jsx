@@ -58,9 +58,9 @@ function BlogCardList() {
 				</div>
 			) : (
 				<>
-					<div className="my-10 grid grid-cols-3 gap-8">
-						{currentBlogs.map((blog) => (
-							<div key={blog.id} className="w-full shadow-lg rounded-sm">
+					<div className="my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+						{currentBlogs.map((blog, index) => (
+							<div key={index} className="w-full shadow-lg rounded-sm">
 								<div className="w-full rounded-t-lg">
 									<img
 										className="w-full h-52 object-cover rounded-t-lg"
@@ -85,19 +85,21 @@ function BlogCardList() {
 						>
 							Previous
 						</button>
-						{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-							<button
-								key={page}
-								onClick={() => setCurrentPage(page)}
-								className={`px-4 py-2 rounded-sm ${
-									page === currentPage
-										? "bg-[#FCD980] text-[#282938]"
-										: "bg-gray-200 hover:bg-yellow-300"
-								}`}
-							>
-								{page}
-							</button>
-						))}
+						{Array.from({ length: totalPages }, (_, i) => i + 1).map(
+							(page, index) => (
+								<button
+									key={index}
+									onClick={() => setCurrentPage(page)}
+									className={`px-4 py-2 rounded-sm ${
+										page === currentPage
+											? "bg-[#FCD980] text-[#282938]"
+											: "bg-gray-200 hover:bg-yellow-300"
+									}`}
+								>
+									{page}
+								</button>
+							)
+						)}
 						<button
 							onClick={() =>
 								setCurrentPage((prev) => Math.min(prev + 1, totalPages))
