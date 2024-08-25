@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { login } from '../../service/login';
 
 function InputField({ id, type, label, register, error, placeholder }) {
   return (
@@ -27,9 +28,14 @@ function LogInPage() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    navigate('/');
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      await login(data);
+      navigate('/admin/user');
+    } catch (error) {
+      console.error('Error login:', error);
+    }
   };
 
   return (
@@ -78,7 +84,7 @@ function LogInPage() {
                 noValidate
               >
                 <InputField
-                  id="email"
+                  id="username"
                   type="email"
                   label="Email"
                   register={register}
@@ -93,20 +99,6 @@ function LogInPage() {
                   error={errors.password}
                   placeholder="Enter your password"
                 />
-                <div className="flex items-center mb-4">
-                  <input
-                    type="checkbox"
-                    id="rememberMe"
-                    {...register('rememberMe')}
-                    className="w-4 h-4 bg-transparent border-[1px] border-[#FFFFFF1A] rounded focus:ring-blue-500"
-                  />
-                  <label
-                    htmlFor="rememberMe"
-                    className="ml-2 text-sm text-[#F4F6FC] opacity-40"
-                  >
-                    Remember to login
-                  </label>
-                </div>
                 <button
                   type="submit"
                   className="w-full px-44 py-4 text-sm font-medium text-blue-900 bg-[#FCD980] rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
