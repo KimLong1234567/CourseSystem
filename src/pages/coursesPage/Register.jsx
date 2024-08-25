@@ -50,8 +50,9 @@ export default function Register() {
       note: 'lopBE-1',
       status: true,
     };
+    console.log(courseData);
     const respond = await postStudentRegister(courseData);
-
+    console.log(respond);
     if (respond) {
       setLoading(false);
       navigate('/RegisterSuccess', { state: { courseData } });

@@ -14,6 +14,7 @@ import {
   getCourses,
   createCourses,
   deleteCourses,
+  updateCoursesText,
   updateCoursesImage,
 } from '../../service/courses';
 import { getCategory } from '../../service/category';
@@ -53,16 +54,16 @@ function AdminCourses() {
           num: index + 1,
         }));
         setData(coursesWithId);
-        const category = await getCategory();
+        const category = await getCategory(token);
         setDataCategory(category);
-        const company = await getCompany();
+        const company = await getCompany(token);
         setDataCompany(company);
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
     };
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
 
   const handleDetail = (record) => {
     setCurrentRecord(record);
@@ -234,26 +235,34 @@ function AdminCourses() {
         },
       };
 
+      const data = { ...courseData };
+
       let formData = new FormData();
-      formData.append('image', values.upload[0].originFileObj);
-      console.log('formData', formData.get('file'));
-
+      if (values.upload && values.upload[0]) {
+        formData.append('image', values.upload[0].originFileObj);
+      }
       formData.append('course', JSON.stringify(courseData));
-      console.log('formData', formData);
-
+      console.log(courseData);
+      console.log('data', data);
       if (currentRecord) {
-        await updateCoursesImage(currentRecord.id, formData, token);
+        // Update the course
+        if (values.upload && values.upload[0]) {
+          await updateCoursesImage(currentRecord.id, formData, token);
+        }
+        console.log(data);
+
+        await updateCoursesText(currentRecord.id, data, token);
+
         form.resetFields();
         setIsModalOpen(false);
       } else {
+        // Create a new course
         await createCourses(formData, token);
         form.resetFields();
         setIsModalOpen(false);
       }
 
       setRefresh((prev) => prev + 1);
-      form.resetFields();
-      setIsModalOpen(false);
     } catch (error) {
       console.error('Error saving course:', error);
     }
@@ -265,14 +274,13 @@ function AdminCourses() {
     setCurrentRecord(null);
   };
 
-  // const normFile = (e) => {
-  //   if (Array.isArray(e)) {
-  //     return e;
-  //   }
-  //   return e?.fileList;
-  // };
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
 
-  // console.log(currentRecord);
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
@@ -385,7 +393,7 @@ function AdminCourses() {
             label="Upload File"
             name="upload"
             valuePropName="fileList"
-            // getValueFromEvent={normFile}
+            getValueFromEvent={normFile}
             rules={[
               {
                 required: !currentRecord, // Required if adding a new course

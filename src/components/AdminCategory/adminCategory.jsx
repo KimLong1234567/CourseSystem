@@ -146,7 +146,7 @@ function AdminCategory() {
         Add Category
       </Button>
       <Modal
-        title={currentRecord ? 'Update Category' : 'Add Category'}
+        title={currentRecord ? 'Update User' : 'Add User'}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}

@@ -127,17 +127,7 @@ export const updateCoursesText = async (id, course, token) => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => {
-          toast.info('Update success', {
-            position: 'top-center',
-            autoClose: 2000,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-          });
-        }),
+        .then((res) => {}),
       axios.put(`${API_URL_MOC}/${id}`, course),
     ]);
     return response.data;
