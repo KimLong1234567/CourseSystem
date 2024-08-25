@@ -1,9 +1,16 @@
 import React from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 function HeaderAdmin() {
-  //where get data
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/admin/login');
+  };
+
   const items = [
     {
       label: <a href="">1st menu item</a>,
@@ -17,12 +24,14 @@ function HeaderAdmin() {
       type: 'divider',
     },
     {
-      label: '3rd menu item',
+      label: (
+        <div onClick={logout} style={{ cursor: 'pointer', width: '100%' }}>
+          Logout
+        </div>
+      ),
       key: '3',
     },
   ];
-  // log out account
-  const logout = async () => {};
 
   return (
     <div>
@@ -43,9 +52,7 @@ function HeaderAdmin() {
               <span>Hello Admin name</span>
               <span>Main admin</span>
             </div>
-
             <DownOutlined />
-            {/* day de title admin */}
           </Space>
         </a>
       </Dropdown>

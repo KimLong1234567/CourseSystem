@@ -132,7 +132,7 @@ function AdminRole() {
   return (
     <div>
       <h2 className="flex justify-center text-4xl text-cyan-600">
-        Role Manage
+        Roles Manage
       </h2>
       <Button
         type="primary"
