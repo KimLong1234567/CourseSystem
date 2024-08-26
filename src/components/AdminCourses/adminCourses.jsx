@@ -239,9 +239,8 @@ function AdminCourses() {
 
       let formData = new FormData();
       const isImageUpdated = values.upload && values.upload[0];
-      if (isImageUpdated) {
-        formData.append('image', values.upload[0].originFileObj);
-      }
+
+      formData.append('image', values.upload[0].originFileObj);
       formData.append('course', JSON.stringify(courseData));
 
       if (currentRecord) {
