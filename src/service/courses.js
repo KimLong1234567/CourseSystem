@@ -87,30 +87,37 @@ export const createCourses = async (course, token) => {
 
 export const updateCoursesImage = async (id, course, token) => {
   try {
-    const response = await Promise.any([
-      axios
-        .put(`${API_URL}/${id}/update_image`, course, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          toast.info('Update success', {
-            position: 'top-center',
-            autoClose: 2000,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-          });
-        }),
+    console.log('Cập nhật hình ảnh cho khóa học với ID:', id);
+    console.log('Dữ liệu khóa học:', course);
+
+    const responses = await Promise.allSettled([
+      axios.put(`${API_URL}/${id}/update_image`, course, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       axios.put(`${API_URL_MOC}/${id}`, course),
     ]);
-    return response.data;
+
+    responses.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        console.log(`API ${index + 1} thành công:`, result.value.data);
+        toast.info('Cập nhật thành công', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      } else {
+        console.error(`API ${index + 1} thất bại:`, result.reason);
+      }
+    });
   } catch (error) {
-    console.error('Error updating course in primary API:', error);
+    console.error('Lỗi trong quá trình cập nhật khóa học:', error);
     throw error;
   }
 };
