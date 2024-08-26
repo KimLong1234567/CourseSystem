@@ -15,7 +15,7 @@ export const getCourses = async () => {
       axios.get(API_URL),
       timeoutPromise(3000),
     ]);
-    console.log('Fetched data from server BE');
+    // console.log('Fetched data from server BE');
     return response.data.content;
   } catch (error) {
     console.warn(

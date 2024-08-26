@@ -16,7 +16,7 @@ export const getCategory = async () => {
       axios.get(API_URL, {}),
       timeoutPromise(3000),
     ]);
-    console.log('Fetch API form sever BE');
+    // console.log('Fetch API form sever BE');
     return response.data.content;
   } catch (error) {
     console.warn(
@@ -100,15 +100,14 @@ export const updateCategory = async (id, post, token) => {
 
 export const deleteCategory = async (id, token) => {
   try {
-    await axios.delete(
-      `${API_URL}/${id}`,
-      {},
-      {
+    await axios
+      .delete(`${API_URL}/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      }.then((res) => {
+      })
+      .then((res) => {
         toast.error('Delete success', {
           position: 'top-center',
           autoClose: 2000,
@@ -118,8 +117,7 @@ export const deleteCategory = async (id, token) => {
           progress: undefined,
           theme: 'colored',
         });
-      })
-    );
+      });
   } catch (error) {
     console.error('Error deleting post:', error);
     throw error;

@@ -202,6 +202,7 @@ function AdminStudent() {
     try {
       if (currentRecord) {
         const { id, ...restValues } = values;
+        console.log(values, currentRecord.id);
         await updateStudent(currentRecord.id, restValues, token);
         setIsModalOpen(false);
         form.resetFields();
@@ -223,8 +224,6 @@ function AdminStudent() {
     form.resetFields();
     setCurrentRecord(null);
   };
-
-  console.log(currentRecord);
 
   return (
     <div>

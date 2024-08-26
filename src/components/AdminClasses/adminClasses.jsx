@@ -50,6 +50,7 @@ function AdminClasses() {
   }, [refresh, token]);
   //use refresh de dung goi fetch qua nhieu vd:goi 893 fetch api from BE
 
+  console.log(data);
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,

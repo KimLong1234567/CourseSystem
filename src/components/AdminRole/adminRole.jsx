@@ -97,7 +97,7 @@ function AdminRole() {
 
   const handleDelete = async (record) => {
     try {
-      await deleteRole(record.id);
+      await deleteRole(record.id, token);
       setRefresh((prev) => prev + 1);
     } catch (error) {
       console.error('Error deleting student:', error);
@@ -119,6 +119,7 @@ function AdminRole() {
       console.log('Submitted Data:', data); // This will log the correctly structured data
 
       if (currentRecord) {
+        console.log(data);
         await updateRole(currentRecord.id, data, token);
         setIsModalOpen(false);
         form.resetFields();

@@ -13,7 +13,8 @@ export const getClasses = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.content;
+    console.log(response);
+    return response?.data.content;
   } catch (error) {
     console.error('Error fetching posts:', error);
     throw error;
