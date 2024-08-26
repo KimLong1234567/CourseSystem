@@ -226,7 +226,7 @@ function AdminStudent() {
         Students Manage
       </h2>
       <ToastContainer />
-      <Button
+      {/* <Button
         type="primary"
         onClick={() => {
           setIsModalOpen(true);
@@ -254,7 +254,7 @@ function AdminStudent() {
             Add Student
           </span>
         )}
-      </Button>
+      </Button> */}
       <Modal
         title={currentRecord ? 'Update Student' : 'Add Student'}
         open={isModalOpen}
