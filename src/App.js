@@ -22,6 +22,7 @@ import RegisterSuccess from './pages/coursesPage/RegisterSuccess';
 import ContactPage from './pages/contactPage/ContactPage';
 import MainTeacherPage from './pages/mainTeacherPage/mainTeacherPage';
 import TeacherStudent from './components/TeacherStudent/teacherStudent';
+import LoginTeacher from './pages/LogInPage/loginTeacher';
 
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
@@ -31,7 +32,7 @@ function App() {
       <Routes>
         {/* Route không cần bảo vệ */}
         <Route path="/admin/Login" element={<LogInPage />} />
-        <Route path="/teacher/Login" element={<LogInPage />} />
+        <Route path="/teacher/Login" element={<LoginTeacher />} />
 
         {/* Main content route bảo vệ bằng PrivateRoute */}
         <Route element={<MainContent />}>

@@ -20,7 +20,7 @@ function InputField({ id, type, label, register, error, placeholder }) {
   );
 }
 
-function LogInPage() {
+function LoginTeacher() {
   const navigate = useNavigate();
   const {
     register,
@@ -28,8 +28,8 @@ function LogInPage() {
     formState: { errors },
   } = useForm({
     // defaultValues: {
-    // 	username: "nguyenhakien99@gmail.com",
-    // 	password: "87f7f84649c7",
+    //   username: 'nguyenhakien99@gmail.com',
+    //   password: '87f7f84649c7',
     // },
   });
 
@@ -37,7 +37,7 @@ function LogInPage() {
     try {
       console.log(data);
       await login(data);
-      navigate('/admin/users');
+      navigate('/teacher/users');
     } catch (error) {
       console.error('Error login:', error);
     }
@@ -120,7 +120,7 @@ function LogInPage() {
                   Sign In
                 </Link>
               </p>
-              <p className="mt-4 text-sm">
+              {/* <p className="mt-4 text-sm">
                 {'Forgot password ?'}{' '}
                 <Link
                   to="/teacher/resetPassword"
@@ -128,7 +128,7 @@ function LogInPage() {
                 >
                   Reset Password
                 </Link>
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
@@ -137,4 +137,4 @@ function LogInPage() {
     </>
   );
 }
-export default LogInPage;
+export default LoginTeacher;
