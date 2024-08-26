@@ -54,8 +54,12 @@ function AdminStudent() {
   }, [refresh, token]);
 
   const handleDetail = (record) => {
-    setCurrentRecord(record);
-    setIsProfileVisible(true);
+    if (record && record.name) {
+      setCurrentRecord(record);
+      setIsProfileVisible(true);
+    } else {
+      console.error('Record không hợp lệ:', record);
+    }
   };
 
   const handleUpdate = (record) => {
@@ -219,6 +223,8 @@ function AdminStudent() {
     form.resetFields();
     setCurrentRecord(null);
   };
+
+  console.log(currentRecord);
 
   return (
     <div>

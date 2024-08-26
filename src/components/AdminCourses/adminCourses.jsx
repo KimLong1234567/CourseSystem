@@ -238,25 +238,24 @@ function AdminCourses() {
       const data = { ...courseData };
 
       let formData = new FormData();
-      if (values.upload && values.upload[0]) {
+      const isImageUpdated = values.upload && values.upload[0];
+      if (isImageUpdated) {
         formData.append('image', values.upload[0].originFileObj);
       }
       formData.append('course', JSON.stringify(courseData));
-      console.log(courseData);
-      console.log('data', data);
+
       if (currentRecord) {
-        // Update the course
-        if (values.upload && values.upload[0]) {
+        // Cập nhật khoá học
+        if (isImageUpdated) {
           await updateCoursesImage(currentRecord.id, formData, token);
         }
-        console.log(data);
-
-        await updateCoursesText(currentRecord.id, data, token);
-
+        if (Object.keys(courseData).length > 0) {
+          await updateCoursesText(currentRecord.id, data, token);
+        }
         form.resetFields();
         setIsModalOpen(false);
       } else {
-        // Create a new course
+        // Tạo khoá học mới
         await createCourses(formData, token);
         form.resetFields();
         setIsModalOpen(false);

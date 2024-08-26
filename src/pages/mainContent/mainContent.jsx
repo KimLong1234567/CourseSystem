@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 function MainContent() {
   return (
     <div
-      className="h-screen grid gap-2"
+      className="h-screen grid gap-2 "
       style={{
         gridTemplateRows: 'auto 2fr',
         gridTemplateColumns: 'minmax(auto, 0.5fr) 3fr minmax(auto, 1fr)',
@@ -23,7 +23,7 @@ function MainContent() {
         <Sidebar />
       </div>
       <div
-        className="flex items-end justify-end p-4 mr-5"
+        className="flex items-end justify-end p-4 mr-5 "
         style={{ gridArea: 'header' }}
       >
         <HeaderAdmin />

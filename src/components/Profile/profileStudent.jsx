@@ -15,7 +15,7 @@ const Profile_icon = [
 ];
 
 function Profile({
-  id,
+  num,
   name,
   address,
   email,
@@ -25,12 +25,15 @@ function Profile({
   company,
   onClose,
 }) {
-  const hasData = id && name && address && email && phone && birthday;
-  const formattedDob = new Date(birthday).toLocaleDateString();
+  const hasData = num && name && address && email && phone && birthday;
+  const formattedDob = birthday
+    ? new Date(birthday).toLocaleDateString()
+    : 'N/A';
+
   return hasData ? (
     <div className="max-w-sm mx-auto  rounded-xl shadow-lg p-6 space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
-        ID Student: {id}
+        ID Student: {num || 'N/A'}
       </h2>
       <div className="flex justify-center">
         <img
@@ -55,22 +58,22 @@ function Profile({
 
       <div className="space-y-2 text-gray-700">
         <div>
-          <strong>Name:</strong> {name}
+          <strong>Name:</strong> {name || 'N/A'}
         </div>
         <div>
-          <strong>Address:</strong> {address}
+          <strong>Address:</strong> {address || 'N/A'}
         </div>
         <div>
-          <strong>Phone:</strong> {phone}
+          <strong>Phone:</strong> {phone || 'N/A'}
         </div>
         <div>
-          <strong>Email:</strong> {email}
+          <strong>Email:</strong> {email || 'N/A'}
         </div>
         <div>
-          <strong>Gender:</strong> {gender}
+          <strong>Gender:</strong> {gender || 'N/A'}
         </div>
         <div>
-          <strong>Company:</strong> {company.name}
+          <strong>Company:</strong> {company?.name || 'N/A'}
         </div>
         <div>
           <strong>Date of Birth:</strong> {formattedDob}
@@ -92,7 +95,7 @@ function Profile({
 }
 
 Profile.propTypes = {
-  id: PropTypes.string.isRequired,
+  num: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
