@@ -34,7 +34,7 @@ function AdminStudent() {
       console.error('Error parsing JSON from localStorage:', error);
     }
   }
-  const token = currentAdmin.token;
+  const token = currentAdmin?.token;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -191,7 +191,7 @@ function AdminStudent() {
 
   const handleDelete = async (record) => {
     try {
-      await deleteStudent(record.id);
+      await deleteStudent(record.id, token);
       setRefresh((prev) => prev + 1);
     } catch (error) {
       console.error('Error deleting student:', error);
@@ -202,11 +202,11 @@ function AdminStudent() {
     try {
       if (currentRecord) {
         const { id, ...restValues } = values;
-        await updateStudent(currentRecord.id, restValues);
+        await updateStudent(currentRecord.id, restValues, token);
         setIsModalOpen(false);
         form.resetFields();
       } else {
-        await createStudent(values);
+        await createStudent(values, token);
         setIsModalOpen(false);
         form.resetFields();
       }

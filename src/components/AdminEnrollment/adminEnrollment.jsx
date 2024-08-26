@@ -41,7 +41,7 @@ function Enrollment() {
       console.error('Error parsing JSON from localStorage:', error);
     }
   }
-  const token = currentAdmin.token;
+  const token = currentAdmin?.token;
 
   useEffect(() => {
     const fetchData = async () => {

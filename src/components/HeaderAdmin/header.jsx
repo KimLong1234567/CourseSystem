@@ -22,7 +22,7 @@ function HeaderAdmin() {
     }
   }
 
-  const token = currentAdmin.token;
+  const token = currentAdmin?.token;
 
   const resetPassword = async () => {
     try {
