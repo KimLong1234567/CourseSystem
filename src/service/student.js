@@ -56,20 +56,27 @@ export const getAllStudent = async (token) => {
   }
 };
 
-export const updateStudent = async (id, post) => {
+export const updateStudent = async (id, post, token) => {
   try {
     console.log(id, post);
-    const response = await axios.put(`${API_URL}/${id}`, post).then((res) => {
-      toast.info('Update success', {
-        position: 'top-center',
-        autoClose: 2000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
+    const response = await axios
+      .put(`${API_URL}/${id}`, post, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.info('Update success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
-    });
     return response;
   } catch (error) {
     console.error('Error updating post:', error);
@@ -77,19 +84,26 @@ export const updateStudent = async (id, post) => {
   }
 };
 
-export const deleteStudent = async (id) => {
+export const deleteStudent = async (id, token) => {
   try {
-    await axios.delete(`${API_URL}/${id}`).then((res) => {
-      toast.error('Delete success', {
-        position: 'top-center',
-        autoClose: 2000,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
+    await axios
+      .delete(`${API_URL}/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        toast.error('Delete success', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
-    });
   } catch (error) {
     console.error('Error deleting post:', error);
     throw error;
