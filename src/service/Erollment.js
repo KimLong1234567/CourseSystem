@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_URL = 'http://192.168.1.24:8080/api/enrollments';
+const API_URL = 'http://192.168.18.78:8080/api/enrollments';
 
 export const getEnrollment = async (token) => {
   try {

@@ -13,10 +13,21 @@ function TeacherStudent() {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
 
+  let currentAdmin = null;
+  const storedData = localStorage.getItem('authToken');
+  if (storedData) {
+    try {
+      currentAdmin = JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    }
+  }
+  const token = currentAdmin.token;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accounts = await getAllStudent();
+        const accounts = await getAllStudent(token);
         const accountsWithId = accounts.map((account, index) => ({
           ...account,
           num: index + 1,
@@ -28,7 +39,7 @@ function TeacherStudent() {
     };
 
     fetchData();
-  }, [refresh]);
+  }, [refresh, token]);
 
   const handleDetail = (record) => {
     setCurrentRecord(record);

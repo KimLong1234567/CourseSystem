@@ -37,7 +37,7 @@ function LoginTeacher() {
     try {
       console.log(data);
       await login(data);
-      navigate('/teacher/users');
+      navigate('/teacher/students');
     } catch (error) {
       console.error('Error login:', error);
     }
