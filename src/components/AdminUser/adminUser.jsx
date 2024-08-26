@@ -181,12 +181,12 @@ function AdminContent() {
           >
             Update
           </Button>
-          <Button
+          {/* <Button
             className="bg-red-700 text-white"
             onClick={() => handleDelete(record)}
           >
             Delete
-          </Button>
+          </Button> */}
         </span>
       ),
     },

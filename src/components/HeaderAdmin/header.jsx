@@ -27,6 +27,7 @@ function HeaderAdmin() {
   const resetPassword = async () => {
     try {
       await resetUserPassword(token);
+      logout();
     } catch (error) {
       console.error('Error saving account:', error);
     }

@@ -39,27 +39,25 @@ export const login = async (account) => {
 
 export const resetPassword = async (token) => {
   try {
-    console.log(token);
-    const response = await axios.post(
-      `${API_URL_reset}/password-reset/request`,
-      {},
-      {
+    // console.log(token);
+    const response = await axios
+      .post(`${API_URL_reset}/password-reset/request`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    toast.success('Check-in your email', {
-      position: 'top-center',
-      autoClose: 2000,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'colored',
-    });
-
+      })
+      .then((res) => {
+        toast.success('Check-in your email', {
+          position: 'top-center',
+          autoClose: 2000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      });
     return response;
   } catch (error) {
     console.error('Error reset:', error);

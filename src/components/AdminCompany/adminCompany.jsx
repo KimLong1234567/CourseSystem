@@ -49,8 +49,6 @@ function AdminCompany() {
     fetchData();
   }, [refresh, token]);
 
-  console.log(data);
-
   const handleDetail = (record) => {
     setCurrentRecord(record);
     setIsProfileVisible(true);

@@ -92,16 +92,12 @@ export const updateCompany = async (id, post, token) => {
 export const deleteCompany = async (id, token) => {
   try {
     await axios
-      .delete(
-        `${API_URL}/${id}`,
-        {},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .delete(`${API_URL}/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         toast.error('Delete success', {
           position: 'top-center',

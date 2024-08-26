@@ -108,7 +108,7 @@ function AdminCategory() {
     try {
       if (currentRecord) {
         const { id, ...restValues } = values;
-        console.log(values, id, restValues);
+        console.log(values, currentRecord.id, restValues);
         await updateCategory(currentRecord.id, restValues, token);
         setIsModalOpen(false);
         form.resetFields();
@@ -146,14 +146,14 @@ function AdminCategory() {
         Add Category
       </Button>
       <Modal
-        title={currentRecord ? 'Update User' : 'Add User'}
+        title={currentRecord ? 'Update Category' : 'Add Category'}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
       >
         <Form
           form={form}
-          name="Category"
+          name="categoryForm"
           onFinish={handleFormSubmit}
           layout="vertical"
           initialValues={{
@@ -170,7 +170,7 @@ function AdminCategory() {
               },
             ]}
           >
-            <Input />
+            <Input placeholder="Category name" />
           </Form.Item>
 
           <Form.Item>
