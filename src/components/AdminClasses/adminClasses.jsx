@@ -50,7 +50,6 @@ function AdminClasses() {
   }, [refresh, token]);
   //use refresh de dung goi fetch qua nhieu vd:goi 893 fetch api from BE
 
-  console.log(data);
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -124,14 +123,18 @@ function AdminClasses() {
 
   const handleFormSubmit = async (values) => {
     try {
+      const data = {
+        course: {
+          id: values.courses, // This is where you map the selected course ID to the expected format
+        },
+        size: values.size,
+      };
       if (currentRecord) {
-        const { id, ...restValues } = values;
-        console.log(values, id, restValues);
-        await updateClasses(currentRecord.id, restValues, token);
+        await updateClasses(currentRecord.id, data, token);
         setIsModalOpen(false);
         form.resetFields();
       } else {
-        await createClasses(values, token);
+        await createClasses(data, token);
         setIsModalOpen(false);
         form.resetFields();
       }
@@ -160,13 +163,13 @@ function AdminClasses() {
       title: 'Courses',
       dataIndex: 'course',
       render: (course) => course?.name || 'N/A',
-      width: '30%',
+      width: '20%',
     },
     {
       title: 'Category',
       dataIndex: 'course',
       render: (course) => course?.category?.name || 'N/A',
-      width: '30%',
+      width: '20%',
     },
     {
       title: 'Action',
@@ -258,7 +261,7 @@ function AdminClasses() {
 
           <Form.Item
             label="Number of Students"
-            name="numberOfStudents"
+            name="size"
             rules={[
               { required: true, message: 'Please select number of students' },
             ]}

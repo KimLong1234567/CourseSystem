@@ -171,7 +171,7 @@ function AdminCourses() {
     {
       title: 'description',
       dataIndex: 'description',
-      width: '30%',
+      width: '20%',
     },
     {
       title: 'Start Date',

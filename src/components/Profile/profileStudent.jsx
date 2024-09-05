@@ -22,7 +22,7 @@ function Profile({
   phone,
   gender,
   birthday,
-  company,
+
   onClose,
 }) {
   const hasData = num && name && address && email && phone && birthday;
@@ -73,9 +73,6 @@ function Profile({
           <strong>Gender:</strong> {gender || 'N/A'}
         </div>
         <div>
-          <strong>Company:</strong> {company?.name || 'N/A'}
-        </div>
-        <div>
           <strong>Date of Birth:</strong> {formattedDob}
         </div>
       </div>
@@ -102,7 +99,6 @@ Profile.propTypes = {
   phone: PropTypes.string.isRequired,
   gender: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
-  company: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

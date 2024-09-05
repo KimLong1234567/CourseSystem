@@ -217,7 +217,6 @@ function AdminContent() {
           id: values.role,
         },
       };
-      console.log(data);
 
       if (currentRecord) {
         const { id, ...restValues } = data;

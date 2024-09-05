@@ -15,7 +15,8 @@ const Profile_icon = [
 ];
 
 function Profile({
-  id,
+  company,
+  num,
   name,
   address,
   email,
@@ -24,12 +25,12 @@ function Profile({
   birthday,
   onClose,
 }) {
-  const hasData = id && name && address && email && phone && birthday;
+  const hasData = num && name && address && email && phone && birthday;
   const formattedDob = new Date(birthday).toLocaleDateString();
   return hasData ? (
     <div className="max-w-sm mx-auto  rounded-xl shadow-lg p-6 space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
-        ID User: {id}
+        ID User: {num}
       </h2>
       <div className="flex justify-center">
         <img
@@ -63,6 +64,9 @@ function Profile({
           <strong>Phone:</strong> {phone}
         </div>
         <div>
+          <strong>Company:</strong> {company.name}
+        </div>
+        <div>
           <strong>Email:</strong> {email}
         </div>
         <div>
@@ -88,10 +92,11 @@ function Profile({
 }
 
 Profile.propTypes = {
-  id: PropTypes.string.isRequired,
+  num: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  company: PropTypes.object.isRequired,
   phone: PropTypes.string.isRequired,
   gender: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,

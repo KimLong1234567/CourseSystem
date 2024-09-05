@@ -58,7 +58,6 @@ export const getAllStudent = async (token) => {
 
 export const updateStudent = async (id, post, token) => {
   try {
-    console.log(id, post);
     const response = await axios
       .put(`${API_URL}/${id}`, post, {
         headers: {
