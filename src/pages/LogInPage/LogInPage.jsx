@@ -35,7 +35,6 @@ function LogInPage() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       await login(data);
       navigate('/admin/users');
     } catch (error) {

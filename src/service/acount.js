@@ -54,7 +54,7 @@ export const createAccount = async (post, token) => {
           theme: 'colored',
         });
       });
-    return response.data;
+    return response?.data;
   } catch (error) {
     console.error('Error creating post:', error);
     throw error;
@@ -82,7 +82,7 @@ export const updateAccount = async (id, post, token) => {
         });
         // setTimeout(3000);
       });
-    return response;
+    return response?.data;
   } catch (error) {
     console.error('Error updating post:', error);
     throw error;

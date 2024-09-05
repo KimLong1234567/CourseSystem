@@ -13,7 +13,6 @@ export const getClasses = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response?.data.content;
   } catch (error) {
     console.error('Error fetching posts:', error);
@@ -68,15 +67,15 @@ export const updateClasses = async (id, post, token) => {
         },
       })
       .then((res) => {
-        toast.info('Update success', {
-          position: 'top-center',
-          autoClose: 2000,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-        });
+        // toast.info('Update success', {
+        //   position: 'top-center',
+        //   autoClose: 2000,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: 'colored',
+        // });
       });
     return response;
   } catch (error) {

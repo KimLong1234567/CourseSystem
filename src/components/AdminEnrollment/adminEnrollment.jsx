@@ -21,8 +21,6 @@ function Enrollment() {
   };
 
   const handleStatusSubmit = (values) => {
-    console.log('Status Update Values:', values, selectedEnrollment.id);
-
     updateStatus(selectedEnrollment.id, values.status, token).then(() => {
       if (true) {
         setRefresh((prev) => prev + 1);
@@ -138,7 +136,7 @@ function Enrollment() {
     {
       title: 'Note',
       dataIndex: 'note',
-      width: '30%',
+      width: '15%',
     },
     {
       title: 'Status',
@@ -166,13 +164,13 @@ function Enrollment() {
   return (
     <div className="p-6 h-full">
       <h2 className="flex justify-center text-4xl text-cyan-600">Enrollment</h2>
-      <Button
+      {/* <Button
         type="primary"
         icon={<PlusOutlined />}
         onClick={() => setIsModalOpen(true)}
       >
         Add Class
-      </Button>
+      </Button> */}
 
       <Modal
         title="Add New Class"

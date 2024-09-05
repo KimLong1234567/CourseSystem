@@ -202,7 +202,6 @@ function AdminStudent() {
     try {
       if (currentRecord) {
         const { id, ...restValues } = values;
-        console.log(values, currentRecord.id);
         await updateStudent(currentRecord.id, restValues, token);
         setIsModalOpen(false);
         form.resetFields();
@@ -394,13 +393,14 @@ function AdminStudent() {
           dataSource={data}
           rowKey="id"
         />
-        {isProfileVisible && currentRecord && (
-          <Profile
-            style={{ gridArea: 'profile' }}
-            {...currentRecord}
-            onClose={() => setIsProfileVisible(false)}
-          />
-        )}
+        <div style={{ gridArea: 'profile' }}>
+          {isProfileVisible && currentRecord && (
+            <Profile
+              {...currentRecord}
+              onClose={() => setIsProfileVisible(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
